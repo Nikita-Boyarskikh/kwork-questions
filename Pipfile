@@ -17,6 +17,7 @@ django-money = "*"
 django-constance = {extras = ["database"], version = "*"}
 pyyaml = "*"
 django-annoying = "*"
+gunicorn = "*"
 
 [dev-packages]
 
