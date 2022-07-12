@@ -13,9 +13,20 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path
+from baton.autodiscover import admin
+from django.conf import settings
+from django.conf.urls.static import static
+from django.urls import path, include
+from django.contrib.auth.decorators import login_required
+
+from users.views import index
+
+admin.site.login = login_required(admin.site.login)
 
 urlpatterns = [
+    path('', index, name='index'),
     path('admin/', admin.site.urls),
-]
+    path('baton/', include('baton.urls')),
+    path('auth/', include('allauth.urls')),
+    path('captcha/', include('captcha.urls')),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

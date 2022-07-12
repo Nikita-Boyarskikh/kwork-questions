@@ -4,9 +4,21 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "4"
+django = "*"
+django-allauth = "*"
+django-crispy-forms = "*"
+crispy-bootstrap5 = "*"
+django-baton = "*"
+python-decouple = "*"
+celery = "*"
+django-simple-captcha = "*"
+django-model-utils = "*"
+django-money = "*"
+django-constance = {extras = ["database"], version = "*"}
+pyyaml = "*"
+django-annoying = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.8"
+python_version = "3.9"
