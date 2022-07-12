@@ -1,8 +1,10 @@
 from decimal import Decimal
+from functools import partial
 from pathlib import Path
 
+from dj_database_url import parse as db_url
 import moneyed
-from decouple import config
+from decouple import config, Csv
 from django.utils.translation import gettext_lazy as __
 
 
@@ -23,6 +25,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 SECRET_KEY = config('SECRET_KEY', default='django-insecure-kj4f#g8&3tlkrxu_$m=txxg(xh2e_f3wj7)qjj1+%tsv8gww05')
 
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='', cast=Csv())
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 INSTALLED_APPS = [
@@ -103,12 +106,9 @@ WSGI_APPLICATION = 'project.wsgi.application'
 STATIC_URL = 'static/'
 MEDIA_URL = 'media/'
 
-# TODO
+db_url = partial(db_url, conn_max_age=600)
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': config('DATABASE_URL', default=f'sqlite:///{BASE_DIR / "db.sqlite3"}', cast=db_url),
 }
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
@@ -214,10 +214,10 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
-ACCOUNT_EMAIL_VERIFICATION = 'optional'
-ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
-ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = config('AUTHENTICATION_METHOD', default='username_email')
+ACCOUNT_EMAIL_VERIFICATION = config('EMAIL_VERIFICATION', default='optional')
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = config('LOGIN_ON_EMAIL_CONFIRMATION', default=True, cast=bool)
+ACCOUNT_EMAIL_REQUIRED = config('EMAIL_REQUIRED', default=True, cast=bool)
 # TODO: not secure
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_LOGOUT_ON_GET = True
@@ -240,7 +240,7 @@ CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
 # Custom
 
-DEFAULT_LANGUAGE = 'en'
+DEFAULT_LANGUAGE = config('DEFAULT_LANGUAGE', default='en')
 YANDEX_API_KEY = config('YANDEX_API_KEY')
 
 MIN_QUESTION_PRICE = config('MIN_QUESTION_PRICE', default=0, cast=optional(Decimal))

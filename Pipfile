@@ -18,6 +18,8 @@ django-constance = {extras = ["database"], version = "*"}
 pyyaml = "*"
 django-annoying = "*"
 gunicorn = "*"
+dj-database-url = "*"
+psycopg2 = "*"
 
 [dev-packages]
 
