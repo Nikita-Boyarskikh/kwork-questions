@@ -1,0 +1,7 @@
+- model: countries.Country
+  pk: uk
+  fields:
+    name: UK
+    language_id: english
+    population:
+    live_quality_index:

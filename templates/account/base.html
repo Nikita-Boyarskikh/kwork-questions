@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block head %}{{ block.super }}{% block extra_head %}{% endblock %}{% endblock head %}
+{% block title %}{% block head_title %}{% endblock %}{% endblock title %}
+{% block main %}
+  {{ block.super }}
+  {% block content %}
+  {% endblock %}
+  {% block extra_body %}{% endblock extra_body %}
+{% endblock main %}
