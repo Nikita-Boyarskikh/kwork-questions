@@ -1,14 +1,9 @@
-from django.contrib.sites.models import Site
+from django.contrib.sites.shortcuts import get_current_site
 
 
 def site(request):
-    ctx = {}
-
-    if Site._meta.installed:
-        site = Site.objects.get_current(request)
-        ctx.update({
-            'SITE_NAME': site.name,
-            'SITE_DOMAIN': site.domain
-        })
-
-    return ctx
+    current_site = get_current_site(request)
+    return {
+        'SITE_NAME': current_site.name,
+        'SITE_DOMAIN': current_site.domain
+    }

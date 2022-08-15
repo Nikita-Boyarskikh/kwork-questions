@@ -1,5 +1,5 @@
 - model: languages.Language
   pk: en
   fields:
-    yandex_id: en
+    google_id: en
     name: English

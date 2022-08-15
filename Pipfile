@@ -20,6 +20,8 @@ django-annoying = "*"
 gunicorn = "*"
 dj-database-url = "*"
 psycopg2 = "*"
+redis = "*"
+google-cloud-translate = "*"
 
 [dev-packages]
 

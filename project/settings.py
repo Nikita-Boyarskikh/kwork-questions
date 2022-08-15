@@ -117,6 +117,12 @@ USE_I18N = True
 USE_L10N = False
 USE_TZ = True
 
+LOCALE_PATHS = [BASE_DIR / 'locale']
+LANGUAGE_CODE = 'en'
+LANGUAGES = [
+    ('en', __('English')),
+]
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # TODO: Load from file
@@ -166,7 +172,7 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
 SECURE_HSTS_PRELOAD = not DEBUG
 SECURE_HSTS_SECONDS = 0 if DEBUG else 24 * 60 * 60
 
-# Celery TODO
+# Celery
 
 REDIS_HOST = config('REDIS_HOST', default='localhost')
 REDIS_PORT = config('REDIS_PORT', default=6379, cast=int)
@@ -175,8 +181,8 @@ BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
 CELERY_BROKER_URL = REDIS_URL
 CELERY_RESULT_BACKEND = REDIS_URL
 CELERY_TIMEZONE = TIME_ZONE
-CELERY_TASK_ALWAYS_EAGER = True
-CELERY_TASK_EAGER_PROPAGATES = True
+CELERY_TASK_ALWAYS_EAGER = DEBUG
+CELERY_TASK_EAGER_PROPAGATES = DEBUG
 
 # Templates
 
@@ -218,11 +224,11 @@ ACCOUNT_AUTHENTICATION_METHOD = config('AUTHENTICATION_METHOD', default='usernam
 ACCOUNT_EMAIL_VERIFICATION = config('EMAIL_VERIFICATION', default='optional')
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = config('LOGIN_ON_EMAIL_CONFIRMATION', default=True, cast=bool)
 ACCOUNT_EMAIL_REQUIRED = config('EMAIL_REQUIRED', default=True, cast=bool)
+ACCOUNT_SIGNUP_FORM_CLASS = 'users.forms.SignupForm'
+ACCOUNT_ADAPTER = 'users.auth.AccountAdapter'
 # TODO: not secure
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_LOGOUT_ON_GET = True
-ACCOUNT_SIGNUP_FORM_CLASS = 'users.forms.SignupForm'
-ACCOUNT_ADAPTER = 'users.auth.AccountAdapter'
 
 # Currencies
 
@@ -241,7 +247,10 @@ CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 # Custom
 
 DEFAULT_LANGUAGE = config('DEFAULT_LANGUAGE', default='en')
-YANDEX_API_KEY = config('YANDEX_API_KEY')
+GOOGLE_APPLICATION_CREDENTIALS = config('GOOGLE_APPLICATION_CREDENTIALS')
 
 MIN_QUESTION_PRICE = config('MIN_QUESTION_PRICE', default=0, cast=optional(Decimal))
 ANSWER_PREVIEW_TEXT_SIZE = config('ANSWER_PREVIEW_TEXT_SIZE', default=50, cast=int)
+PUBLISH_QUESTION_COUNTDOWN_HOURS = config('PUBLISH_QUESTION_COUNTDOWN_HOURS', default=24, cast=int)
+CLOSE_ANSWERS_COUNTDOWN_HOURS = config('CLOSE_ANSWERS_COUNTDOWN_HOURS', default=24, cast=int)
+FINISH_VOTING_COUNTDOWN_HOURS = config('FINISH_VOTING_COUNTDOWN_HOURS', default=24, cast=int)

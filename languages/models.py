@@ -9,9 +9,9 @@ from django.utils.translation import gettext as _, get_language_from_request
 class Language(models.Model):
     id = models.CharField(_('Code'), primary_key=True, max_length=255)
     name = models.CharField(_('Name'), max_length=255)
-    yandex_id = models.CharField(
-        _('Yandex.Translate id'),
-        help_text=_('ID for use as an argument for Yandex.Translate API'),
+    google_id = models.CharField(
+        _('Google.Translate id'),
+        help_text=_('ID for use as an argument for Google.Translate API'),
         max_length=2,
     )
 
