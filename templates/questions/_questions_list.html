@@ -1,0 +1,64 @@
+{% load likes %}
+{% load i18n %}
+{% load questions_status %}
+
+{% for question in questions %}
+  <div class="d-flex align-items-center ms-3 me-3">
+    <i class="bi bi-star{% if question|liked_by_me:request %}-filled{% endif %}"></i>
+
+    <div class="d-flex flex-grow-1 flex-column ms-3 me-3">
+      <header class="h3">{{ question.truncated_en_text }}</header>
+      <span>{{ question.truncated_en_text }}</span>
+      <span class="">
+        {{ question.country }} <i class="bi bi-coin"></i> {{ question.price }}
+
+        {% if question.status != 'closed' %}
+          <span class="text-{{ question|question_status_class }}">
+            <i class="bi bi-{{ question|question_status_icon }}"></i>
+            {{ question.get_status_display }}
+          </span>
+        {% endif %}
+
+        {% if question.status in 'answered closed'|split %}
+          <i class="bi bi-chat-left"></i>{{ question.comments.count }} {% trans 'Comments' %}
+        {% endif %}
+
+        {% if question.status == 'closed' %}
+          <i class="bi bi-hand-thumbs-up"></i>{{ question.likes.count }} {% trans 'Likes' %}
+          <i class="bi bi-hand-thumbs-down"></i>{{ question.dislikes.count }} {% trans 'Dislikes' %}
+        {% endif %}
+
+        {% if question.status in 'published answered closed'|split %}
+          <i class="bi bi-eye"></i>{{ question.views }} {% trans 'Views' %}
+        {% endif %}
+      </span>
+    </div>
+
+    <div class="d-flex flex-column">
+      <span class="text-secondary">
+        {% if question.status in 'approved published answered'|split %}
+          {{ question.status_changed|timeuntil }}
+        {% else %}
+          {{ question.get_status_display }}
+        {% endif %}
+      </span>
+
+      {% if question.author != request.user and question.status == 'published' %}
+        <a href="{% url 'answers:create' country_id=question.country.id question_id=question.id %}" class="btn btn-primary">
+          {% trans 'Answer' %}
+        </a>
+      {% elif question.author != request.user and question.status == 'answered' %}
+        <a href="{{ question.get_absolute_url }}" class="btn btn-primary">
+          {% trans 'Vote' %}
+        </a>
+      {% else %}
+        <a href="{{ question.get_absolute_url }}" class="btn btn-primary">
+          {% trans 'View' %}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+  <hr />
+{% empty %}
+  {% trans 'There is no questions yet' %}
+{% endfor %}

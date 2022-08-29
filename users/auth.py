@@ -11,7 +11,7 @@ class AccountAdapter(DefaultAccountAdapter):
         data = form.cleaned_data
         user_email(user, data.get('email'))
         user_username(user, data.get('username'))
-        user.preferred_language = Language.get_for_request(request)
+        user.preferred_language = data.get('preferred_language') or Language.get_for_request(request)
 
         for field in ['pin', 'avatar', 'country', 'sex', 'education', 'birth_year']:
             setattr(user, field, data.get(field))

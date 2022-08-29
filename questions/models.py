@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.contrib import admin
-from django.contrib.contenttypes.fields import GenericRelation
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
@@ -12,17 +11,29 @@ from djmoney.models.validators import MinMoneyValidator
 from model_utils.fields import MonitorField
 from model_utils.models import TimeStampedModel
 
-from likes.models import Like
+from likes.models import Like, LikableModelMixin
+
+
+class WrongStatusError(ValidationError):
+    def __init__(self, from_status=None, to_status=None):
+        message_parts = ['Impossible transition']
+        if from_status:
+            message_parts.append(f'from {from_status}')
+        if to_status:
+            message_parts.append(f'to {to_status}')
+        super().__init__({
+            'status': ' '.join(message_parts),
+        })
 
 
 class QuestionStatus(models.TextChoices):
-    DRAFT = 'draft'  # -> pending
-    PENDING = 'pending'  # -> draft/approved/rejected
-    APPROVED = 'approved'  # -> published
-    REJECTED = 'rejected'
-    PUBLISHED = 'published'  # -> answered
-    ANSWERED = 'answered'  # -> closed
-    CLOSED = 'closed'
+    DRAFT = 'draft', _('In progress')  # -> pending
+    PENDING = 'pending', _('Moderation')  # -> draft/approved/rejected
+    APPROVED = 'approved', _('Ready for publication')  # -> published
+    REJECTED = 'rejected', _('Refused')
+    PUBLISHED = 'published', _('Open')  # -> answered
+    ANSWERED = 'answered', _('Voting')  # -> closed
+    CLOSED = 'closed', _('Closed')
 
     @classproperty
     def returned(cls):
@@ -41,7 +52,7 @@ class QuestionStatus(models.TextChoices):
         }
 
 
-class Question(TimeStampedModel):
+class Question(TimeStampedModel, LikableModelMixin):
     status = models.CharField(_('Status'), max_length=100, choices=QuestionStatus.choices, default=QuestionStatus.DRAFT)
     status_changed = MonitorField(monitor='status')
     reason = models.TextField(_('Rejected reason'), blank=True)
@@ -59,8 +70,11 @@ class Question(TimeStampedModel):
         blank=True,
     )
     language = models.ForeignKey('languages.Language', on_delete=models.SET(settings.DEFAULT_LANGUAGE))
-    country = models.ForeignKey('countries.Country', on_delete=models.PROTECT)
-    likes = GenericRelation(Like, 'liked_object_id', 'liked_object_content_type')
+    country = models.ForeignKey('countries.Country', on_delete=models.CASCADE)
+
+    @property
+    def allowed_status_transitions(self):
+        return QuestionStatus.transitions[self.status]
 
     @property
     @admin.display(
@@ -104,7 +118,7 @@ class Question(TimeStampedModel):
             raise ValidationError(errors)
 
     def get_absolute_url(self):
-        return reverse('questions:details', args=[self.pk])
+        return reverse('answers:index', kwargs={'question_id': self.id})
 
     def __str__(self):
         return _('Question by %(author)s for %(country)s (%(price)s) - %(status)s') % {

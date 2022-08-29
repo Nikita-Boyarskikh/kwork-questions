@@ -5,6 +5,7 @@ from pathlib import Path
 from dj_database_url import parse as db_url
 import moneyed
 from decouple import config, Csv
+from django.contrib import messages
 from django.utils.translation import gettext_lazy as __
 
 
@@ -61,6 +62,7 @@ INSTALLED_APPS = [
     'likes',
     'questions',
     'users',
+    'rules',
 
     'baton.autodiscover',
 ]
@@ -93,8 +95,11 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
-                'project.context_processors.site',
+                'project.context_processors.language',
+                'project.context_processors.menu_items',
+                'project.context_processors.countries',
             ],
+            'builtins': ['project.templatetags.global'],
         },
     },
 ]
@@ -124,6 +129,11 @@ LANGUAGES = [
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
+MESSAGE_TAGS = {
+    messages.DEBUG: 'secondary',
+    messages.ERROR: 'danger',
+}
 
 # TODO: Load from file
 LOGGING = {
@@ -205,7 +215,7 @@ BATON = {
 # Authentication
 
 LOGIN_URL = 'account_login'
-LOGIN_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = 'users:me'
 ACCOUNT_LOGOUT_REDIRECT_URL = LOGOUT_REDIRECT_URL = 'index'
 
 AUTH_PASSWORD_VALIDATORS = [

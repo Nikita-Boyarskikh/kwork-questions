@@ -26,6 +26,7 @@ class UserAdmin(BaseUserAdmin):
             {
                 'fields': (
                     'email',
+                    'avatar',
                     'birth_year',
                     'sex',
                     'education',

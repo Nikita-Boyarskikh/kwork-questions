@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% load likes %}
+{% load questions_status %}
+{% load i18n %}
+
+{% block title %}{% trans "Answers" %}{% endblock title %}
+{% block main %}
+  {{ block.super }}
+  {% include '_countries.html' with url_name='answers:index' %}
+
+  {# TODO: Split with sub templates #}
+  <div class="m-3">
+    <header class="h3">{{ question.en_text }}</header>
+    <span>{{ question.en_text }}</span>
+
+    <hr />
+
+    <i class="bi bi-star{% if question|liked_by_me:request %}-filled{% endif %}"></i>
+    {{ question.country }} <i class="bi bi-coin"></i> {{ question.price }}
+
+    {% if question.status != 'closed' %}
+      <span class="text-{{ question|question_status_class }}">
+        <i class="bi bi-{{ question|question_status_icon }}"></i>
+        {{ question.get_status_display }}
+      </span>
+    {% endif %}
+
+    {% if question.status in 'answered closed'|split %}
+      <i class="bi bi-chat-left"></i>{{ question.comments|length }} {% trans 'Comments' %}
+    {% endif %}
+
+    {% if question.status == 'closed' %}
+      <i class="bi bi-hand-thumbs-up"></i>{{ question.likes|length }} {% trans 'Likes' %}
+      <i class="bi bi-hand-thumbs-down"></i>{{ question.dislikes|length }} {% trans 'Dislikes' %}
+    {% endif %}
+
+    {% if question.status in 'published answered closed'|split %}
+      <i class="bi bi-eye"></i>{{ question.views }} {% trans 'Views' %}
+    {% endif %}
+
+    <span class="text-secondary">
+      {% if question.status in 'approved published answered'|split %}
+        {{ question.status_changed|timeuntil }}
+      {% else %}
+        {{ question.get_status_display }}
+      {% endif %}
+    </span>
+  </div>
+  <hr />
+
+  {% for answer in object_list %}
+    <div class="d-flex m-3">
+      {% if answer.author.avatar %}
+        <img class="rounded-circle" style="height: 24px" alt="{% trans 'Avatar' %}" src="{{ answer.author.avatar.url }}" />
+      {% else %}
+        <i class="bi bi-person-circle"></i>
+      {% endif %}
+      <div class="ms-3">
+        {{ answer.truncated_en_text }}
+      </div>
+    </div>
+    <hr />
+  {% endfor %}
+{% endblock main %}

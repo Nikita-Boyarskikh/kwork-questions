@@ -1,0 +1,16 @@
+{% load i18n %}
+
+<div class="dropdown">
+  <button class="btn btn-link dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    {% trans 'Countries' %}
+  </button>
+
+  <div class="dropdown-menu">
+    {% for country in countries %}
+      {% url url_name country_id=country.id as country_url %}
+      <a class="dropdown-item {% if request|is_current_url:country_url %}active{% endif %}" href="{{ country_url }}">
+        {{ country }}
+      </a>
+    {% endfor %}
+  </div>
+</div>

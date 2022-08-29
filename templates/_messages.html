@@ -1,5 +1,5 @@
 {% if messages %}
-  <div id="flash-message-container" class="container position-fixed">
+  <div class="container mt-3 position-fixed fixed-top" style="z-index: 1100">
     {% for message in messages %}
       <div class="alert alert-dismissible {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
         {{ message }}

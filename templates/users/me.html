@@ -1,0 +1,8 @@
+{% extends "layout.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Avatar" %}{% endblock title %}
+{% block main %}
+  {{ block.super }}
+  {{ request.user }}
+{% endblock main %}

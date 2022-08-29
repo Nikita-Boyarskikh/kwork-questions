@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Likes" %}{% endblock title %}
+{% block main %}
+  {{ block.super }}
+  {% include '_countries.html' with url_name='likes:my' %}
+  {% include 'questions/_questions_list.html' with questions=object_list %}
+{% endblock main %}

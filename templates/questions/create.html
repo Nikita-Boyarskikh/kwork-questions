@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% trans "Create question" %}{% endblock title %}
+{% block main %}
+  {{ block.super }}
+  {% include '_countries.html' with url_name='questions:index' %}
+  <form method="POST" action="{% url 'questions:create' country_id=request.resolver_match.kwargs.country_id %}">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" class="btn btn-primary" value="{% trans 'Create Question' %}">
+    <input name="translate" type="submit" class="btn btn-secondary" value="{% trans 'Translate' %}">
+  </form>
+{% endblock main %}

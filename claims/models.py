@@ -1,5 +1,3 @@
-import pdb
-
 from django.conf import settings
 from django.contrib import admin
 from django.contrib.contenttypes.fields import GenericForeignKey
@@ -42,12 +40,10 @@ class Claim(TimeStampedModel):
     def clean(self):
         errors = {}
 
-        import pdb; pdb.set_trace()
-
-        # if not self._clean_author():
-        #     errors['author'] = _("User can't claim for his own %(content_type)s") % {
-        #         'content_type': self.content_type.name,
-        #     }
+        if not self._clean_author():
+            errors['author'] = _("User can't claim for his own %(content_type)s") % {
+                'content_type': self.content_type.name,
+            }
 
         if errors:
             raise ValidationError(errors)

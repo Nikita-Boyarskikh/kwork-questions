@@ -10,20 +10,18 @@ from model_utils.models import TimeStampedModel
 
 from accounts.models import AccountAction
 from claims.models import Claim
-from likes.models import Like
+from likes.models import Like, LikableModelMixin
 from questions.models import QuestionStatus
 
 
-class Answer(TimeStampedModel):
+class Answer(TimeStampedModel, LikableModelMixin):
     question = models.ForeignKey('questions.Question', on_delete=models.CASCADE)
     original_text = models.TextField(_('Original text'))
     en_text = models.TextField(_('Translated to english text'))
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     language = models.ForeignKey('languages.Language', on_delete=models.SET(settings.DEFAULT_LANGUAGE))
-    likes = GenericRelation(Like, 'liked_object_id', 'liked_object_content_type')
     claims = GenericRelation(Claim)
     account_actions = GenericRelation(AccountAction)
-    views = models.PositiveIntegerField(_('Views'), default=0)
 
     @property
     @admin.display(
@@ -31,7 +29,15 @@ class Answer(TimeStampedModel):
         description=_('Question') + ' ' + _('Status').lower(),
     )
     def question__status(self):
-        return self.question.status
+        return QuestionStatus(self.question.status)
+
+    @property
+    @admin.display(
+        ordering='views',
+        description=_('Answer') + ' ' + _('Views').lower() + ' ' + _('Count').lower(),
+    )
+    def views__count(self):
+        return self.answerviews_set.count()
 
     @property
     @admin.display(
@@ -47,7 +53,7 @@ class Answer(TimeStampedModel):
         description=_('Truncated %s') % en_text.verbose_name.lower(),
     )
     def truncated_en_text(self):
-        return Truncator(self.en_text).chars(20)
+        return Truncator(self.en_text).chars(settings.ANSWER_PREVIEW_TEXT_SIZE)
 
     def __str__(self):
         return _('Answer for Question %(question_id)s by %(author)s') % {
@@ -73,10 +79,23 @@ class Answer(TimeStampedModel):
             raise ValidationError(errors)
 
     def get_absolute_url(self):
-        return reverse('answers:details', args=[self.pk])
+        return reverse('answers:detail', kwargs={'pk': self.id})
 
     class Meta:
         ordering = ('-created',)
         unique_together = [('question', 'author')]
         verbose_name = _('Answer')
         verbose_name_plural = _('Answers')
+
+
+class AnswerViews(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.RESTRICT)
+    answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return _('Answer view for %(answer_id)s by %(user)s')
+
+    class Meta:
+        unique_together = [('answer', 'user')]
+        verbose_name = _('Answer view')
+        verbose_name_plural = _('Answer views')

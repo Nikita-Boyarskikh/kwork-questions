@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% trans "Question" %}{% endblock title %}
+{% block main %}
+  {{ block.super }}
+  {% include '_countries.html' with url_name='questions:index' %}
+  {{ object }}
+{% endblock main %}

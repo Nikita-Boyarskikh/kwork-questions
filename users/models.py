@@ -1,5 +1,4 @@
 from allauth.account.models import EmailAddress
-from allauth.account.utils import user_email
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser, UserManager as BaseUserManager
 from django.core.validators import MinValueValidator
@@ -27,8 +26,8 @@ class Sex(models.TextChoices):
     __empty__ = _('Prefer not to say / unsure')
 
 
-def _build_avatar_filename(user):
-    return f'avatars/{user.username}'
+def _build_avatar_filename(user, filename):
+    return f'avatars/{user.username}/{filename}'
 
 
 class UserManager(BaseUserManager):

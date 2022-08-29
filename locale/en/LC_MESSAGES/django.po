@@ -1,0 +1,717 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-08-26 09:33+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: accounts/models.py:44 accounts/models.py:61
+msgid "Public identifier"
+msgstr ""
+
+#: accounts/models.py:46
+msgid "Balance"
+msgstr ""
+
+#: accounts/models.py:54
+msgid "Account"
+msgstr ""
+
+#: accounts/models.py:55
+msgid "Accounts"
+msgstr ""
+
+#: accounts/models.py:64
+msgid "Type"
+msgstr ""
+
+#: accounts/models.py:70 answers/models.py:31 questions/models.py:57
+msgid "Status"
+msgstr ""
+
+#: accounts/models.py:75
+msgid "Delta"
+msgstr ""
+
+#: accounts/models.py:76 claims/models.py:20
+msgid "Comment"
+msgstr ""
+
+#: accounts/models.py:85
+msgid "Awarded/payed for question/answer id"
+msgstr ""
+
+#: accounts/models.py:89
+#, python-format
+msgid " for %(product_type)s %(product_id)s"
+msgstr ""
+
+#: accounts/models.py:116
+msgid "Insufficient funds on account"
+msgstr ""
+
+#: accounts/models.py:118
+msgid "Delta should corresponds with action type"
+msgstr ""
+
+#: accounts/models.py:122
+#, python-format
+msgid "Type should be %(type)s for %(content_type)s related action"
+msgstr ""
+
+#: accounts/models.py:132
+msgid "Account Action"
+msgstr ""
+
+#: accounts/models.py:133
+msgid "Account Actions"
+msgstr ""
+
+#: answers/models.py:19 questions/models.py:60
+msgid "Original text"
+msgstr ""
+
+#: answers/models.py:20 questions/models.py:61
+msgid "Translated to english text"
+msgstr ""
+
+#: answers/models.py:26
+msgid "Views"
+msgstr ""
+
+#: answers/models.py:31 answers/models.py:39 questions/models.py:135
+#: templates/questions/details.html:5
+msgid "Question"
+msgstr ""
+
+#: answers/models.py:39 countries/models.py:29
+msgid "Country"
+msgstr ""
+
+#: answers/models.py:47 chat/models.py:20 chat/models.py:28 claims/models.py:33
+#: questions/models.py:84
+#, python-format
+msgid "Truncated %s"
+msgstr ""
+
+#: answers/models.py:53
+#, python-format
+msgid "Answer for Question %(question_id)s by %(author)s"
+msgstr ""
+
+#: answers/models.py:68
+msgid "Question's author can't answer to it"
+msgstr ""
+
+#: answers/models.py:70
+#, python-format
+msgid "Question status should be %s"
+msgstr ""
+
+#: answers/models.py:81
+msgid "Answer"
+msgstr ""
+
+#: answers/models.py:82
+msgid "Answers"
+msgstr ""
+
+#: chat/models.py:13
+msgid "Is read?"
+msgstr ""
+
+#: chat/models.py:14
+msgid "Content"
+msgstr ""
+
+#: chat/models.py:15
+msgid "Subject"
+msgstr ""
+
+#: chat/models.py:43
+msgid "Sender and recipient should differs"
+msgstr ""
+
+#: chat/models.py:45
+msgid "Sender or recipient should be staff user"
+msgstr ""
+
+#: chat/models.py:51
+#, python-format
+msgid "Message from %(sender)s to %(recipient)s: %(subject)s"
+msgstr ""
+
+#: chat/models.py:59
+msgid "Message"
+msgstr ""
+
+#: chat/models.py:60
+msgid "Messages"
+msgstr ""
+
+#: claims/models.py:27
+msgid "Claimed answer id"
+msgstr ""
+
+#: claims/models.py:56
+#, python-format
+msgid "Claim for %(content_type)s %(object_id)s by %(author)s"
+msgstr ""
+
+#: claims/models.py:65
+msgid "Claim"
+msgstr ""
+
+#: claims/models.py:66
+msgid "Claims"
+msgstr ""
+
+#: countries/models.py:7 languages/models.py:10
+msgid "Code"
+msgstr ""
+
+#: countries/models.py:8 languages/models.py:11
+msgid "Name"
+msgstr ""
+
+#: countries/models.py:10
+msgid "Population"
+msgstr ""
+
+#: countries/models.py:12
+msgid "Live quality index"
+msgstr ""
+
+#: countries/models.py:15
+msgid ""
+"From https://ru.wikipedia.org/wiki/"
+"Список_стран_по_индексу_человеческого_развития"
+msgstr ""
+
+#: countries/models.py:30
+msgid "Countries"
+msgstr ""
+
+#: languages/models.py:13
+msgid "Google.Translate id"
+msgstr ""
+
+#: languages/models.py:14
+msgid "ID for use as an argument for Google.Translate API"
+msgstr ""
+
+#: languages/models.py:41
+msgid "Language"
+msgstr ""
+
+#: languages/models.py:42
+msgid "Languages"
+msgstr ""
+
+#: likes/models.py:21
+msgid "Like/dislike"
+msgstr ""
+
+#: likes/models.py:28
+msgid "Liked/disliked question/answer id"
+msgstr ""
+
+#: likes/models.py:42
+msgid "Score"
+msgstr ""
+
+#: likes/models.py:53
+msgid "Question status should be %(status)"
+msgstr ""
+
+#: likes/models.py:64
+#, python-format
+msgid "%(liked_object_type)s's author can't like it"
+msgstr ""
+
+#: likes/models.py:71
+msgid "like"
+msgstr ""
+
+#: likes/models.py:71
+msgid "dislike"
+msgstr ""
+
+#: likes/models.py:77
+msgid "Like"
+msgstr ""
+
+#: likes/models.py:78
+msgid "Likes"
+msgstr ""
+
+#: project/context_processors.py:26
+msgid "Chat"
+msgstr ""
+
+#: project/context_processors.py:27
+msgid "My questions"
+msgstr ""
+
+#: project/context_processors.py:28
+msgid "My answers"
+msgstr ""
+
+#: project/context_processors.py:29
+msgid "My voting"
+msgstr ""
+
+#: project/context_processors.py:30
+msgid "My Subscriptions"
+msgstr ""
+
+#: project/context_processors.py:35
+msgid "Ask a question"
+msgstr ""
+
+#: project/context_processors.py:36
+msgid "Site rules"
+msgstr ""
+
+#: project/context_processors.py:38
+msgid "Opened questions"
+msgstr ""
+
+#: project/context_processors.py:39
+msgid "Voting"
+msgstr ""
+
+#: project/context_processors.py:40
+msgid "Closed questions"
+msgstr ""
+
+#: questions/models.py:59
+msgid "Rejected reason"
+msgstr ""
+
+#: questions/models.py:62
+msgid "Price"
+msgstr ""
+
+#: questions/models.py:111
+#, python-format
+msgid ""
+"This status transition is not allowed\n"
+"Allowed transitions:\n"
+"%s"
+msgstr ""
+
+#: questions/models.py:115
+msgid ""
+"Rejected reason only valuable when question was returned (check status also)"
+msgstr ""
+
+#: questions/models.py:117
+msgid "You should wait for question to be closed to select the best answer"
+msgstr ""
+
+#: questions/models.py:126
+#, python-format
+msgid "Question by %(author)s for %(country)s (%(price)s) - %(status)s"
+msgstr ""
+
+#: questions/models.py:136
+msgid "Questions"
+msgstr ""
+
+#: questions/views.py:18
+msgid ""
+"Only registered users can create questions.\n"
+"Please, register."
+msgstr ""
+
+#: questions/views.py:51
+msgid "Question with this id does not exist"
+msgstr ""
+
+#: rules/models.py:7
+msgid "Rule text"
+msgstr ""
+
+#: rules/models.py:14
+msgid "Rule"
+msgstr ""
+
+#: rules/models.py:15 templates/rules/list.html:4
+msgid "Rules"
+msgstr ""
+
+#: templates/_navbar.html:30
+msgid "Log out"
+msgstr ""
+
+#: templates/_navbar.html:33
+msgid "Log in"
+msgstr ""
+
+#: templates/_navbar.html:34 templates/account/login.html:32
+#: templates/account/signup.html:10 templates/account/signup.html:24
+msgid "Sign Up"
+msgstr ""
+
+#: templates/account/account_inactive.html:5
+#: templates/account/account_inactive.html:10
+msgid "Account Inactive"
+msgstr ""
+
+#: templates/account/account_inactive.html:12
+msgid "This account is inactive."
+msgstr ""
+
+#: templates/account/email.html:5 templates/account/email.html:10
+msgid "E-mail Addresses"
+msgstr ""
+
+#: templates/account/email.html:13
+msgid "The following e-mail addresses are associated with your account:"
+msgstr ""
+
+#: templates/account/email.html:56
+msgid "Verified"
+msgstr ""
+
+#: templates/account/email.html:58
+msgid "Unverified"
+msgstr ""
+
+#: templates/account/email.html:60
+msgid "Primary"
+msgstr ""
+
+#: templates/account/email.html:66
+msgid "Remove"
+msgstr ""
+
+#: templates/account/email.html:69
+msgid "Re-send Verification"
+msgstr ""
+
+#: templates/account/email.html:72
+msgid "Make Primary"
+msgstr ""
+
+#: templates/account/email.html:81
+msgid ""
+"You currently do not have any e-mail address set up. An e-mail must be "
+"address to receive notifications, reset your password, etc."
+msgstr ""
+
+#: templates/account/email.html:92
+msgid "Do you really want to remove the selected e-mail address?"
+msgstr ""
+
+#: templates/account/email_confirm.html:6
+#: templates/account/email_confirm.html:12
+msgid "Confirm E-mail Address"
+msgstr ""
+
+#: templates/account/email_confirm.html:16
+#, python-format
+msgid ""
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
+"address for user %(user_display)s."
+msgstr ""
+
+#: templates/account/email_confirm.html:27
+msgid "Confirm"
+msgstr ""
+
+#: templates/account/email_confirm.html:35
+#, python-format
+msgid ""
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+msgstr ""
+
+#: templates/account/login.html:6 templates/account/login.html:11
+#: templates/account/login.html:33
+msgid "Sign In"
+msgstr ""
+
+#: templates/account/login.html:13
+#, python-format
+msgid ""
+"\n"
+"          If you have not created an account yet, then please\n"
+"          <a href=\"%(signup_url)s\">sign up</a> first.\n"
+"        "
+msgstr ""
+
+#: templates/account/login.html:29 templates/account/password_change.html:23
+msgid "Forgot Password?"
+msgstr ""
+
+#: templates/account/logout.html:5 templates/account/logout.html:10
+#: templates/account/logout.html:24
+msgid "Sign Out"
+msgstr ""
+
+#: templates/account/logout.html:12
+msgid "Are you sure you want to sign out?"
+msgstr ""
+
+#: templates/account/password_change.html:6
+#: templates/account/password_change.html:11
+#: templates/account/password_change.html:26
+#: templates/account/password_reset_from_key.html:6
+#: templates/account/password_reset_from_key.html:11
+#: templates/account/password_reset_from_key_done.html:4
+#: templates/account/password_reset_from_key_done.html:9
+msgid "Change Password"
+msgstr ""
+
+#: templates/account/password_change.html:13
+msgid "Update your password below."
+msgstr ""
+
+#: templates/account/password_change.html:30
+#: templates/account/password_reset.html:30
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr ""
+
+#: templates/account/password_reset.html:7
+#: templates/account/password_reset.html:12
+#: templates/account/password_reset_done.html:6
+#: templates/account/password_reset_done.html:11
+msgid "Password Reset"
+msgstr ""
+
+#: templates/account/password_reset.html:17
+msgid ""
+"Forgotten your password? Enter your e-mail address below, and we'll send you "
+"an e-mail allowing you to reset it."
+msgstr ""
+
+#: templates/account/password_reset.html:26
+msgid "Reset My Password"
+msgstr ""
+
+#: templates/account/password_reset_done.html:16
+msgid ""
+"We have sent you an e-mail. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+
+#: templates/account/password_reset_from_key.html:11
+msgid "Bad Token"
+msgstr ""
+
+#: templates/account/password_reset_from_key.html:15
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
+msgstr ""
+
+#: templates/account/password_reset_from_key.html:27
+msgid "change password"
+msgstr ""
+
+#: templates/account/password_reset_from_key.html:32
+#: templates/account/password_reset_from_key_done.html:11
+msgid "Your password is now changed."
+msgstr ""
+
+#: templates/account/password_set.html:6 templates/account/password_set.html:11
+#: templates/account/password_set.html:22
+msgid "Set Password"
+msgstr ""
+
+#: templates/account/password_set.html:13
+msgid "Set a new password below"
+msgstr ""
+
+#: templates/account/signup.html:5
+msgid "Signup"
+msgstr ""
+
+#: templates/account/signup.html:12
+#, python-format
+msgid ""
+"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
+msgstr ""
+
+#: templates/account/signup_closed.html:5
+#: templates/account/signup_closed.html:10
+msgid "Sign Up Closed"
+msgstr ""
+
+#: templates/account/signup_closed.html:12
+msgid "We are sorry, but the sign up is currently closed."
+msgstr ""
+
+#: templates/account/snippets/already_logged_in.html:5
+msgid "Note"
+msgstr ""
+
+#: templates/account/snippets/already_logged_in.html:5
+#, python-format
+msgid "you are already logged in as %(user_display)s."
+msgstr ""
+
+#: templates/account/verification_sent.html:5
+#: templates/account/verification_sent.html:10
+#: templates/account/verified_email_required.html:5
+#: templates/account/verified_email_required.html:8
+#: templates/account/verified_email_required.html:24
+msgid "Verify Your E-mail Address"
+msgstr ""
+
+#: templates/account/verification_sent.html:12
+msgid ""
+"We have sent an e-mail to you for verification. Follow the link provided to "
+"finalize the signup process. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+
+#: templates/account/verified_email_required.html:12
+msgid ""
+"This part of the site requires us to verify that\n"
+"you are who you claim to be. For this purpose, we require that you\n"
+"verify ownership of your e-mail address. "
+msgstr ""
+
+#: templates/account/verified_email_required.html:16
+msgid ""
+"We have sent an e-mail to you for\n"
+"verification. Please click on the link inside this e-mail. Please\n"
+"contact us if you do not receive it within a few minutes."
+msgstr ""
+
+#: templates/account/verified_email_required.html:20
+#, python-format
+msgid ""
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
+"mail address</a>."
+msgstr ""
+
+#: templates/account/verified_email_required.html:29
+msgid ""
+"This part of the site requires us to verify that\n"
+"\t\t\tyou are who you claim to be. For this purpose, we require that you\n"
+"\t\t\tverify ownership of your e-mail address. "
+msgstr ""
+
+#: templates/account/verified_email_required.html:34
+msgid ""
+"We have sent an e-mail to you for\n"
+"\t\t\tverification. Please click on the link inside this e-mail. Please\n"
+"\t\t\tcontact us if you do not receive it within a few minutes."
+msgstr ""
+
+#: templates/account/verified_email_required.html:38
+msgid "Update your e-mail address"
+msgstr ""
+
+#: templates/answers/create.html:5
+msgid "Create answer"
+msgstr ""
+
+#: templates/questions/create.html:5
+msgid "Create question"
+msgstr ""
+
+#: users/admin.py:25
+msgid "Personal info"
+msgstr ""
+
+#: users/admin.py:38
+msgid "Payment info"
+msgstr ""
+
+#: users/admin.py:46
+msgid "Permissions"
+msgstr ""
+
+#: users/admin.py:60
+msgid "Important dates"
+msgstr ""
+
+#: users/forms.py:14
+#, python-format
+msgid ""
+"Please use an image that is %(max_width)s x %(max_height)s pixels or smaller."
+msgstr ""
+
+#: users/forms.py:24
+msgid "Please use a JPEG, GIF or PNG image."
+msgstr ""
+
+#: users/forms.py:29
+msgid "Avatar file size may not exceed 20k."
+msgstr ""
+
+#: users/models.py:20
+msgid "Without education"
+msgstr ""
+
+#: users/models.py:27
+msgid "Prefer not to say / unsure"
+msgstr ""
+
+#: users/models.py:51
+msgid "Avatar"
+msgstr ""
+
+#: users/models.py:52
+msgid "email address"
+msgstr ""
+
+#: users/models.py:56
+msgid "Approved"
+msgstr ""
+
+#: users/models.py:58
+msgid "User approved with control question."
+msgstr ""
+
+#: users/models.py:61
+msgid "User agreement accepted"
+msgstr ""
+
+#: users/models.py:63
+msgid "User can create a question only after accept a user agreement."
+msgstr ""
+
+#: users/models.py:65
+msgid "Pin"
+msgstr ""
+
+#: users/models.py:68
+msgid "Sex"
+msgstr ""
+
+#: users/models.py:69
+msgid "Education"
+msgstr ""
+
+#: users/models.py:71
+msgid "Birth year"
+msgstr ""
+
+#: users/models.py:91
+msgid "User"
+msgstr ""
+
+#: users/models.py:92
+msgid "Users"
+msgstr ""

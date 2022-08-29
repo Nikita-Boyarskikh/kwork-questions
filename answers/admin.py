@@ -25,7 +25,7 @@ class AnswerAdmin(admin.ModelAdmin):
         '__str__',
         'author',
         'truncated_en_text',
-        'views',
+        'views__count',
         'created',
         'question__status',
         'question__country',

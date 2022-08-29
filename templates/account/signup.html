@@ -13,7 +13,7 @@
 		</p>
 	</div>
 
-	<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+	<form enctype="multipart/form-data" class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
 		{% csrf_token %}
 		{{ form|crispy }}
 		{% if redirect_field_value %}

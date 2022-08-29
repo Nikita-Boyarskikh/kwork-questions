@@ -1,0 +1,24 @@
+{% load i18n %}
+
+<ul class="nav flex-column nav-pills">
+  {% for href, name in MENU_ITEMS %}
+    <li><a href="{{ href }}" class="nav-link {% if request|is_current_url:href %}active{% else %}link-dark{% endif %}">
+      {{ name }}
+    </a></li>
+  {% endfor %}
+  <li><a href="#" class="nav-link link-dark">{% trans 'Language' %}: {{ lang }} ></a></li>
+</ul>
+<hr>
+
+<ul class="nav flex-column nav-pills">
+  {% for country in countries_with_questions %}
+    <li>
+      <a
+        href="{% url 'questions:index' country_id=country.id %}"
+        class="nav-link {% if request.resolver_match.kwargs.country_id == country.id %}active{% else %}link-dark{% endif %}"
+      >
+        {{ country }}
+      </a>
+    </li>
+  {% endfor %}
+</ul>

@@ -19,7 +19,7 @@ from django.conf.urls.static import static
 from django.urls import path, include
 from django.contrib.auth.decorators import login_required
 
-from users.views import index
+from questions.views import index
 
 admin.site.login = login_required(admin.site.login)
 
@@ -29,4 +29,16 @@ urlpatterns = [
     path('baton/', include('baton.urls')),
     path('auth/', include('allauth.urls')),
     path('captcha/', include('captcha.urls')),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('rules/', include('rules.urls')),
+    path('chat/', include('chat.urls')),
+    path('users/', include('users.urls')),
+    path('<str:country_id>/', include([
+        path('answers/', include('answers.urls')),
+        path('questions/', include('questions.urls')),
+        path('likes/', include('likes.urls')),
+    ])),
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

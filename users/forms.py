@@ -8,7 +8,7 @@ from django.utils.translation import gettext as _
 
 class AvatarFormMixin:
     @staticmethod
-    def _validate_avatar_dimensions(w, h, max_width=100, max_height=100):
+    def _validate_avatar_dimensions(w, h, max_width=1000, max_height=1000):
         if w > max_width or h > max_height:
             raise ValidationError({
                 'avatar': _('Please use an image that is %(max_width)s x %(max_height)s pixels or smaller.') % {

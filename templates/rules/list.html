@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Rules" %}{% endblock title %}
+{% block main %}
+  {{ block.super }}
+  <ol type="1">
+    {% for rule in object_list %}
+      <li>{{ rule }}</li>
+    {% endfor %}
+  </ol>
+{% endblock main %}
