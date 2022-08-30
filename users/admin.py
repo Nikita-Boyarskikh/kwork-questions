@@ -2,11 +2,12 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext as _
 
+from accounts.models import Account
 from answers.admin import AnswerInline
 from claims.admin import ClaimInline
 from likes.admin import LikeInline
 from questions.admin import QuestionInline
-from users.auth import AccountAdapter, send_email_confirmation
+from users.auth import send_email_confirmation
 from users.models import User
 
 
@@ -95,8 +96,11 @@ class UserAdmin(BaseUserAdmin):
     inlines = [QuestionInline, AnswerInline, LikeInline, ClaimInline]
 
     def save_model(self, request, obj, form, change):
-        user = AccountAdapter(request).save_user(request, obj, form)
-        send_email_confirmation(user)
+        obj.save()
+        if not change:
+            Account.objects.create(user=obj)
+        if not change or 'email' in form.changed_data:
+            send_email_confirmation(obj)
 
 
 admin.site.register(User, UserAdmin)

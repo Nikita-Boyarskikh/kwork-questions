@@ -18,7 +18,8 @@ from utils.views import CurrentCountryListViewMixin, MyListViewMixin
 def create(request, question_id, country_id):
     question = Question.objects.get(id=question_id, country_id=country_id)
     if question.status != QuestionStatus.PUBLISHED:
-        raise WrongStatusError(from_status=question.status)
+        messages.error(request, _('This question is not published yet'))
+        return redirect('answers:index', country_id=country_id, question_id=question.id)
 
     if request.user == question.author:
         messages.error(request, _("Question's author can't answer to it"))
@@ -70,9 +71,11 @@ class AnswersListView(ListView, CurrentCountryListViewMixin):
     template_name = 'answers/list.html'
     country_field_name = 'questions__country_id'
 
+
+class IndexAnswersListView(AnswersListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
-        queryset = object_list if object_list is not None else self.object_list
+        queryset = context['object_list']
         if len(queryset) > 0:
             context['question'] = queryset[0].question
         else:
@@ -85,7 +88,7 @@ class AnswersListView(ListView, CurrentCountryListViewMixin):
 
 
 class MyAnswersListView(AnswersListView, MyListViewMixin):
-    pass
+    pass  # TODO
 
 
 class AnswersDetailView(DetailView):
@@ -94,6 +97,6 @@ class AnswersDetailView(DetailView):
     template_name = 'answers/detail.html'
 
 
-index = AnswersListView.as_view()
+index = IndexAnswersListView.as_view()
 my = MyAnswersListView.as_view()
 detail = AnswersDetailView.as_view()

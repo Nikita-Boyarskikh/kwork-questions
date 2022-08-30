@@ -118,7 +118,10 @@ class Question(TimeStampedModel, LikableModelMixin):
             raise ValidationError(errors)
 
     def get_absolute_url(self):
-        return reverse('answers:index', kwargs={'question_id': self.id})
+        return reverse('answers:index', kwargs={
+            'question_id': self.id,
+            'country_id': self.country_id,
+        })
 
     def __str__(self):
         return _('Question by %(author)s for %(country)s (%(price)s) - %(status)s') % {

@@ -11,7 +11,6 @@ from django.views.generic import ListView
 from languages.models import Language
 from questions.forms import QuestionCreateForm
 from questions.models import Question, QuestionStatus
-from questions.tasks import publish_question
 from utils.translate import translate
 from utils.views import CurrentCountryListViewMixin, MyListViewMixin
 
@@ -56,14 +55,20 @@ def create(request, country_id):
 @login_required
 def publish(request, country_id, pk):
     try:
-        question = Question.objects.get(pk=pk)
+        question = Question.objects.select_for_update().get(pk=pk)
     except Question.DoesNotExist:
         messages.error(request, _('Question with this id does not exist'))
-        return redirect('questions:index')
+        return redirect('questions:index', country_id=country_id)
 
-    task = publish_question.apply_async(kwargs={
-        'question_id': request.POST.get('question_id'),
-    }, countdown=60 * 60 * settings.PUBLISH_QUESTION_COUNTDOWN_HOURS)
+    status = QuestionStatus.PENDING
+    if status not in question.allowed_status_transitions:
+        messages.error(request, _('This question already published'))
+        return redirect('questions:index', country_id=country_id)
+
+    question.status = status
+    question.save()
+
+    messages.success(request, _('Question successfully send to moderation'))
 
     return redirect(question)
 

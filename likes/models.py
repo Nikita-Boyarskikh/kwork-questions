@@ -91,3 +91,19 @@ class LikableModelMixin(models.Model):
 
     class Meta:
         abstract = True
+
+
+class Subscription(TimeStampedModel):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    question = models.ForeignKey('questions.Question', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return _('Subscription of %(username)s for %(question_id)') % {
+            'username': self.user.username,
+            'question_id': self.question_id,
+        }
+
+    class Meta:
+        ordering = ('-created',)
+        verbose_name = _('Subscription')
+        verbose_name_plural = _('Subscriptions')

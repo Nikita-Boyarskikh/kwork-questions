@@ -7,4 +7,4 @@ register = template.Library()
 def liked_by_me(obj, request):
     if not request.user.is_authenticated:
         return False
-    return obj.likes.filter(user=request.user).exists()
+    return obj.subscription_set.filter(user=request.user).exists()

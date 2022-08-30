@@ -4,7 +4,9 @@
 
 {% for question in questions %}
   <div class="d-flex align-items-center ms-3 me-3">
-    <i class="bi bi-star{% if question|liked_by_me:request %}-filled{% endif %}"></i>
+    <a href="{% url 'likes:toggle_subscription' country_id=question.country_id question_id=question.id %}">
+      <i class="bi bi-star{% if question|liked_by_me:request %}-fill{% endif %}"></i>
+    </a>
 
     <div class="d-flex flex-grow-1 flex-column ms-3 me-3">
       <header class="h3">{{ question.truncated_en_text }}</header>
@@ -29,7 +31,7 @@
         {% endif %}
 
         {% if question.status in 'published answered closed'|split %}
-          <i class="bi bi-eye"></i>{{ question.views }} {% trans 'Views' %}
+          <i class="bi bi-eye"></i>{{ question.views|length }} {% trans 'Views' %}
         {% endif %}
       </span>
     </div>
