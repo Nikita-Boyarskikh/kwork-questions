@@ -63,6 +63,22 @@
         {{ answer.truncated_en_text }}
       </div>
     </div>
+
+    {% if answer.question.author != request.user and question.status == 'answered' %}
+      <a
+          href="{% url 'likes:like' country_id=answer.question.country_id content_type=answer|content_type pk=answer.id %}"
+          class="btn btn-{% if not answer|liked_by_me:request %}outline-{% endif %}success"
+      >
+        <i class="bi bi-hand-thumbs-up-fill"></i> {% trans 'Like' %}
+      </a>
+      <a
+          href="{% url 'likes:dislike' country_id=answer.question.country_id content_type=answer|content_type pk=answer.id %}"
+          class="btn btn-{% if not answer|disliked_by_me:request %}outline-{% endif %}danger"
+      >
+        <i class="bi bi-hand-thumbs-down-fill"></i> {% trans 'Dislike' %}
+      </a>
+    {% endif %}
+
     <hr />
   {% endfor %}
 
@@ -75,21 +91,6 @@
   {% if question.author == request.user and question.status == 'draft' %}
     <a href="{% url 'questions:publish' pk=question.id country_id=question.country_id %}" class="btn btn-primary">
       {% trans 'Send to moderation' %}
-    </a>
-  {% endif %}
-
-  {% if question.author != request.user and question.status == 'answered' %}
-    <a
-        href="{% url 'likes:like' country_id=question.country_id question_id=question.id %}"
-        class="btn btn-{% if not question|liked_by_me:request %}outline-{% endif %}success"
-    >
-      <i class="bi bi-hand-thumbs-up-fill"></i> {% trans 'Like' %}
-    </a>
-    <a
-        href="{% url 'likes:dislike' country_id=question.country_id question_id=question.id %}"
-        class="btn btn-{% if not question|disliked_by_me:request %}outline-{% endif %}danger"
-    >
-      <i class="bi bi-hand-thumbs-down-fill"></i> {% trans 'Dislike' %}
     </a>
   {% endif %}
 {% endblock main %}

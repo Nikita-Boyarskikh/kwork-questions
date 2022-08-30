@@ -7,6 +7,6 @@ urlpatterns = [
     path('<str:content_type>/<int:object_id>', index, name='index'),
     path('my', my, name='my'),
     path('<int:question_id>/toggle_subscription', toggle_subscription, name='toggle_subscription'),
-    path('<int:question_id>/like', like, name='like'),
-    path('<int:question_id>/dislike', dislike, name='dislike'),
+    path('<str:content_type>/<int:pk>/like', like, name='like'),
+    path('<str:content_type>/<int:pk>/dislike', dislike, name='dislike'),
 ]

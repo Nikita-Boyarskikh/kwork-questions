@@ -2,7 +2,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, NON_FIELD_ERRORS
 from django.db import models
 from django.utils.translation import gettext as _
 from model_utils.models import TimeStampedModel
@@ -66,16 +66,20 @@ class Like(TimeStampedModel):
         return self.user != self.liked_object.author
 
     def clean(self):
-        errors = {
-            'liked_object_id': self._get_errors_for_liked_object()
-        }
+        errors = {}
+        liked_object_errors = self._get_errors_for_liked_object()
+        if liked_object_errors:
+            errors[NON_FIELD_ERRORS].append(liked_object_errors)
 
         if not self._clean_user():
-            errors['user'] = _("%(liked_object_type)s's author can't like it") % {
-                'liked_object_type': self.liked_object_content_type.name,
-            }
+            errors[NON_FIELD_ERRORS].append(
+                _("%(liked_object_type)s's author can't like it") % {
+                    'liked_object_type': self.liked_object_content_type.name,
+                }
+            )
 
-        raise ValidationError(errors)
+        if errors:
+            raise ValidationError(errors)
 
     def __str__(self):
         score = _('like') if self.score == LikeScore.LIKE else _('dislike')

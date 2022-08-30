@@ -79,7 +79,10 @@ class Answer(TimeStampedModel, LikableModelMixin):
             raise ValidationError(errors)
 
     def get_absolute_url(self):
-        return reverse('answers:detail', kwargs={'pk': self.id})
+        return reverse('answers:index', kwargs={
+            'country_id': self.question__country.id,
+            'question_id': self.question_id,
+        })
 
     class Meta:
         ordering = ('-created',)

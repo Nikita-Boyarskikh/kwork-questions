@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-30 14:58+0000\n"
+"POT-Creation-Date: 2022-08-30 15:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -285,7 +285,7 @@ msgstr ""
 msgid "dislike"
 msgstr ""
 
-#: likes/models.py:87 templates/answers/list.html:86
+#: likes/models.py:87 templates/answers/list.html:72
 msgid "Like"
 msgstr ""
 
@@ -728,16 +728,16 @@ msgstr ""
 msgid "Dislikes"
 msgstr ""
 
-#: templates/answers/list.html:71
+#: templates/answers/list.html:78
+msgid "Dislike"
+msgstr ""
+
+#: templates/answers/list.html:87
 msgid "Add new answer"
 msgstr ""
 
-#: templates/answers/list.html:77
+#: templates/answers/list.html:93
 msgid "Send to moderation"
-msgstr ""
-
-#: templates/answers/list.html:92
-msgid "Dislike"
 msgstr ""
 
 #: templates/questions/_questions_list.html:54

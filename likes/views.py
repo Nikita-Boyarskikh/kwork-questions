@@ -5,7 +5,6 @@ from django.shortcuts import redirect
 from django.views.generic import ListView
 
 from likes.models import Like, Subscription, LikeScore
-from questions.models import Question
 from utils.views import CurrentCountryListViewMixin, MyListViewMixin
 
 
@@ -45,13 +44,12 @@ def toggle_subscription(request, country_id, question_id):
 
 @transaction.atomic
 @login_required
-def like(request, country_id, question_id):
-    question_content_type = ContentType.objects.get_for_model(Question)
+def like(request, country_id, content_type, pk):
     try:
         obj = Like.objects.select_for_update().get(
             user=request.user,
-            liked_object_id=question_id,
-            liked_object_content_type=question_content_type,
+            liked_object_id=pk,
+            liked_object_content_type=content_type,
         )
         if obj.score == LikeScore.DISLIKE:
             obj.score = LikeScore.LIKE
@@ -61,8 +59,8 @@ def like(request, country_id, question_id):
     except Like.DoesNotExist:
         obj = Like.like(
             user=request.user,
-            object_id=question_id,
-            object_content_type=question_content_type,
+            object_id=pk,
+            object_content_type=ContentType.objects.get(pk=content_type),
         )
         obj.save()
     return redirect(obj.liked_object)
@@ -70,13 +68,12 @@ def like(request, country_id, question_id):
 
 @transaction.atomic
 @login_required
-def dislike(request, country_id, question_id):
-    question_content_type = ContentType.objects.get_for_model(Question)
+def dislike(request, country_id, content_type, pk):
     try:
         obj = Like.objects.select_for_update().get(
             user=request.user,
-            liked_object_id=question_id,
-            liked_object_content_type=question_content_type,
+            liked_object_id=pk,
+            liked_object_content_type=content_type,
         )
         if obj.score == LikeScore.LIKE:
             obj.score = LikeScore.DISLIKE
@@ -86,8 +83,8 @@ def dislike(request, country_id, question_id):
     except Like.DoesNotExist:
         obj = Like.dislike(
             user=request.user,
-            object_id=question_id,
-            object_content_type=question_content_type,
+            object_id=pk,
+            object_content_type=ContentType.objects.get(pk=content_type),
         )
         obj.save()
     return redirect(obj.liked_object)
