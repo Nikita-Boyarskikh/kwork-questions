@@ -1,8 +1,11 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.contenttypes.models import ContentType
+from django.db import transaction
 from django.shortcuts import redirect
 from django.views.generic import ListView
 
-from likes.models import Like, Subscription
+from likes.models import Like, Subscription, LikeScore
+from questions.models import Question
 from utils.views import CurrentCountryListViewMixin, MyListViewMixin
 
 
@@ -38,6 +41,56 @@ def toggle_subscription(request, country_id, question_id):
     if not created:
         s.delete()
     return redirect('questions:index', country_id=country_id)
+
+
+@transaction.atomic
+@login_required
+def like(request, country_id, question_id):
+    question_content_type = ContentType.objects.get_for_model(Question)
+    try:
+        obj = Like.objects.select_for_update().get(
+            user=request.user,
+            liked_object_id=question_id,
+            liked_object_content_type=question_content_type,
+        )
+        if obj.score == LikeScore.DISLIKE:
+            obj.score = LikeScore.LIKE
+            obj.save()
+        else:
+            obj.delete()
+    except Like.DoesNotExist:
+        obj = Like.like(
+            user=request.user,
+            object_id=question_id,
+            object_content_type=question_content_type,
+        )
+        obj.save()
+    return redirect(obj.liked_object)
+
+
+@transaction.atomic
+@login_required
+def dislike(request, country_id, question_id):
+    question_content_type = ContentType.objects.get_for_model(Question)
+    try:
+        obj = Like.objects.select_for_update().get(
+            user=request.user,
+            liked_object_id=question_id,
+            liked_object_content_type=question_content_type,
+        )
+        if obj.score == LikeScore.LIKE:
+            obj.score = LikeScore.DISLIKE
+            obj.save()
+        else:
+            obj.delete()
+    except Like.DoesNotExist:
+        obj = Like.dislike(
+            user=request.user,
+            object_id=question_id,
+            object_content_type=question_content_type,
+        )
+        obj.save()
+    return redirect(obj.liked_object)
 
 
 index = LikesForObjectListView.as_view()

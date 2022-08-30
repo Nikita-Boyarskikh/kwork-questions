@@ -5,7 +5,7 @@
 {% for question in questions %}
   <div class="d-flex align-items-center ms-3 me-3">
     <a href="{% url 'likes:toggle_subscription' country_id=question.country_id question_id=question.id %}">
-      <i class="bi bi-star{% if question|liked_by_me:request %}-fill{% endif %}"></i>
+      <i class="bi bi-star{% if question|subscribed:request %}-fill{% endif %}"></i>
     </a>
 
     <div class="d-flex flex-grow-1 flex-column ms-3 me-3">

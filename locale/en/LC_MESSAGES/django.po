@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-30 14:07+0000\n"
+"POT-Creation-Date: 2022-08-30 14:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -155,7 +155,7 @@ msgstr ""
 msgid "You already answered to this question"
 msgstr ""
 
-#: answers/views.py:48 questions/views.py:45
+#: answers/views.py:48 questions/views.py:46
 msgid "This field is required."
 msgstr ""
 
@@ -264,45 +264,46 @@ msgstr ""
 msgid "Liked/disliked question/answer id"
 msgstr ""
 
-#: likes/models.py:42
+#: likes/models.py:52
 msgid "Score"
 msgstr ""
 
-#: likes/models.py:53
+#: likes/models.py:63
 msgid "Question status should be %(status)"
 msgstr ""
 
-#: likes/models.py:64
+#: likes/models.py:74
 #, python-format
 msgid "%(liked_object_type)s's author can't like it"
 msgstr ""
 
-#: likes/models.py:71
+#: likes/models.py:81
 msgid "like"
 msgstr ""
 
-#: likes/models.py:71
+#: likes/models.py:81
 msgid "dislike"
 msgstr ""
 
-#: likes/models.py:77
+#: likes/models.py:87 templates/answers/list.html:86
 msgid "Like"
 msgstr ""
 
-#: likes/models.py:78 templates/answers/list.html:36
+#: likes/models.py:88 templates/answers/list.html:36
 #: templates/likes/list.html:4 templates/questions/_questions_list.html:29
 msgid "Likes"
 msgstr ""
 
-#: likes/models.py:101
-msgid "Subscription of %(username)s for %(question_id)"
+#: likes/models.py:111
+#, python-format
+msgid "Subscription of %(username)s for %(question_id)s"
 msgstr ""
 
-#: likes/models.py:108
+#: likes/models.py:119
 msgid "Subscription"
 msgstr ""
 
-#: likes/models.py:109
+#: likes/models.py:120
 msgid "Subscriptions"
 msgstr ""
 
@@ -409,21 +410,21 @@ msgstr ""
 msgid "Questions"
 msgstr ""
 
-#: questions/views.py:20
+#: questions/views.py:21
 msgid ""
 "Only registered users can create questions.\n"
 "Please, register."
 msgstr ""
 
-#: questions/views.py:60
+#: questions/views.py:62
 msgid "Question with this id does not exist"
 msgstr ""
 
-#: questions/views.py:65
+#: questions/views.py:67
 msgid "This question already published"
 msgstr ""
 
-#: questions/views.py:71
+#: questions/views.py:73
 msgid "Question successfully send to moderation"
 msgstr ""
 
@@ -731,8 +732,12 @@ msgstr ""
 msgid "Add new answer"
 msgstr ""
 
-#: templates/answers/list.html:76
+#: templates/answers/list.html:77
 msgid "Send to moderation"
+msgstr ""
+
+#: templates/answers/list.html:92
+msgid "Dislike"
 msgstr ""
 
 #: templates/questions/_questions_list.html:54
@@ -829,10 +834,10 @@ msgstr ""
 msgid "Birth year"
 msgstr ""
 
-#: users/models.py:90
+#: users/models.py:91
 msgid "User"
 msgstr ""
 
-#: users/models.py:91
+#: users/models.py:92
 msgid "Users"
 msgstr ""

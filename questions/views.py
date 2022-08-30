@@ -3,6 +3,7 @@ from urllib.parse import urlencode
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils.translation import gettext as _
@@ -52,6 +53,7 @@ def create(request, country_id):
     })
 
 
+@transaction.atomic
 @login_required
 def publish(request, country_id, pk):
     try:

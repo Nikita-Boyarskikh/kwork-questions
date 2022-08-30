@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.contenttypes.admin import GenericTabularInline
 
-from likes.models import Like
+from likes.models import Like, Subscription
 
 
 class LikeInline(GenericTabularInline):
@@ -27,3 +27,4 @@ class LikeAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Like, LikeAdmin)
+admin.site.register(Subscription)

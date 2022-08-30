@@ -78,7 +78,8 @@ class User(AbstractUser):
     objects = UserManager()
 
     def clean(self):
-        AccountAdapter().validate_unique_email(self.email)
+        if not self.pk:
+            AccountAdapter().validate_unique_email(self.email)
 
     def get_short_name(self):
         return self.username

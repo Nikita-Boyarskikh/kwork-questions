@@ -29,12 +29,22 @@ class Like(TimeStampedModel):
     liked_object = GenericForeignKey('liked_object_content_type', 'liked_object_id')
 
     @classmethod
-    def like(cls, user, disliked_object):
-        return cls(score=LikeScore.LIKE, user=user, liked_object=disliked_object)
+    def like(cls, user, object_id, object_content_type):
+        return cls(
+            score=LikeScore.LIKE,
+            user=user,
+            liked_object_id=object_id,
+            liked_object_content_type=object_content_type,
+        )
 
     @classmethod
-    def dislike(cls, user, liked_object):
-        return cls(score=LikeScore.DISLIKE, user=user, liked_object=liked_object)
+    def dislike(cls, user, object_id, object_content_type):
+        return cls(
+            score=LikeScore.DISLIKE,
+            user=user,
+            liked_object_id=object_id,
+            liked_object_content_type=object_content_type,
+        )
 
     @property
     @admin.display(
@@ -98,12 +108,13 @@ class Subscription(TimeStampedModel):
     question = models.ForeignKey('questions.Question', on_delete=models.CASCADE)
 
     def __str__(self):
-        return _('Subscription of %(username)s for %(question_id)') % {
+        return _('Subscription of %(username)s for %(question_id)s') % {
             'username': self.user.username,
             'question_id': self.question_id,
         }
 
     class Meta:
+        unique_together = [('question', 'user')]
         ordering = ('-created',)
         verbose_name = _('Subscription')
         verbose_name_plural = _('Subscriptions')
