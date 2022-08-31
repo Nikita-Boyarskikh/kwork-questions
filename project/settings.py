@@ -14,6 +14,7 @@ def optional(cast):
         if value is None:
             return value
         return cast(value)
+
     return optional_cast
 
 
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # 3rd party
+    'anymail',
     'djmoney',
     'captcha',
     'allauth',
@@ -78,7 +80,6 @@ MIDDLEWARE = [
     'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
 
 TEMPLATES = [
     {
@@ -128,14 +129,34 @@ LANGUAGES = [
     ('en', __('English')),
 ]
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# Email
+ANYMAIL = {
+    'MAILGUN_API_KEY': config('MAILGUN_API_KEY'),
+    'MAILGUN_API_URL': config('MAILGUN_API_URL'),
+    'MAILGUN_SENDER_DOMAIN': config('MAILGUN_DOMAIN'),
+    'DEBUG_API_REQUESTS': DEBUG,
+    'SEND_DEFAULTS': {
+        'track_clicks': True,
+        'track_opens': True,
+    },
+}
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' if DEBUG else 'anymail.backends.mailgun.EmailBackend'
+# EMAIL_HOST = config('MAILGUN_SMTP_SERVER')
+# EMAIL_PORT = config('MAILGUN_SMTP_PORT')
+# EMAIL_HOST_USER = config('MAILGUN_SMTP_LOGIN')
+# EMAIL_HOST_PASSWORD = config('MAILGUN_SMTP_PASSWORD')
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+SERVER_EMAIL = config('SERVER_EMAIL')
+
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 MESSAGE_TAGS = {
     messages.DEBUG: 'secondary',
     messages.ERROR: 'danger',
 }
 
-# TODO: Load from file
+# Logging
+
+LOG_LEVEL = config('LOG_LEVEL', default='INFO')
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -143,7 +164,7 @@ LOGGING = {
     'formatters': {
         'verbose': {
             'format': '%(levelname)s %(asctime)s %(module)s '
-            '%(process)d %(thread)d %(message)s'
+                      '%(process)d %(thread)d %(message)s'
         }
     },
     'handlers': {
@@ -158,7 +179,7 @@ LOGGING = {
             'formatter': 'verbose',
         },
     },
-    'root': {'level': 'INFO', 'handlers': ['console']},
+    'root': {'level': LOG_LEVEL, 'handlers': ['console']},
     'loggers': {
         'django.request': {
             'handlers': ['mail_admins'],
@@ -184,15 +205,26 @@ SECURE_HSTS_SECONDS = 0 if DEBUG else 24 * 60 * 60
 
 # Celery
 
-REDIS_HOST = config('REDIS_HOST', default='localhost')
-REDIS_PORT = config('REDIS_PORT', default=6379, cast=int)
-REDIS_URL = f'redis://{REDIS_HOST}:{REDIS_PORT}'
+REDIS_URL = config('REDISCLOUD_URL', default=f'redis://localhost:6379')
 BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
 CELERY_BROKER_URL = REDIS_URL
 CELERY_RESULT_BACKEND = REDIS_URL
 CELERY_TIMEZONE = TIME_ZONE
 CELERY_TASK_ALWAYS_EAGER = DEBUG
 CELERY_TASK_EAGER_PROPAGATES = DEBUG
+
+# Cache
+
+CACHES = {
+    'default': {
+        'BACKEND': (
+            'django.core.cache.backends.locmem.LocMemCache'
+            if DEBUG else
+            'django.core.cache.backends.redis.RedisCache'
+        ),
+        'LOCATION': REDIS_URL,
+    }
+}
 
 # Templates
 

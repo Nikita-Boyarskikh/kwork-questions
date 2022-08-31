@@ -22,6 +22,7 @@ dj-database-url = "*"
 psycopg2 = "*"
 redis = "*"
 google-cloud-translate = "*"
+django-anymail = {extras = ["mailgun"], version = "*"}
 
 [dev-packages]
 
