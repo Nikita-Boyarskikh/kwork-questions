@@ -132,7 +132,6 @@ LANGUAGES = [
 # Email
 ANYMAIL = {
     'MAILGUN_API_KEY': config('MAILGUN_API_KEY'),
-    'MAILGUN_API_URL': config('MAILGUN_API_URL'),
     'MAILGUN_SENDER_DOMAIN': config('MAILGUN_DOMAIN'),
     'DEBUG_API_REQUESTS': DEBUG,
     'SEND_DEFAULTS': {
@@ -282,7 +281,7 @@ CURRENCY_CODE_MAX_LENGTH = 4
 
 # Constance
 
-# TODO
+# TODO!
 CONSTANCE_CONFIG = {}
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 

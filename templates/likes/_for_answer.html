@@ -6,14 +6,14 @@
   <a
       href="{% url 'likes:like' country_id=answer.question.country_id answer_id=answer.id %}"
       class="btn btn-{% if not answer|liked_by_me:request.user %}outline-{% endif %}success
-      {% if question|is_voted_for_question:request.user %}disabled" aria-disabled="true"{% endif %}
+      {% if answer.question|is_voted_for_question:request.user %}disabled" aria-disabled="true"{% endif %}
   >
     <i class="bi bi-hand-thumbs-up-fill"></i> {% trans 'Like' %}
   </a>
   <a
       href="{% url 'likes:dislike' country_id=answer.question.country_id answer_id=answer.id %}"
       class="btn btn-{% if not answer|disliked_by_me:request.user %}outline-{% endif %}danger
-      {% if question|is_voted_for_question:request.user %}disabled" aria-disabled="true"{% endif %}
+      {% if answer.question|is_voted_for_question:request.user %}disabled" aria-disabled="true"{% endif %}
   >
     <i class="bi bi-hand-thumbs-down-fill"></i> {% trans 'Dislike' %}
   </a>

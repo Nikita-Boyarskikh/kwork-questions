@@ -57,7 +57,7 @@ class Question(TimeStampedModel, LikableModelMixin, WithSelfContentTypeMixin):
     status = models.CharField(_('Status'), max_length=100, choices=QuestionStatus.choices, default=QuestionStatus.DRAFT)
     status_changed = MonitorField(monitor='status')
     reason = models.TextField(_('Rejected reason'), blank=True)
-    # TODO original_title and en_title
+    # TODO! original_title and en_title
     original_text = models.TextField(_('Original text'))
     en_text = models.TextField(_('Translated to english text'))
     price = MoneyField(_('Price'), max_digits=14, default=settings.MIN_QUESTION_PRICE, validators=(

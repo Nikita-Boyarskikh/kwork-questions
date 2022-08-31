@@ -29,11 +29,18 @@ class ForAnswerMixin:
         )
 
 
-class LikesListView(CurrentCountryListViewMixin, ForAnswerMixin, ForScoreMixin, ListView):
+class LikesListView(ForAnswerMixin, ForScoreMixin, ListView):
     score = LikeScore.LIKE
     model = Like
     template_name = 'likes/list.html'
     country_field_name = 'liked_object__country_id'
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        country_id = self.kwargs.get('country_id')
+        if country_id == 'None':
+            return qs
+        return [l for l in qs if l.liked_object.question.country_id == country_id]
 
 
 class DislikesListView(LikesListView):
