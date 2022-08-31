@@ -40,5 +40,6 @@ class Language(models.Model):
         return get_object_or_this(cls, cls.default, pk=current_language_code)
 
     class Meta:
+        ordering = ('-name',)
         verbose_name = _('Language')
         verbose_name_plural = _('Languages')

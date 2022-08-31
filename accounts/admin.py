@@ -19,9 +19,9 @@ class AccountAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'user', 'balance', 'uid')
     search_fields = ('uid', 'user__username', 'user__email')
     list_select_related = ('user',)
-    ordering = ('-balance',)
+    ordering = ('-balance', '-modified')
     readonly_fields = ('balance', 'created', 'modified')
-    inlines = [AccountActionInline]
+    inlines = (AccountActionInline,)
 
 
 class AccountActionAdmin(admin.ModelAdmin):

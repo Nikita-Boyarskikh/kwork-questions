@@ -7,13 +7,14 @@ from django.utils.translation import gettext as _
 from django.views.generic import ListView, DetailView
 
 from answers.forms import AnswerCreateForm
-from answers.models import Answer
+from answers.models import Answer, AnswerView
 from languages.models import Language
 from questions.models import Question, QuestionStatus, WrongStatusError
 from utils.translate import translate
 from utils.views import CurrentCountryListViewMixin, MyListViewMixin
 
 
+# TODO use generic CreateView
 @login_required
 def create(request, question_id, country_id):
     question = Question.objects.get(id=question_id, country_id=country_id)
@@ -34,45 +35,53 @@ def create(request, question_id, country_id):
         question=question,
         language=request.user.preferred_language,
     )
-    form = AnswerCreateForm(request.POST, instance=answer)
-    if request.method == 'POST' and form.is_valid():
-        if 'translate' in request.POST:
-            new_form_data = form.data.copy()
-            new_form_data['en_text'] = translate(
-                text=form.cleaned_data['original_text'],
-                source_language=request.user.preferred_language,
-                target_language=Language.default,
-            )
-            form.data = new_form_data
-        elif not form.cleaned_data['en_text']:
-            form.add_error('en_text', _('This field is required.'))
-        else:
-            form.save()
-            return redirect(answer)
+    form = AnswerCreateForm(instance=answer)
+    if request.method == 'POST':
+        form = AnswerCreateForm(request.POST, instance=answer)
+        if form.is_valid():
+            # TODO: refactor
+            if 'translate' in request.POST:
+                new_form_data = form.data.copy()
+                new_form_data['en_text'] = translate(
+                    text=form.cleaned_data['original_text'],
+                    source_language=form.cleaned_data['language'],
+                    target_language=Language.default,
+                )
+                form.data = new_form_data
+            elif form.cleaned_data['language'] and not form.cleaned_data['en_text']:
+                new_form_data = form.data.copy()
+                new_form_data['en_text'] = form.cleaned_data['original_text']
+                form.data = new_form_data
+            elif not form.cleaned_data['en_text']:
+                form.add_error('en_text', _('This field is required.'))
+            else:
+                form.save()
+                return redirect(answer)
 
     response = render(request, 'answers/create.html', {
         'form': form,
     })
 
-    response.delete_cookie(
-        settings.SESSION_COOKIE_NAME,
-        path=settings.SESSION_COOKIE_PATH,
-        domain=settings.SESSION_COOKIE_DOMAIN,
-        samesite=settings.SESSION_COOKIE_SAMESITE,
-    )
     return response
 
 
-class AnswersListView(ListView, CurrentCountryListViewMixin):
+class AnswersListView(CurrentCountryListViewMixin, ListView):
     model = Answer
     queryset = Answer.objects.select_related('question')\
-        .annotate(Count('answerviews'))
-    ordering = 'answerviews__count'
+        .annotate(Count('answerview'))
+    ordering = 'answerview__count'
     template_name = 'answers/list.html'
-    country_field_name = 'questions__country_id'
+    country_field_name = 'question__country_id'
 
 
 class IndexAnswersListView(AnswersListView):
+    def get(self, request, *args, **kwargs):
+        question_id = kwargs.get('question_id')
+        question = Question.objects.get(id=question_id)
+        if question.status == QuestionStatus.DRAFT:
+            return redirect('questions:edit', country_id=kwargs.get('country_id'), pk=question_id)
+        return super().get(request, *args, **kwargs)
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
         queryset = context['object_list']
@@ -87,14 +96,19 @@ class IndexAnswersListView(AnswersListView):
         return qs.filter(question_id=self.kwargs.get('question_id'))
 
 
-class MyAnswersListView(AnswersListView, MyListViewMixin):
-    pass  # TODO
+class MyAnswersListView(MyListViewMixin, AnswersListView):
+    pass  # TODO aggregate by question
 
 
 class AnswersDetailView(DetailView):
     queryset = Answer.objects.select_related('question')\
-        .annotate(Count('answerviews'))
+        .annotate(Count('answerview'))
     template_name = 'answers/detail.html'
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            AnswerView.objects.get_or_create(answer_id=self.kwargs.get('pk'), user=request.user)
+        return super().get(request, *args, **kwargs)
 
 
 index = IndexAnswersListView.as_view()

@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.admin import TabularInline
 
 from accounts.admin import AccountActionGenericInline
-from answers.models import Answer
+from answers.models import Answer, AnswerView
 from claims.admin import ClaimInline
 from likes.admin import LikeInline
 
@@ -13,7 +13,7 @@ class AnswerInline(TabularInline):
 
 
 class AnswerAdmin(admin.ModelAdmin):
-    inlines = [ClaimInline, LikeInline, AccountActionGenericInline]
+    inlines = (ClaimInline, LikeInline, AccountActionGenericInline)
     list_filter = (
         'author',
         'question__country',
@@ -44,3 +44,4 @@ class AnswerAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Answer, AnswerAdmin)
+admin.site.register(AnswerView)

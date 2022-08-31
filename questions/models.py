@@ -12,6 +12,7 @@ from model_utils.fields import MonitorField
 from model_utils.models import TimeStampedModel
 
 from likes.models import Like, LikableModelMixin
+from utils.generic_fields import WithSelfContentTypeMixin
 
 
 class WrongStatusError(ValidationError):
@@ -52,15 +53,16 @@ class QuestionStatus(models.TextChoices):
         }
 
 
-class Question(TimeStampedModel, LikableModelMixin):
+class Question(TimeStampedModel, LikableModelMixin, WithSelfContentTypeMixin):
     status = models.CharField(_('Status'), max_length=100, choices=QuestionStatus.choices, default=QuestionStatus.DRAFT)
     status_changed = MonitorField(monitor='status')
     reason = models.TextField(_('Rejected reason'), blank=True)
+    # TODO original_title and en_title
     original_text = models.TextField(_('Original text'))
     en_text = models.TextField(_('Translated to english text'))
-    price = MoneyField(_('Price'), max_digits=14, default=settings.MIN_QUESTION_PRICE, validators=[
+    price = MoneyField(_('Price'), max_digits=14, default=settings.MIN_QUESTION_PRICE, validators=(
         MinMoneyValidator(settings.MIN_QUESTION_PRICE),
-    ])
+    ))
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     best_answer = models.OneToOneField(
         'answers.Answer',
@@ -90,9 +92,6 @@ class Question(TimeStampedModel, LikableModelMixin):
                or self.status == prev_status \
                or self.status in QuestionStatus.transitions[prev_status]
 
-    def _clean_reason(self):
-        return not self.reason or self.status in QuestionStatus.returned
-
     def _clean_best_answer(self):
         return not self.best_answer \
                or self.status == QuestionStatus.CLOSED \
@@ -109,8 +108,6 @@ class Question(TimeStampedModel, LikableModelMixin):
                 'This status transition is not allowed\n'
                 'Allowed transitions:\n%s'
             ) % transitions_map_str
-        if not self._clean_reason():
-            errors['reason'] = _('Rejected reason only valuable when question was returned (check status also)')
         if not self._clean_best_answer():
             errors['best_answer'] = _('You should wait for question to be closed to select the best answer')
 
@@ -132,6 +129,6 @@ class Question(TimeStampedModel, LikableModelMixin):
         }
 
     class Meta:
-        ordering = ('-created',)
+        ordering = ('-price',)
         verbose_name = _('Question')
         verbose_name_plural = _('Questions')

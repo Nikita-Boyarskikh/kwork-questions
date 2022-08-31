@@ -18,4 +18,4 @@ def before_account_action_saved(instance, **kwargs):
             delta = -delta
 
     instance.account.balance += delta
-    instance.account.save(update_fields=['balance'])
+    instance.account.save(update_fields=('balance',))

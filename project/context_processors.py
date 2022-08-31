@@ -4,6 +4,7 @@ from django.utils.translation import gettext as _
 
 from countries.models import Country
 from languages.models import Language
+from questions.models import QuestionStatus
 
 
 def language(request):
@@ -24,11 +25,14 @@ def menu_items(request):
 
     registered_items = [
         (reverse('users:me'), _('Avatar')),
-        (reverse('chat:index'), _('Chat')),
         (reverse('questions:my', kwargs=country_id_kwargs), _('My questions')),
         (reverse('answers:my', kwargs=country_id_kwargs), _('My answers')),
         (reverse('questions:my_voting', kwargs=country_id_kwargs), _('My voting')),
-        (reverse('likes:my', kwargs=country_id_kwargs), _('My Subscriptions')),
+        (reverse('likes:subscriptions', kwargs=country_id_kwargs), _('My Subscriptions')),
+    ]
+
+    not_admin_items = [
+        (reverse('chat:index'), _('Chat')),
     ]
 
     return {
@@ -36,6 +40,7 @@ def menu_items(request):
             (reverse('questions:create', kwargs=country_id_kwargs), _('Ask a question')),
             (reverse('rules:index'), _('Site rules')),
             *(registered_items if request.user.is_authenticated else []),
+            *(not_admin_items if request.user.username != 'admin' else []),
             (reverse('questions:index', kwargs=country_id_kwargs), _('Opened questions')),
             (reverse('questions:voting', kwargs=country_id_kwargs), _('Voting')),
             (reverse('questions:closed', kwargs=country_id_kwargs), _('Closed questions')),
@@ -48,6 +53,6 @@ def countries(request):
         'countries_with_questions': Country.objects
             .annotate(count=Count('question__id', distinct=True))
             .order_by('-count')
-            .filter(count__gt=0).all(),
+            .filter(question__status=QuestionStatus.PUBLISHED, count__gt=0).all(),
         'countries': Country.objects.all(),
     }

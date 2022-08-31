@@ -12,7 +12,7 @@ from utils.generic_fields import content_type_limit_choices_by_model_references,
 
 
 class Claim(TimeStampedModel):
-    OBJECT_TYPES = {'answers.Answer'}
+    OBJECT_TYPES = ('answers.Answer',)
 
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     comment = models.TextField(_('Comment'), blank=True)

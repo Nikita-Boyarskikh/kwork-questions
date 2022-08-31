@@ -16,7 +16,7 @@ class LikeScore(models.IntegerChoices):
 
 
 class Like(TimeStampedModel):
-    CAN_LIKE = {'questions.Question', 'answers.Answer'}
+    CAN_LIKE = ('questions.Question', 'answers.Answer')
 
     score = models.IntegerField(_('Like/dislike'), choices=LikeScore.choices, default=LikeScore.LIKE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.RESTRICT)
@@ -29,22 +29,13 @@ class Like(TimeStampedModel):
     liked_object = GenericForeignKey('liked_object_content_type', 'liked_object_id')
 
     @classmethod
-    def like(cls, user, object_id, object_content_type):
-        return cls(
-            score=LikeScore.LIKE,
+    def is_voted_for_question(cls, user, question):
+        from answers.models import Answer
+        return cls.objects.filter(
             user=user,
-            liked_object_id=object_id,
-            liked_object_content_type=object_content_type,
-        )
-
-    @classmethod
-    def dislike(cls, user, object_id, object_content_type):
-        return cls(
-            score=LikeScore.DISLIKE,
-            user=user,
-            liked_object_id=object_id,
-            liked_object_content_type=object_content_type,
-        )
+            liked_object_id__in=[x.id for x in question.answer_set.all()],
+            liked_object_content_type=Answer.content_type,
+        ).exists()
 
     @property
     @admin.display(
@@ -58,7 +49,7 @@ class Like(TimeStampedModel):
         from questions.models import Question, QuestionStatus
 
         required_status = QuestionStatus.ANSWERED
-        if self.liked_object_content_type == ContentType.objects.get_for_model(Question) \
+        if self.liked_object_content_type == Question.content_type \
                 and not self.liked_object.status == required_status:
             return _('Question status should be %(status)') % required_status
 
@@ -107,6 +98,7 @@ class LikableModelMixin(models.Model):
         abstract = True
 
 
+# TODO: move to separate app and make it generic
 class Subscription(TimeStampedModel):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     question = models.ForeignKey('questions.Question', on_delete=models.CASCADE)

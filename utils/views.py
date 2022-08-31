@@ -6,10 +6,10 @@ class CurrentCountryListViewMixin:
 
     def get_queryset(self):
         qs = super().get_queryset()
-        country = self.kwargs.get('country')
-        if country is None:
+        country_id = self.kwargs.get('country_id')
+        if country_id == 'None':
             return qs
-        return qs.filter(**{self.country_field_name: self.kwargs.get('country')})
+        return qs.filter(**{self.country_field_name: country_id})
 
 
 class MyListViewMixin(LoginRequiredMixin):

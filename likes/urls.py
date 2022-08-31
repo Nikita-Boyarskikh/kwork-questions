@@ -1,12 +1,15 @@
-from django.urls import path
+from django.urls import path, include
 
-from likes.views import my, index, toggle_subscription, like, dislike
+from likes.views import subscriptions, likes, dislikes, toggle_subscription, like, dislike
 
 app_name = 'likes'
 urlpatterns = [
-    path('<str:content_type>/<int:object_id>', index, name='index'),
-    path('my', my, name='my'),
+    path('<int:answer_id>/', include([
+        path('likes', likes, name='likes'),
+        path('dislikes', dislikes, name='dislikes'),
+        path('like', like, name='like'),
+        path('dislike', dislike, name='dislike'),
+    ])),
+    path('subscriptions', subscriptions, name='subscriptions'),
     path('<int:question_id>/toggle_subscription', toggle_subscription, name='toggle_subscription'),
-    path('<str:content_type>/<int:pk>/like', like, name='like'),
-    path('<str:content_type>/<int:pk>/dislike', dislike, name='dislike'),
 ]

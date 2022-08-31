@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% trans 'Create claim' %}{% endblock title %}
+{% block main %}
+  {{ block.super }}
+  <form method="POST" action="{% url 'claims:create' answer_id=request.resolver_match.kwargs.answer_id %}">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" class="btn btn-primary" value="{% trans 'Create claim' %}">
+  </form>
+{% endblock main %}

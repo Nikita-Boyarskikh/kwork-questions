@@ -1,6 +1,6 @@
 from django.urls import path
 
-from questions.views import create, closed, publish, answered, my, my_answered, index
+from questions.views import create, closed, publish, answered, my, my_answered, index, edit
 
 app_name = 'questions'
 urlpatterns = [
@@ -10,5 +10,6 @@ urlpatterns = [
     path('voting', answered, name='voting'),
     path('closed', closed, name='closed'),
     path('create', create, name='create'),
+    path('<int:pk>/edit', edit, name='edit'),
     path('<int:pk>/publish', publish, name='publish'),
 ]

@@ -9,4 +9,10 @@
       <li>{{ rule }}</li>
     {% endfor %}
   </ol>
+
+  {% if request.user.is_authenticated and not request.user.is_user_agreement_accepted %}
+    <a href="{% url 'rules:accept_agreement' %}" class="btn btn-primary">
+      {% trans 'Accept site rules' %}
+    </a>
+  {% endif %}
 {% endblock main %}

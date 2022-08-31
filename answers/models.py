@@ -12,9 +12,10 @@ from accounts.models import AccountAction
 from claims.models import Claim
 from likes.models import Like, LikableModelMixin
 from questions.models import QuestionStatus
+from utils.generic_fields import WithSelfContentTypeMixin
 
 
-class Answer(TimeStampedModel, LikableModelMixin):
+class Answer(TimeStampedModel, LikableModelMixin, WithSelfContentTypeMixin):
     question = models.ForeignKey('questions.Question', on_delete=models.CASCADE)
     original_text = models.TextField(_('Original text'))
     en_text = models.TextField(_('Translated to english text'))
@@ -37,7 +38,7 @@ class Answer(TimeStampedModel, LikableModelMixin):
         description=_('Answer') + ' ' + _('Views').lower() + ' ' + _('Count').lower(),
     )
     def views__count(self):
-        return self.answerviews_set.count()
+        return self.answerview_set.count()
 
     @property
     @admin.display(
@@ -79,9 +80,10 @@ class Answer(TimeStampedModel, LikableModelMixin):
             raise ValidationError(errors)
 
     def get_absolute_url(self):
-        return reverse('answers:index', kwargs={
+        return reverse('answers:detail', kwargs={
             'country_id': self.question__country.id,
             'question_id': self.question_id,
+            'pk': self.pk,
         })
 
     class Meta:
@@ -91,14 +93,19 @@ class Answer(TimeStampedModel, LikableModelMixin):
         verbose_name_plural = _('Answers')
 
 
-class AnswerViews(models.Model):
+# TODO: move to separate app and make it generic
+class AnswerView(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.RESTRICT)
     answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
 
     def __str__(self):
-        return _('Answer view for %(answer_id)s by %(user)s')
+        return _('Answer view for %(answer_id)s by %(username)s') % {
+            'answer_id': self.answer_id,
+            'username': self.user.username
+        }
 
     class Meta:
+        ordering = ('-answer__created',)
         unique_together = [('answer', 'user')]
         verbose_name = _('Answer view')
         verbose_name_plural = _('Answer views')

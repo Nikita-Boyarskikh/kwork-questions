@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% trans 'Edit question' %}{% endblock title %}
+{% block main %}
+  {{ block.super }}
+  {% include '_countries.html' with url_name='questions:index' %}
+  <form method="POST" action="{% url 'questions:edit' country_id=request.resolver_match.kwargs.country_id pk=request.resolver_match.kwargs.pk %}">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" class="btn btn-primary" value="{% trans 'Save' %}">
+    <input name="translate" type="submit" class="btn btn-secondary" value="{% trans 'Translate' %}">
+    <a href="{% url 'questions:publish' country_id=request.resolver_match.kwargs.country_id pk=request.resolver_match.kwargs.pk %}" class="btn btn-outline-primary">
+      {% trans 'Send to moderation' %}
+    </a>
+  </form>
+{% endblock main %}

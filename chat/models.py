@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.urls import reverse
 from django.utils.text import Truncator
 from django.utils.translation import gettext as _
 from model_utils.models import TimeStampedModel
@@ -47,6 +48,9 @@ class Message(TimeStampedModel):
         if errors:
             raise ValidationError(errors)
 
+    def get_absolute_url(self):
+        return reverse('chat:index')
+
     def __str__(self):
         return _('Message from %(sender)s to %(recipient)s: %(subject)s') % {
             'sender': self.sender,
@@ -55,6 +59,6 @@ class Message(TimeStampedModel):
         }
 
     class Meta:
-        ordering = ('-created',)
+        ordering = ('created',)
         verbose_name = _('Message')
         verbose_name_plural = _('Messages')

@@ -1,0 +1,11 @@
+{% load i18n %}
+{% include 'users/_avatar.html' with user=answer.author %}
+
+{% if answer.question.status == 'closed' %}
+  <i class="bi bi-hand-thumbs-up ms-3"></i>{{ answer.likes|length }} {% trans 'Likes' %}
+  <i class="bi bi-hand-thumbs-down ms-3"></i>{{ answer.dislikes|length }} {% trans 'Dislikes' %}
+{% endif %}
+
+{% if answer.question.status in 'answered closed'|split %}
+  <i class="bi bi-eye ms-3 me-1"></i>{{ answer.views|length }} {% trans 'Views' %}
+{% endif %}

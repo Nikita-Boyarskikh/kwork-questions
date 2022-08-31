@@ -68,12 +68,12 @@ class User(AbstractUser):
     education = models.CharField(_('Education'), max_length=10, choices=Education.choices, null=True, blank=True)
     birth_year = models.PositiveIntegerField(
         _('Birth year'),
-        validators=[MinValueValidator(1900), max_value_current_year_validator],
+        validators=(MinValueValidator(1900), max_value_current_year_validator),
         blank=True,
         null=True,
     )
 
-    REQUIRED_FIELDS = ['email', 'pin', 'preferred_language_id']
+    REQUIRED_FIELDS = ('email', 'pin', 'preferred_language_id')
 
     objects = UserManager()
 
@@ -88,5 +88,6 @@ class User(AbstractUser):
         return self.username
 
     class Meta:
+        ordering = ('-date_joined',)
         verbose_name = _('User')
         verbose_name_plural = _('Users')

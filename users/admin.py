@@ -93,7 +93,7 @@ class UserAdmin(BaseUserAdmin):
     search_fields = ('username', 'email')
     list_editable = ('is_approved', 'is_active')
     readonly_fields = ('last_login', 'date_joined')
-    inlines = [QuestionInline, AnswerInline, LikeInline, ClaimInline]
+    inlines = (QuestionInline, AnswerInline, LikeInline, ClaimInline)
 
     def save_model(self, request, obj, form, change):
         obj.save()

@@ -5,7 +5,7 @@
   <div class="container">
     {% block topbar %}
       {% block site_brand %}<a class="navbar-brand" href="{% url 'index' %}">
-        <img height="40px" src="{% static 'logo.png' %}">
+        <img height="40px" src="{% static 'logo.png' %}" alt="{% trans 'Logo' %}">
       </a>{% endblock site_brand %}
 
       <form class="input-group w-50">
@@ -23,11 +23,8 @@
             {% if request.user.is_authenticated %}
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'users:me' %}">
-                  {% if request.user.avatar %}
-                    <img class="rounded-circle" style="height: 24px" alt="{% trans 'Avatar' %}" src="{{ request.user.avatar.url }}" />
-                  {% else %}
-                    <i class="bi bi-person-circle"></i>
-                  {% endif %}
+                  {{ request.user.account.balance }}
+                  {% include 'users/_avatar.html' with user=request.user %}
                   {{ request.user.username }}
                 </a>
               </li>

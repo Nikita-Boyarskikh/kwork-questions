@@ -1,29 +1,46 @@
+from functools import partial
+
 from django.contrib.auth.decorators import login_required
-from django.contrib.contenttypes.models import ContentType
+from django.contrib import messages
 from django.db import transaction
 from django.shortcuts import redirect
+from django.utils.translation import gettext as _
 from django.views.generic import ListView
 
+from answers.models import Answer
 from likes.models import Like, Subscription, LikeScore
 from utils.views import CurrentCountryListViewMixin, MyListViewMixin
 
 
-class LikesListView(ListView, CurrentCountryListViewMixin):
+class ForScoreMixin:
+    score = None
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(score=self.score)
+
+
+class ForAnswerMixin:
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(
+            liked_object_content_type=Answer.content_type,
+            liked_object_id=self.kwargs['answer_id'],
+        )
+
+
+class LikesListView(CurrentCountryListViewMixin, ForAnswerMixin, ForScoreMixin, ListView):
+    score = LikeScore.LIKE
     model = Like
     template_name = 'likes/list.html'
     country_field_name = 'liked_object__country_id'
 
 
-class LikesForObjectListView(LikesListView):
-    def get_queryset(self):
-        qs = super().get_queryset()
-        return qs.filter(
-            liked_object_content_type=self.kwargs['content_type'],
-            liked_object_id=self.kwargs['object_id'],
-        )
+class DislikesListView(LikesListView):
+    score = LikeScore.DISLIKE
 
 
-class MySubscriptionsListView(ListView, MyListViewMixin):
+class SubscriptionsListView(MyListViewMixin, ListView):
     model = Subscription
     template_name = 'questions/list.html'
     owner_field_name = 'user'
@@ -44,51 +61,23 @@ def toggle_subscription(request, country_id, question_id):
 
 @transaction.atomic
 @login_required
-def like(request, country_id, content_type, pk):
-    try:
-        obj = Like.objects.select_for_update().get(
-            user=request.user,
-            liked_object_id=pk,
-            liked_object_content_type=content_type,
-        )
-        if obj.score == LikeScore.DISLIKE:
-            obj.score = LikeScore.LIKE
-            obj.save()
-        else:
-            obj.delete()
-    except Like.DoesNotExist:
-        obj = Like.like(
-            user=request.user,
-            object_id=pk,
-            object_content_type=ContentType.objects.get(pk=content_type),
-        )
-        obj.save()
+def change_reaction_score(request, target, country_id, answer_id):
+    answer = Answer.objects.get(id=answer_id)
+    if Like.is_voted_for_question(user=request.user, question=answer.question):
+        messages.error(request, _('You already voted for this question'))
+        return redirect('answers:index', country_id=country_id, question_id=answer.question_id)
+
+    obj = Like.objects.create(
+        user=request.user,
+        score=target,
+        liked_object_id=answer_id,
+        liked_object_content_type=Answer.content_type,
+    )
     return redirect(obj.liked_object)
 
 
-@transaction.atomic
-@login_required
-def dislike(request, country_id, content_type, pk):
-    try:
-        obj = Like.objects.select_for_update().get(
-            user=request.user,
-            liked_object_id=pk,
-            liked_object_content_type=content_type,
-        )
-        if obj.score == LikeScore.LIKE:
-            obj.score = LikeScore.DISLIKE
-            obj.save()
-        else:
-            obj.delete()
-    except Like.DoesNotExist:
-        obj = Like.dislike(
-            user=request.user,
-            object_id=pk,
-            object_content_type=ContentType.objects.get(pk=content_type),
-        )
-        obj.save()
-    return redirect(obj.liked_object)
-
-
-index = LikesForObjectListView.as_view()
-my = MySubscriptionsListView.as_view()
+like = partial(change_reaction_score, target=LikeScore.LIKE)
+dislike = partial(change_reaction_score, target=LikeScore.DISLIKE)
+likes = LikesListView.as_view()
+dislikes = DislikesListView.as_view()
+subscriptions = SubscriptionsListView.as_view()

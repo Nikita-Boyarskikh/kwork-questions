@@ -1,3 +1,4 @@
+{% load answers %}
 {% load likes %}
 {% load i18n %}
 {% load questions_status %}
@@ -5,13 +6,13 @@
 {% for question in questions %}
   <div class="d-flex align-items-center ms-3 me-3">
     <a href="{% url 'likes:toggle_subscription' country_id=question.country_id question_id=question.id %}">
-      <i class="bi bi-star{% if question|subscribed:request %}-fill{% endif %}"></i>
+      <i class="bi bi-star{% if question|subscribed:request.user %}-fill{% endif %}"></i>
     </a>
 
     <div class="d-flex flex-grow-1 flex-column ms-3 me-3">
       <header class="h3">{{ question.truncated_en_text }}</header>
       <span>{{ question.truncated_en_text }}</span>
-      <span class="">
+      <span>
         {{ question.country }} <i class="bi bi-coin"></i> {{ question.price }}
 
         {% if question.status != 'closed' %}
@@ -22,7 +23,7 @@
         {% endif %}
 
         {% if question.status in 'answered closed'|split %}
-          <i class="bi bi-chat-left"></i>{{ question.comments.count }} {% trans 'Comments' %}
+          <i class="bi bi-chat-left"></i>{{ question.answer_set.count }} {% trans 'Answers' %}
         {% endif %}
 
         {% if question.status == 'closed' %}
@@ -30,9 +31,8 @@
           <i class="bi bi-hand-thumbs-down"></i>{{ question.dislikes.count }} {% trans 'Dislikes' %}
         {% endif %}
 
-        {% if question.status in 'published answered closed'|split %}
-          <i class="bi bi-eye"></i>{{ question.views|length }} {% trans 'Views' %}
-        {% endif %}
+        {% include 'users/_avatar.html' with user=question.author %}
+        {{ question.author.username }}
       </span>
     </div>
 
@@ -45,13 +45,17 @@
         {% endif %}
       </span>
 
-      {% if question.author != request.user and question.status == 'published' %}
+      {% if question.author != request.user and question.status == 'published' and question|is_not_answered_by_me:request.user %}
         <a href="{% url 'answers:create' country_id=question.country.id question_id=question.id %}" class="btn btn-primary">
           {% trans 'Answer' %}
         </a>
       {% elif question.author != request.user and question.status == 'answered' %}
         <a href="{{ question.get_absolute_url }}" class="btn btn-primary">
           {% trans 'Vote' %}
+        </a>
+      {% elif question.author == request.user and question.status == 'draft' %}
+        <a href="{{ question.get_absolute_url }}" class="btn btn-primary">
+          {% trans 'Edit' %}
         </a>
       {% else %}
         <a href="{{ question.get_absolute_url }}" class="btn btn-primary">
@@ -60,7 +64,15 @@
       {% endif %}
     </div>
   </div>
+  {% if question.status in 'rejected draft'|split and question.reason %}
+      <div class="ms-5"><b>{% trans 'Reason' %}:</b> {{ question.reason }}</div>
+  {% endif %}
   <hr />
+
+  {% if question.best_answer %}
+    {% include 'answers/_answer.html' with answer=question.best_answer %}
+    <hr />
+  {% endif %}
 {% empty %}
   {% trans 'There is no questions yet' %}
 {% endfor %}

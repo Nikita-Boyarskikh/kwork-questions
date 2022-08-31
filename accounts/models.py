@@ -1,7 +1,6 @@
 import uuid
 
 from django.conf import settings
-from django.contrib import admin
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
@@ -43,20 +42,21 @@ class AccountActionStatus(models.TextChoices):
 class Account(TimeStampedModel):
     uid = models.UUIDField(_('Public identifier'), unique=True, editable=False, default=uuid.uuid4)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
-    balance = MoneyField(_('Balance'), default=0, max_digits=14, validators=[
+    balance = MoneyField(_('Balance'), default=0, max_digits=14, validators=(
         MinMoneyValidator(0),
-    ])
+    ))
 
     def __str__(self):
         return f'{self.user} ({self.balance})'
 
     class Meta:
+        ordering = ('-user__date_joined',)
         verbose_name = _('Account')
         verbose_name_plural = _('Accounts')
 
 
 class AccountAction(TimeStampedModel):
-    PRODUCT_TYPES = {'questions.Question', 'answers.Answer'}
+    PRODUCT_TYPES = ('questions.Question', 'answers.Answer')
 
     uid = models.UUIDField(_('Public identifier'), unique=True, editable=False, default=uuid.uuid4)
     account = models.ForeignKey(Account, on_delete=models.PROTECT)
@@ -72,7 +72,7 @@ class AccountAction(TimeStampedModel):
         choices=AccountActionStatus.choices,
         default=AccountActionStatus.CREATED,
     )
-    delta = MoneyField(_('Delta'), max_digits=14, validators=[not_zero_money_validator], default=0)
+    delta = MoneyField(_('Delta'), max_digits=14, validators=(not_zero_money_validator,), default=0)
     comment = models.TextField(_('Comment'), blank=True)
 
     content_type = models.ForeignKey(
@@ -107,8 +107,8 @@ class AccountAction(TimeStampedModel):
         from questions.models import Question
 
         content_type_type_map = {
-            ContentType.objects.get_for_model(Answer): AccountActionType.GET_AWARD,
-            ContentType.objects.get_for_model(Question): AccountActionType.PAY_SERVICE_FEE,
+            Answer.content_type: AccountActionType.GET_AWARD,
+            Question.content_type: AccountActionType.PAY_SERVICE_FEE,
         }
         errors = {}
 

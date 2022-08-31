@@ -3,10 +3,12 @@ from datetime import timedelta
 from celery import shared_task
 from django.conf import settings
 from django.db import transaction
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.utils.timezone import now
 
+from accounts.models import AccountAction, AccountActionType, AccountActionStatus
 from lib.celery import app
+from likes.models import LikeScore
 from questions.models import Question, QuestionStatus, WrongStatusError
 
 
@@ -59,6 +61,22 @@ def close_answers(question_id):
 def finish_voting(question_id):
     with transaction.atomic():
         question = Question.objects.select_for_update().get(id=question_id)
+
+        question.best_answer = question.answer_set\
+            .filter(reactions__score=LikeScore.LIKE)\
+            .annotate(Count('reactions'))\
+            .order_by('-reactions__count', 'reactions__created')\
+            .first()
+
+        if question.best_answer:
+            AccountAction.objects.create(
+                account=question.best_answer.author.account,
+                type=AccountActionType.GET_AWARD,
+                delta=settings.ANSWER_REWARD_PRICE,
+                status=AccountActionStatus.APPROVED,
+                product=question.best_answer,
+            )
+
         change_question_status_task(
             question=question,
             status=QuestionStatus.CLOSED,

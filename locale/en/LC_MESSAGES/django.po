@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-30 15:15+0000\n"
+"POT-Creation-Date: 2022-08-31 04:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: accounts/models.py:44 accounts/models.py:61
+#: accounts/models.py:43 accounts/models.py:61
 msgid "Public identifier"
 msgstr ""
 
-#: accounts/models.py:46
+#: accounts/models.py:45
 msgid "Balance"
 msgstr ""
 
@@ -38,7 +38,7 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: accounts/models.py:70 answers/models.py:29 questions/models.py:56
+#: accounts/models.py:70 answers/models.py:30 questions/models.py:57
 msgid "Status"
 msgstr ""
 
@@ -80,115 +80,115 @@ msgstr ""
 msgid "Account Actions"
 msgstr ""
 
-#: answers/models.py:19 questions/models.py:59
+#: answers/models.py:20 questions/models.py:61
 msgid "Original text"
 msgstr ""
 
-#: answers/models.py:20 questions/models.py:60
+#: answers/models.py:21 questions/models.py:62
 msgid "Translated to english text"
 msgstr ""
 
-#: answers/models.py:29 answers/models.py:45 questions/models.py:136
+#: answers/models.py:30 answers/models.py:46 questions/models.py:133
 msgid "Question"
 msgstr ""
 
-#: answers/models.py:37 answers/models.py:87
+#: answers/models.py:38 answers/models.py:92 templates/answers/detail.html:7
 #: templates/questions/_questions_list.html:50
 msgid "Answer"
 msgstr ""
 
-#: answers/models.py:37 templates/answers/list.html:41
-#: templates/questions/_questions_list.html:34
+#: answers/models.py:38 templates/answers/_answer.html:10
 msgid "Views"
 msgstr ""
 
-#: answers/models.py:37
+#: answers/models.py:38
 msgid "Count"
 msgstr ""
 
-#: answers/models.py:45 countries/models.py:29
+#: answers/models.py:46 countries/models.py:29
 msgid "Country"
 msgstr ""
 
-#: answers/models.py:53 chat/models.py:20 chat/models.py:28 claims/models.py:31
-#: questions/models.py:82
+#: answers/models.py:54 chat/models.py:21 chat/models.py:29 claims/models.py:31
+#: questions/models.py:84
 #, python-format
 msgid "Truncated %s"
 msgstr ""
 
-#: answers/models.py:59
+#: answers/models.py:60
 #, python-format
 msgid "Answer for Question %(question_id)s by %(author)s"
 msgstr ""
 
-#: answers/models.py:74 answers/views.py:25
+#: answers/models.py:75 answers/views.py:26
 msgid "Question's author can't answer to it"
 msgstr ""
 
-#: answers/models.py:76
+#: answers/models.py:77
 #, python-format
 msgid "Question status should be %s"
 msgstr ""
 
-#: answers/models.py:88 templates/answers/list.html:6
+#: answers/models.py:93 templates/answers/list.html:7
+#: templates/answers/list.html:33 templates/questions/_questions_list.html:26
 msgid "Answers"
 msgstr ""
 
-#: answers/models.py:96
+#: answers/models.py:102
 #, python-format
-msgid "Answer view for %(answer_id)s by %(user)s"
+msgid "Answer view for %(answer_id)s by %(username)s"
 msgstr ""
 
-#: answers/models.py:100
+#: answers/models.py:110
 msgid "Answer view"
 msgstr ""
 
-#: answers/models.py:101
+#: answers/models.py:111
 msgid "Answer views"
 msgstr ""
 
-#: answers/views.py:21
+#: answers/views.py:22
 msgid "This question is not published yet"
 msgstr ""
 
-#: answers/views.py:29
+#: answers/views.py:30
 msgid "You already answered to this question"
 msgstr ""
 
-#: answers/views.py:48 questions/views.py:46
+#: answers/views.py:56 questions/views.py:57 questions/views.py:89
 msgid "This field is required."
 msgstr ""
 
-#: chat/models.py:13
+#: chat/models.py:14
 msgid "Is read?"
 msgstr ""
 
-#: chat/models.py:14
+#: chat/models.py:15
 msgid "Content"
 msgstr ""
 
-#: chat/models.py:15
+#: chat/models.py:16
 msgid "Subject"
 msgstr ""
 
-#: chat/models.py:43
+#: chat/models.py:44
 msgid "Sender and recipient should differs"
 msgstr ""
 
-#: chat/models.py:45
+#: chat/models.py:46
 msgid "Sender or recipient should be staff user"
 msgstr ""
 
-#: chat/models.py:51
+#: chat/models.py:55
 #, python-format
 msgid "Message from %(sender)s to %(recipient)s: %(subject)s"
 msgstr ""
 
-#: chat/models.py:59
+#: chat/models.py:63
 msgid "Message"
 msgstr ""
 
-#: chat/models.py:60
+#: chat/models.py:64
 msgid "Messages"
 msgstr ""
 
@@ -206,7 +206,7 @@ msgstr ""
 msgid "Claim for %(content_type)s %(object_id)s by %(author)s"
 msgstr ""
 
-#: claims/models.py:61
+#: claims/models.py:61 templates/answers/detail.html:29
 msgid "Claim"
 msgstr ""
 
@@ -248,11 +248,11 @@ msgstr ""
 msgid "ID for use as an argument for Google.Translate API"
 msgstr ""
 
-#: languages/models.py:43 templates/_sidebar.html:9
+#: languages/models.py:44 templates/_sidebar.html:9
 msgid "Language"
 msgstr ""
 
-#: languages/models.py:44
+#: languages/models.py:45
 msgid "Languages"
 msgstr ""
 
@@ -264,56 +264,56 @@ msgstr ""
 msgid "Liked/disliked question/answer id"
 msgstr ""
 
-#: likes/models.py:52
+#: likes/models.py:43
 msgid "Score"
 msgstr ""
 
-#: likes/models.py:63
+#: likes/models.py:54
 msgid "Question status should be %(status)"
 msgstr ""
 
-#: likes/models.py:74
+#: likes/models.py:67
 #, python-format
 msgid "%(liked_object_type)s's author can't like it"
 msgstr ""
 
-#: likes/models.py:81
+#: likes/models.py:76
 msgid "like"
 msgstr ""
 
-#: likes/models.py:81
+#: likes/models.py:76
 msgid "dislike"
 msgstr ""
 
-#: likes/models.py:87 templates/answers/list.html:72
+#: likes/models.py:82 templates/likes/_for_answer.html:11
 msgid "Like"
 msgstr ""
 
-#: likes/models.py:88 templates/answers/list.html:36
-#: templates/likes/list.html:4 templates/questions/_questions_list.html:29
+#: likes/models.py:83 templates/answers/_answer.html:5
+#: templates/likes/list.html:4 templates/questions/_questions_list.html:30
 msgid "Likes"
 msgstr ""
 
-#: likes/models.py:111
+#: likes/models.py:107
 #, python-format
 msgid "Subscription of %(username)s for %(question_id)s"
 msgstr ""
 
-#: likes/models.py:119
+#: likes/models.py:115
 msgid "Subscription"
 msgstr ""
 
-#: likes/models.py:120
+#: likes/models.py:116
 msgid "Subscriptions"
 msgstr ""
 
-#: project/context_processors.py:26 templates/_navbar.html:27
-#: templates/answers/list.html:58 templates/users/me.html:4 users/models.py:50
-msgid "Avatar"
+#: likes/views.py:67
+msgid "You already voted for this question"
 msgstr ""
 
-#: project/context_processors.py:27
-msgid "Chat"
+#: project/context_processors.py:27 templates/users/_avatar.html:3
+#: templates/users/me.html:5 templates/users/me.html:9 users/models.py:50
+msgid "Avatar"
 msgstr ""
 
 #: project/context_processors.py:28
@@ -332,59 +332,63 @@ msgstr ""
 msgid "My Subscriptions"
 msgstr ""
 
-#: project/context_processors.py:36
+#: project/context_processors.py:35 templates/chat/list.html:5
+msgid "Chat"
+msgstr ""
+
+#: project/context_processors.py:40
 msgid "Ask a question"
 msgstr ""
 
-#: project/context_processors.py:37
+#: project/context_processors.py:41
 msgid "Site rules"
 msgstr ""
 
-#: project/context_processors.py:39
+#: project/context_processors.py:44
 msgid "Opened questions"
 msgstr ""
 
-#: project/context_processors.py:40 questions/models.py:35
+#: project/context_processors.py:45 questions/models.py:36
 msgid "Voting"
 msgstr ""
 
-#: project/context_processors.py:41
+#: project/context_processors.py:46
 msgid "Closed questions"
 msgstr ""
 
-#: questions/models.py:30
+#: questions/models.py:31
 msgid "In progress"
 msgstr ""
 
-#: questions/models.py:31
+#: questions/models.py:32
 msgid "Moderation"
 msgstr ""
 
-#: questions/models.py:32
+#: questions/models.py:33
 msgid "Ready for publication"
 msgstr ""
 
-#: questions/models.py:33
+#: questions/models.py:34
 msgid "Refused"
 msgstr ""
 
-#: questions/models.py:34
+#: questions/models.py:35
 msgid "Open"
 msgstr ""
 
-#: questions/models.py:36
+#: questions/models.py:37
 msgid "Closed"
 msgstr ""
 
-#: questions/models.py:58
+#: questions/models.py:59
 msgid "Rejected reason"
 msgstr ""
 
-#: questions/models.py:61
+#: questions/models.py:63
 msgid "Price"
 msgstr ""
 
-#: questions/models.py:109
+#: questions/models.py:108
 #, python-format
 msgid ""
 "This status transition is not allowed\n"
@@ -392,39 +396,42 @@ msgid ""
 "%s"
 msgstr ""
 
-#: questions/models.py:113
-msgid ""
-"Rejected reason only valuable when question was returned (check status also)"
-msgstr ""
-
-#: questions/models.py:115
+#: questions/models.py:112
 msgid "You should wait for question to be closed to select the best answer"
 msgstr ""
 
-#: questions/models.py:127
+#: questions/models.py:124
 #, python-format
 msgid "Question by %(author)s for %(country)s (%(price)s) - %(status)s"
 msgstr ""
 
-#: questions/models.py:137 templates/questions/list.html:5
+#: questions/models.py:134 templates/questions/list.html:5
 msgid "Questions"
 msgstr ""
 
-#: questions/views.py:21
+#: questions/views.py:24
 msgid ""
 "Only registered users can create questions.\n"
 "Please, register."
 msgstr ""
 
-#: questions/views.py:62
+#: questions/views.py:30
+msgid "You should accept site rules to create question."
+msgstr ""
+
+#: questions/views.py:105
 msgid "Question with this id does not exist"
 msgstr ""
 
-#: questions/views.py:67
+#: questions/views.py:110
 msgid "This question already published"
 msgstr ""
 
-#: questions/views.py:73
+#: questions/views.py:114
+msgid "You have no enough money"
+msgstr ""
+
+#: questions/views.py:127
 msgid "Question successfully send to moderation"
 msgstr ""
 
@@ -440,20 +447,24 @@ msgstr ""
 msgid "Rules"
 msgstr ""
 
+#: templates/_navbar.html:8
+msgid "Logo"
+msgstr ""
+
 #: templates/_navbar.html:12
 msgid "Search"
 msgstr ""
 
-#: templates/_navbar.html:35
+#: templates/_navbar.html:32
 msgid "Log out"
 msgstr ""
 
-#: templates/_navbar.html:38
+#: templates/_navbar.html:35
 msgid "Log in"
 msgstr ""
 
-#: templates/_navbar.html:39 templates/account/login.html:32
-#: templates/account/signup.html:10 templates/account/signup.html:24
+#: templates/_navbar.html:36 templates/account/login.html:32
+#: templates/account/signup.html:10 templates/account/signup.html:25
 msgid "Sign Up"
 msgstr ""
 
@@ -640,6 +651,12 @@ msgid ""
 "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
 msgstr ""
 
+#: templates/account/signup.html:23
+msgid ""
+"by registering on the site you accept and agree to the processing of "
+"personal data"
+msgstr ""
+
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:10
 msgid "Sign Up Closed"
@@ -712,32 +729,49 @@ msgstr ""
 msgid "Update your e-mail address"
 msgstr ""
 
+#: templates/answers/_answer.html:6 templates/questions/_questions_list.html:31
+msgid "Dislikes"
+msgstr ""
+
 #: templates/answers/create.html:5 templates/answers/create.html:12
 msgid "Create answer"
 msgstr ""
 
 #: templates/answers/create.html:13 templates/questions/create.html:13
+#: templates/questions/edit.html:13
 msgid "Translate"
 msgstr ""
 
-#: templates/answers/list.html:32 templates/questions/_questions_list.html:25
-msgid "Comments"
+#: templates/answers/detail.html:15
+msgid "Go back to question"
 msgstr ""
 
-#: templates/answers/list.html:37 templates/questions/_questions_list.html:30
-msgid "Dislikes"
+#: templates/answers/list.html:48 templates/questions/_questions_list.html:68
+msgid "Reason"
 msgstr ""
 
-#: templates/answers/list.html:78
-msgid "Dislike"
-msgstr ""
-
-#: templates/answers/list.html:87
+#: templates/answers/list.html:71
 msgid "Add new answer"
 msgstr ""
 
-#: templates/answers/list.html:93
-msgid "Send to moderation"
+#: templates/chat/list.html:23
+msgid "Send"
+msgstr ""
+
+#: templates/claims/create.html:5 templates/claims/create.html:11
+msgid "Create claim"
+msgstr ""
+
+#: templates/likes/_for_answer.html:18
+msgid "Dislike"
+msgstr ""
+
+#: templates/likes/_for_answer.html:24
+msgid "View likes"
+msgstr ""
+
+#: templates/likes/_for_answer.html:27
+msgid "View dislikes"
 msgstr ""
 
 #: templates/questions/_questions_list.html:54
@@ -745,10 +779,14 @@ msgid "Vote"
 msgstr ""
 
 #: templates/questions/_questions_list.html:58
+msgid "Edit"
+msgstr ""
+
+#: templates/questions/_questions_list.html:62
 msgid "View"
 msgstr ""
 
-#: templates/questions/_questions_list.html:65
+#: templates/questions/_questions_list.html:77
 msgid "There is no questions yet"
 msgstr ""
 
@@ -758,6 +796,26 @@ msgstr ""
 
 #: templates/questions/create.html:12
 msgid "Create Question"
+msgstr ""
+
+#: templates/questions/edit.html:5
+msgid "Edit question"
+msgstr ""
+
+#: templates/questions/edit.html:12
+msgid "Save"
+msgstr ""
+
+#: templates/questions/edit.html:15
+msgid "Send to moderation"
+msgstr ""
+
+#: templates/rules/list.html:15
+msgid "Accept site rules"
+msgstr ""
+
+#: templates/users/me.html:16
+msgid "Change avatar"
 msgstr ""
 
 #: users/admin.py:26
@@ -776,17 +834,17 @@ msgstr ""
 msgid "Important dates"
 msgstr ""
 
-#: users/forms.py:14
+#: users/forms.py:15
 #, python-format
 msgid ""
 "Please use an image that is %(max_width)s x %(max_height)s pixels or smaller."
 msgstr ""
 
-#: users/forms.py:24
+#: users/forms.py:25
 msgid "Please use a JPEG, GIF or PNG image."
 msgstr ""
 
-#: users/forms.py:29
+#: users/forms.py:30
 msgid "Avatar file size may not exceed 20k."
 msgstr ""
 
@@ -834,10 +892,10 @@ msgstr ""
 msgid "Birth year"
 msgstr ""
 
-#: users/models.py:91
+#: users/models.py:92
 msgid "User"
 msgstr ""
 
-#: users/models.py:92
+#: users/models.py:93
 msgid "Users"
 msgstr ""

@@ -31,6 +31,7 @@ urlpatterns = [
     path('captcha/', include('captcha.urls')),
     path('rules/', include('rules.urls')),
     path('chat/', include('chat.urls')),
+    path('claims/', include('claims.urls')),
     path('users/', include('users.urls')),
     path('<str:country_id>/', include([
         path('answers/', include('answers.urls')),

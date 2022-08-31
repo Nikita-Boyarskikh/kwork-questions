@@ -2,6 +2,7 @@ from captcha.fields import CaptchaField
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.core.files.images import get_image_dimensions
+from django.core.files.uploadedfile import UploadedFile
 from django.forms import ModelForm
 from django.utils.translation import gettext as _
 
@@ -30,21 +31,31 @@ class AvatarFormMixin:
 
     def _clean_avatar(self):
         avatar = self.cleaned_data['avatar']
-        if avatar:
+        if isinstance(avatar, UploadedFile):
             w, h = get_image_dimensions(avatar)
             self._validate_avatar_dimensions(w, h)
             self._validate_avatar_content_type(avatar.content_type)
 
 
+# TODO: make preferred_language default with session.language_id or session.country_id
 class SignupForm(AvatarFormMixin, ModelForm):
     captcha = CaptchaField()
 
     class Meta:
         model = get_user_model()
-        fields = ['pin', 'country', 'birth_year', 'sex', 'avatar', 'preferred_language']
+        fields = ('pin', 'country', 'birth_year', 'sex', 'avatar', 'preferred_language')
 
     def signup(self, request, user):
         pass
+
+    def clean(self):
+        self._clean_avatar()
+
+
+class ChangeAvatarForm(AvatarFormMixin, ModelForm):
+    class Meta:
+        model = get_user_model()
+        fields = ('avatar',)
 
     def clean(self):
         self._clean_avatar()

@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+{% load crispy_forms_filters %}
+{% load i18n %}
+
+{% block title %}{% trans 'Chat' %}{% endblock title %}
+{% block main %}
+  {{ block.super }}
+
+  {% for message in object_list %}
+    <div class="d-flex">
+      {% include 'users/_avatar.html' with user=message.sender %}
+      <div class="d-flex flex-column ms-3">
+        <h4>{{ message.subject }}</h4>
+        <span>{{ message.content }}</span>
+      </div>
+    </div>
+    <hr />
+  {% endfor %}
+
+  <form method="POST" action="{% url 'chat:create' %}">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" class="btn btn-primary" value="{% trans 'Send' %}">
+  </form>
+{% endblock main %}
