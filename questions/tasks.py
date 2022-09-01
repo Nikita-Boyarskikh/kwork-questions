@@ -72,7 +72,7 @@ def finish_voting(question_id):
             AccountAction.objects.create(
                 account=question.best_answer.author.account,
                 type=AccountActionType.GET_AWARD,
-                delta=settings.ANSWER_REWARD_PRICE,
+                delta=question.price,
                 status=AccountActionStatus.APPROVED,
                 product=question.best_answer,
             )

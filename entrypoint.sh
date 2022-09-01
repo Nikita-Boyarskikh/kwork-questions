@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo $GOOGLE_CREDENTIALS > $GOOGLE_APPLICATION_CREDENTIALS
+
+exec "$@"

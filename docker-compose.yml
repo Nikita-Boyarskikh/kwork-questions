@@ -1,0 +1,86 @@
+version: '3.8'
+
+x-common_environment: &common_environment
+  DEBUG: 1
+  DATABASE_URL: postgres://user:pass@db/questions
+  GOOGLE_CREDENTIALS: |
+    {
+      "type": "service_account",
+      "project_id": "proven-aura-359510",
+      "private_key_id": "3fb527c0184602b918b589af2ba758b690577edc",
+      "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDCIxC5G9xBp9WV\n4D5TxQ47Upb3NiRn/V2u0Ke1UNhMYEGTVHFG6Jx2FU2SbqjAaCH4uNhh5uDhzAew\naoS8bB5uN57nTKB/Gq/6/RvonvNsaGu68Zf3SElUEYklDY4KgSvceGs3GgBju/Cr\nf6lPlNLPAR63MrpI4ifFU052jLLWBbQDv8jMq9t5DcntwanoXo1HKIs0K9U3XIfY\npmRqlojCceTWA6mQHHnHq9UQx3paLAO6au6wZzskY7mvs6Ju9b8iD+CUn66kcR3Z\nG2AkNjJR182s3oI3fDCuU8eTqEkniPV4XjN3UYVBuhY+qHaMxqRwJEJ887cBXrS9\nhPro1UA5AgMBAAECggEAWHsd3Jg3l070uDX3gjuORHhcaPiquCCQiaP8w9VAd/Lp\nAEqcxEoxQVptO/+mducfEJrCuEA/n3nbyUqLC8ulROuhx16zyapyqYyhozCK1o5z\nB0WkUuaF0USawqH+aog74uSZTQhTRCF8y9VH6Ab227TxeGKs55n3sWZKHRr8STGN\ndp7HD8VUUTZos0Ue3vj/60fTIEUyaRqILeuqq9nF0TJnGTwZkPR9DE1A1mdDL67F\nG1bl2GKagesD8Pc9sD73mZ0oZff462tQQt43lN4sGltc3dWdPdLEdX+/08YQZ6Ho\noMLccQfQyLk8utCxWbEDCQplFv/lu6tvVI4beHU9HwKBgQDwLMaopfKZMSlCnYwm\ncmpOTQJkkilVBARhEAVko6Qh85otgPlIz2nCOP0zYH33gtMdC9Z/osodPlI4nBcu\noH9gKMTkuutPqluDOw1glPeoK0Ev4TmHCpFwXbwJRtgCILg5jW17Dz8lGfJYpOHO\n1g+T67PRyreEc+diAGuabY20nwKBgQDO7br4TUD5TlPI01hj8zkq47aeNZJSnpST\ngbQ/eUsVqEks+td4XlvAPtcKdXHaKuyLa81ErGBSceke5Ey+i/HLIC4LhUxIJmWS\nD/eH5VjIevQYG/1nTqI7muk63646qW1ggIlFcgzQmxbQQ0POXkJKz1e7+z55qq13\n0uUNlOvEJwKBgCsWDUmCA8SBskI2G0dmbTXA0PYT1oBe6R40jpMgXDiPCBCzu4TZ\nWMK0EJBf9hkqCg+C6ScaoCGg5YUsU2hU+KTai3/xHHe9Ow+Oz3aNIuSzZc1eHUDh\nn3fGCQ6s++Fd107T1VknQg+42OYYJj5B3qeNuEOhl0yWsmK9apBYqPxHAoGAG2wb\nw/4Q5zj/F3USmKRJ5iopMEwvKO3FCMs+hM7hKWyUzfYsCdKPXCm3u7YWsW/QyyUt\nHbWuSh64YxSkKvhGwcFw+KvgkQstmK6vAf5dxqusn2lOKpucGkQMNnYgE7wSN6Cx\nEFft5NM4sb7IRJfvNxTFLq8790msFV4IZsVefS8CgYAtJV3aUy9um83WR2P9I2ot\n1vNNOuOeytJsmSkqucbbSazY48rEGZQHuQ4MPe7bIt4TpOsB6WYJsab+xyuXlXsX\npnkkdPsdIbc4MfZxcIu2jUWYCqmjytmE0V1GlRx3gfNlGnzrduVHkfzRDD7/35jI\nqHLnjPkYLrSoYvpcJmPgTQ==\n-----END PRIVATE KEY-----\n",
+      "client_email": "questions-and-answers@proven-aura-359510.iam.gserviceaccount.com",
+      "client_id": "111613508419503954836",
+      "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+      "token_uri": "https://oauth2.googleapis.com/token",
+      "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+      "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/questions-and-answers%40proven-aura-359510.iam.gserviceaccount.com"
+    }
+  GOOGLE_APPLICATION_CREDENTIALS: .google-credentials.json
+  ALLOWED_HOSTS: "*"
+  REDISCLOUD_URL: redis://redis:6379
+  MAILGUN_API_KEY:
+  MAILGUN_DOMAIN:
+  DEFAULT_FROM_EMAIL: webmaster@localhost
+  SERVER_EMAIL: root@localhost
+  LOG_LEVEL: DEBUG
+
+services:
+  db:
+    image: postgres:alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: questions
+
+  redis:
+    image: redis:alpine
+    volumes:
+      - redis_data:/data
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: sh -c "gunicorn --bind 0.0.0.0:8000 project.wsgi:application -w 4"
+    environment:
+      <<: *common_environment
+    volumes:
+      - .:/code:cached
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: sh -c "celery --app=project worker -l info"
+    environment:
+      <<: *common_environment
+    volumes:
+      - .:/code:cached
+    depends_on:
+      - web
+
+  beat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: sh -c "celery --app=project beat -l info"
+    environment:
+      <<: *common_environment
+    volumes:
+      - .:/code:cached
+    depends_on:
+      - web
+
+volumes:
+  postgres_data:
+  redis_data:
