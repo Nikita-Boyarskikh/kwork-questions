@@ -5,28 +5,33 @@
 {% load i18n %}
 
 {% block title %}{% trans 'Answer' %}{% endblock title %}
-{% block main %}
+{% block beforemain %}
   {{ block.super }}
   {% include '_countries.html' with url_name='answers:index' %}
+{% endblock beforemain %}
+{% block main %}
+  {{ block.super }}
 
-  <a
-    href="{% url 'answers:index' question_id=answer.question_id country_id=answer.question.country_id %}"
-    class="btn btn-link"
-  >{% trans 'Go back to question' %}</a>
+  <div class="bg-white">
+    <a
+      href="{% url 'answers:index' question_id=answer.question_id country_id=answer.question.country_id %}"
+      class="btn btn-link"
+    >{% trans 'Go back to question' %}</a>
 
-  <div class="d-flex m-3">
-    {% include 'answers/_answer.html' with answer=answer %}
+    <div class="d-flex m-3">
+      {% include 'answers/_answer.html' with answer=answer %}
 
-    <div class="ms-3">
-      {{ answer.en_text }}
+      <div class="ms-3">
+        {{ answer.en_text }}
+      </div>
     </div>
+
+    {% include 'likes/_for_answer.html' with answer=answer %}
+
+    {% if request.user.is_authenticated and request.user != answer.author and not answer|is_claimed_by_me:request.user %}
+      <a href="{% url 'claims:create' answer_id=answer.id %}" class="btn btn-danger">
+        {% trans 'Claim' %}
+      </a>
+    {% endif %}
   </div>
-
-  {% include 'likes/_for_answer.html' with answer=answer %}
-
-  {% if request.user.is_authenticated and request.user != answer.author and not answer|is_claimed_by_me:request.user %}
-    <a href="{% url 'claims:create' answer_id=answer.id %}" class="btn btn-danger">
-      {% trans 'Claim' %}
-    </a>
-  {% endif %}
 {% endblock main %}

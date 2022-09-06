@@ -1,43 +1,50 @@
+{% load static %}
 {% load answers %}
 {% load likes %}
 {% load i18n %}
 {% load questions_status %}
 
 {% for question in questions %}
-  <div class="d-flex align-items-center ms-3 me-3">
-    <a href="{% url 'likes:toggle_subscription' country_id=question.country_id question_id=question.id %}">
-      <i class="bi bi-star{% if question|subscribed:request.user %}-fill{% endif %}"></i>
+  <div class="d-flex align-items-stretch bg-white" style="padding: 7px 32px 7px 0;margin-bottom: 3px">
+    <a class="d-flex align-items-center" href="{% url 'likes:toggle_subscription' country_id=question.country_id question_id=question.id %}">
+      <img height="33" style="padding: 0 17px;" alt="toggle subscription" src="
+        {% if question|subscribed:request.user %}
+          {% static 'icons/star-filled.png' %}
+        {% else %}
+          {% static 'icons/star.png' %}
+        {% endif %}"
+      />
     </a>
 
     <div class="d-flex flex-grow-1 flex-column ms-3 me-3">
-      <header class="h3">{{ question.truncated_en_text }}</header>
-      <span>{{ question.truncated_en_text }}</span>
-      <span>
-        {{ question.country }} <i class="bi bi-coin"></i> {{ question.price }}
+      <header style="margin-bottom: 15px; font-size: 24px; line-height: 24px">{{ question.truncated_en_text }}</header>
+      <span style="margin-bottom: 28px; font-size: 18px; line-height: 18px">{{ question.truncated_en_text }}</span>
+      <div class="d-flex align-items-center" style="gap: 14px">
+        {{ question.country }} <img height="33" alt="currency" src="{% static question.price.currency|currency_icon %}" /> {{ question.price.amount }}
 
         {% if question.status != 'closed' %}
-          <span class="text-{{ question|question_status_class }}">
-            <i class="bi bi-{{ question|question_status_icon }}"></i>
+          <span class="d-flex align-items-center text-{{ question|question_status_class }}" style="gap: 14px">
+            <img height="33" alt="{{ question.status }}" src="{% static question|question_status_icon %}" />
             {{ question.get_status_display }}
           </span>
         {% endif %}
 
         {% if question.status in 'answered closed'|split %}
-          <i class="bi bi-chat-left"></i>{{ question.answer_set.count }} {% trans 'Answers' %}
+          <img height="33" alt="answers" src="{% static 'icons/comment.png' %}" /> {{ question.answer_set.count }} {% trans 'Answers' %}
         {% endif %}
 
         {% if question.status == 'closed' %}
-          <i class="bi bi-hand-thumbs-up"></i>{{ question.likes.count }} {% trans 'Likes' %}
-          <i class="bi bi-hand-thumbs-down"></i>{{ question.dislikes.count }} {% trans 'Dislikes' %}
+          <img height="33" alt="like" src="{% static 'icons/like.png' %}" /> {{ question.likes.count }} {% trans 'Likes' %}
+          <img height="33" alt="dislike" src="{% static 'icons/dislike.png' %}" /> {{ question.dislikes.count }} {% trans 'Dislikes' %}
         {% endif %}
 
         {% include 'users/_avatar.html' with user=question.author %}
         {{ question.author.username }}
-      </span>
+      </div>
     </div>
 
-    <div class="d-flex flex-column">
-      <span class="text-secondary">
+    <div class="d-flex flex-column" style="margin: 30px 0; justify-content: space-between">
+      <span class="text-secondary" style="font-size: 18px">
         {% if question.status in 'approved published answered'|split %}
           {{ question.status_changed|timeuntil }}
         {% else %}
@@ -46,19 +53,27 @@
       </span>
 
       {% if question.author != request.user and question.status == 'published' and question|is_not_answered_by_me:request.user %}
-        <a href="{% url 'answers:create' country_id=question.country.id question_id=question.id %}" class="btn btn-primary">
+        <a style="font-size: 18px; display: inline-block; width: 130px; text-align: center; text-decoration: none; line-height: 34px; color: white; border-radius: 5px; background: #2659C2"
+           href="{% url 'answers:create' country_id=question.country.id question_id=question.id %}"
+        >
           {% trans 'Answer' %}
         </a>
       {% elif question.author != request.user and question.status == 'answered' %}
-        <a href="{{ question.get_absolute_url }}" class="btn btn-primary">
+        <a style="font-size: 18px; display: inline-block; width: 130px; text-align: center; text-decoration: none; line-height: 34px; color: white; border-radius: 5px; background: #2659C2"
+           href="{{ question.get_absolute_url }}"
+        >
           {% trans 'Vote' %}
         </a>
       {% elif question.author == request.user and question.status == 'draft' %}
-        <a href="{{ question.get_absolute_url }}" class="btn btn-primary">
+        <a style="font-size: 18px; display: inline-block; width: 130px; text-align: center; text-decoration: none; line-height: 34px; color: white; border-radius: 5px; background: #2659C2"
+           href="{{ question.get_absolute_url }}"
+        >
           {% trans 'Edit' %}
         </a>
       {% else %}
-        <a href="{{ question.get_absolute_url }}" class="btn btn-primary">
+        <a style="font-size: 18px; display: inline-block; width: 130px; text-align: center; text-decoration: none; line-height: 34px; color: white; border-radius: 5px; background: #2659C2"
+           href="{{ question.get_absolute_url }}"
+        >
           {% trans 'View' %}
         </a>
       {% endif %}
@@ -67,7 +82,6 @@
   {% if question.status in 'rejected draft'|split and question.reason %}
       <div class="ms-5"><b>{% trans 'Reason' %}:</b> {{ question.reason }}</div>
   {% endif %}
-  <hr />
 
   {% if question.best_answer %}
     {% include 'answers/_answer.html' with answer=question.best_answer %}

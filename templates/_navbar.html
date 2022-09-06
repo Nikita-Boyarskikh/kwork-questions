@@ -1,43 +1,38 @@
 {% load static %}
 {% load i18n %}
 
-<div class="navbar bg-white navbar-expand-md fixed-top" style="border-bottom: 2px solid black">
-  <div class="container">
-    {% block topbar %}
-      {% block site_brand %}<a class="navbar-brand" href="{% url 'index' %}">
-        <img height="40px" src="{% static 'logo.png' %}" alt="{% trans 'Logo' %}">
-      </a>{% endblock site_brand %}
+<div class="bg-white fixed-top d-flex justify-content-between align-items-center" style="font-size: 12px; height: 83px; border-bottom: 3px solid #757575">
+  {% block topbar %}
+    {% block site_brand %}<a style="height: 80px" href="{% url 'index' %}">
+      <img height="80px" src="{% static 'logo.png' %}" alt="{% trans 'Logo' %}">
+    </a>{% endblock site_brand %}
 
-      <form class="input-group w-50">
-        <input class="form-control" type="search" placeholder="{% trans 'Search' %}" aria-label="{% trans 'Search' %}">
-        <button class="btn btn-outline-secondary" type="button"><i class="bi bi-search"></i></button>
-      </form>
+    <form style="justify-self: center; position: relative">
+      <input class="border-0" type="search" placeholder="{% trans 'Search' %}"
+             style="background: #F4F4F7; color: #9C9A9C;height: 35px; width: 578px; border-radius: 10px; padding-left: 16px"
+             aria-label="{% trans 'Search' %}">
+      <i class="bi bi-search" style="position: absolute; right: 16px; top: 8.5px; color: #9C9A9C"></i>
+    </form>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
-        <span class="bi bi-list"></span>
-      </button>
-
-      <div class="ms-auto flex-grow-0 collapse navbar-collapse" id="navbarSupportedContent">
-        {% block account_bar %}
-          <ul class="navbar-nav">
-            {% if request.user.is_authenticated %}
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'users:me' %}">
-                  {{ request.user.account.balance }}
-                  {% include 'users/_avatar.html' with user=request.user %}
-                  {{ request.user.username }}
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="btn btn-outline-primary" href="{% url 'account_logout' %}">{% trans "Log out" %}</a>
-              </li>
-            {% else %}
-              <li class="nav-item"><a class="btn btn-outline-primary" href="{% url 'account_login' %}">{% trans "Log in" %}</a></li>
-              <li class="nav-item"><a class="btn btn-outline-primary" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a></li>
-            {% endif %}
-          </ul>
-        {% endblock %}
+    {% block account_bar %}
+      <div class="d-flex">
+        {% if request.user.is_authenticated %}
+          <a class="d-flex" style="gap: 14px; text-decoration: none; line-height: 35px; color: black; margin-right: 14px"
+              href="{% url 'users:me' %}">
+            <img height="33" alt="currency" src="{% static request.user.account.balance.currency|currency_icon %}" />
+            {{ request.user.account.balance.amount }}
+            {% include 'users/_avatar.html' with user=request.user %}
+            {{ request.user.username }}
+          </a>
+          <a style="display: inline-block; width: 153px; text-align: center; text-decoration: none; line-height: 35px; color: white; border-radius: 5px; background: #2659C2"
+             href="{% url 'account_logout' %}">{% trans "Log out" %}</a>
+        {% else %}
+          <a style="display: inline-block; margin-right: 16px; width: 153px; text-align: center; text-decoration: none; line-height: 35px; color: #2659C2; border-radius: 5px; border: solid 1px #2659C2"
+             href="{% url 'account_login' %}">{% trans "Log in" %}</a>
+          <a style="display: inline-block;margin-right: 16px; width: 153px; text-align: center; text-decoration: none; line-height: 35px; color: white; border-radius: 5px; background: #2659C2"
+             href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
+        {% endif %}
       </div>
-    {% endblock topbar %}
-  </div>
+    {% endblock account_bar %}
+  {% endblock topbar %}
 </div>

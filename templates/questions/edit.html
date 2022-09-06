@@ -3,10 +3,13 @@
 {% load crispy_forms_tags %}
 
 {% block title %}{% trans 'Edit question' %}{% endblock title %}
-{% block main %}
+{% block beforemain %}
   {{ block.super }}
   {% include '_countries.html' with url_name='questions:index' %}
-  <form method="POST" action="{% url 'questions:edit' country_id=request.resolver_match.kwargs.country_id pk=request.resolver_match.kwargs.pk %}">
+{% endblock beforemain %}
+{% block main %}
+  {{ block.super }}
+  <form method="POST" class="bg-white" action="{% url 'questions:edit' country_id=request.resolver_match.kwargs.country_id pk=request.resolver_match.kwargs.pk %}">
     {% csrf_token %}
     {{ form|crispy }}
     <input type="submit" class="btn btn-primary" value="{% trans 'Save' %}">

@@ -1,36 +1,47 @@
-{% extends "layout.html" %}  {# TODO: remove double quotes from templates #}
+{% extends "layout.html" %}
+{% load static %}  {# TODO: remove double quotes from templates #}
 {% load answers %}
 {% load likes %}
 {% load questions_status %}
 {% load i18n %}
 
 {% block title %}{% trans "Answers" %}{% endblock title %}
-{% block main %}
+{% block beforemain %}
   {{ block.super }}
   {% include '_countries.html' with url_name='answers:index' %}
+{% endblock beforemain %}
+{% block main %}
+  {{ block.super }}
 
+  <div class="bg-white" style="padding: 7px 0 7px 0;margin-bottom: 3px">
   {% if question %}
     {# TODO: Split with sub templates #}
-    <div class="m-3">
-      <header class="h3">{{ question.truncated_en_text }}</header>
-      <span>{{ question.en_text }}</span>
+    <div style="border-bottom: 1px solid #636364; padding: 0 32px 15px 69px;">
+      <header style="margin-bottom: 15px; font-size: 24px; line-height: 24px">{{ question.truncated_en_text }}</header>
+      <span style="margin-bottom: 15px; font-size: 18px; line-height: 18px">{{ question.en_text }}</span>
+    </div>
 
-      <hr />
-
+    <div class="d-flex align-items-center" style="height: 50px; gap: 14px; margin: 0 32px 0 17px;">
       <a href="{% url 'likes:toggle_subscription' country_id=question.country_id question_id=question.id %}">
-        <i class="bi bi-star{% if question|subscribed:request.user %}-fill{% endif %}"></i>
+        <img height="33" alt="toggle subscription" src="
+          {% if question|subscribed:request.user %}
+            {% static 'icons/star-filled.png' %}
+          {% else %}
+            {% static 'icons/star.png' %}
+          {% endif %}"
+        />
       </a>
-      {{ question.country }} <i class="bi bi-coin"></i> {{ question.price }}
+      {{ question.country }} <img height="33" alt="currency" src="{% static question.price.currency|currency_icon %}" /> {{ question.price.amount }}
 
       {% if question.status != 'closed' %}
-        <span class="text-{{ question|question_status_class }}">
-          <i class="bi bi-{{ question|question_status_icon }}"></i>
+        <span class="d-flex align-items-center text-{{ question|question_status_class }}" style="gap: 14px">
+          <img height="33" alt="{{ question.status }}" src="{% static question|question_status_icon %}" />
           {{ question.get_status_display }}
         </span>
       {% endif %}
 
       {% if question.status in 'answered closed'|split %}
-        <i class="bi bi-chat-left"></i>{{ question.answer_set.count }} {% trans 'Answers' %}
+        <img height="33" alt="answers" src="{% static 'icons/comment.png' %}" /> {{ question.answer_set.count }} {% trans 'Answers' %}
       {% endif %}
 
       <span class="text-secondary">
@@ -43,18 +54,20 @@
 
       {% include 'users/_avatar.html' with user=question.author %}
       {{ question.author.username }}
+      </div>
     </div>
+
     {% if question.status in 'rejected draft'|split and question.reason %}
       <div class="ms-5"><b>{% trans 'Reason' %}:</b> {{ question.reason }}</div>
     {% endif %}
-    <hr />
   {% endif %}
 
   {% for answer in object_list %}
-    <div class="d-flex m-3">
+    <div class="d-flex flex-column bg-white" style="padding: 7px 0 20px 17px;">
+
       {% include 'answers/_answer.html' with answer=answer %}
 
-      <div class="ms-3">
+      <div style="margin-left: 52px">
         <a href="{% url 'answers:detail' pk=answer.id question_id=answer.question_id country_id=answer.question.country_id %}">
           {{ answer.truncated_en_text }}
         </a>
@@ -62,13 +75,14 @@
     </div>
 
     {% include 'likes/_for_answer.html' with answer=answer %}
-
-    <hr />
   {% endfor %}
 
   {% if question.author != request.user and question.status == 'published' and question|is_not_answered_by_me:request.user %}
-    <a href="{% url 'answers:create' question_id=question.id country_id=question.country_id %}" class="btn btn-primary">
+    <a style="display: inline-block; width: 130px; text-align: center; text-decoration: none; line-height: 34px; color: white; border-radius: 5px; background: #2659C2"
+       href="{% url 'answers:create' question_id=question.id country_id=question.country_id %}"
+    >
       {% trans 'Add new answer' %}
     </a>
   {% endif %}
+  </div>
 {% endblock main %}

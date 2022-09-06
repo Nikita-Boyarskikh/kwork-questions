@@ -21,11 +21,10 @@ def question_status_class(question):
 @register.filter
 def question_status_icon(question):
     return {
-        QuestionStatus.DRAFT: 'exclamation-circle',
-        QuestionStatus.PENDING: 'clock',
-        QuestionStatus.APPROVED: 'check-circle',
-        QuestionStatus.REJECTED: 'x-circle',
-        QuestionStatus.PUBLISHED: 'clock',
-        QuestionStatus.ANSWERED: 'clock',
-        QuestionStatus.CLOSED: 'slash-circle',
-    }[question.status]
+        QuestionStatus.DRAFT: 'icons/band.png',
+        QuestionStatus.PENDING: 'icons/clock.png',
+        QuestionStatus.APPROVED: 'icons/checkmark.png',
+        QuestionStatus.REJECTED: 'icons/cross.png',
+        QuestionStatus.PUBLISHED: 'icons/clock.png',
+        QuestionStatus.ANSWERED: 'icons/clock.png',
+    }.get(question.status, 'icons/question.png')

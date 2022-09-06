@@ -7,7 +7,7 @@
   {{ block.super }}
 
   {% for message in object_list %}
-    <div class="d-flex">
+    <div class="d-flex bg-white">
       {% include 'users/_avatar.html' with user=message.sender %}
       <div class="d-flex flex-column ms-3">
         <h4>{{ message.subject }}</h4>

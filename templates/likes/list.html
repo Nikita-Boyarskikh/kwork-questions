@@ -2,10 +2,13 @@
 {% load i18n %}
 
 {% block title %}{% trans "Likes" %}{% endblock title %}
-{% block main %}
+{% block beforemain %}
   {{ block.super }}
   {% include '_countries.html' with url_name='likes:subscriptions' %}
-  <ul class="d-flex flex-column">
+{% endblock beforemain %}
+{% block main %}
+  {{ block.super }}
+  <ul class="d-flex bg-white flex-column">
     {% for like in object_list %}
       <li class="d-flex">
         {% include 'users/_avatar.html' with user=like.user %}

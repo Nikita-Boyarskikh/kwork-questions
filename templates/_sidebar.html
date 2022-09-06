@@ -1,21 +1,22 @@
 {% load i18n %}
 
-<ul class="nav flex-column nav-pills">
+<ul class="nav flex-column nav-pills" style="font-size: 12px; line-height: 12px; --bs-nav-link-padding-y: 3.5px; --bs-nav-pills-link-active-bg: #F4F4F6; margin: 0 16px 40px;">
   {% for href, name in MENU_ITEMS %}
-    <li><a href="{{ href }}" class="nav-link {% if request|is_current_url:href %}active{% else %}link-dark{% endif %}">
+    <li><a href="{{ href }}" class="d-flex align-items-center nav-link {% if request|is_current_url:href %}active{% endif %}" style="color: black; height: 43px">
       {{ name }}
     </a></li>
   {% endfor %}
-  <li><a href="#" class="nav-link link-dark">{% trans 'Language' %}: {{ lang }} ></a></li>
+    <li><a href="{{ href }}" class="d-flex align-items-center nav-link {% if request|is_current_url:href %}active{% endif %}" style="color: black; height: 43px">
+      {% trans 'Language' %}: {{ lang }} &gt;
+    </a></li>
 </ul>
-<hr>
 
-<ul class="nav flex-column nav-pills">
+<ul class="nav flex-column nav-pills" style="--bs-nav-link-padding-y: 3.5px; --bs-nav-pills-link-active-bg: #F4F4F6; margin: 0 16px; color: black">
   {% for country in countries_with_questions %}
     <li>
       <a
         href="{% url 'questions:index' country_id=country.id %}"
-        class="nav-link {% if request.resolver_match.kwargs.country_id == country.id %}active{% else %}link-dark{% endif %}"
+        class="nav-link d-flex align-items-center {% if request.resolver_match.kwargs.country_id == country.id %}active{% endif %}" style="color: black; height: 43px"
       >
         {{ country }}
       </a>

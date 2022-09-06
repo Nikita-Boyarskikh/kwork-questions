@@ -15,9 +15,9 @@ def language(request):
 
 
 def menu_items(request):
-    country_id = request.session.get('country_id') or (
+    country_id = request.resolver_match.kwargs.get('country_id') or request.session.get('country_id') or (
         request.user.country_id if request.user.is_authenticated else None
-    ) or request.resolver_match.kwargs.get('country_id')
+    )
 
     if country_id:
         request.session['country_id'] = country_id
