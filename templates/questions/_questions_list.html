@@ -16,35 +16,51 @@
       />
     </a>
 
-    <div class="d-flex flex-grow-1 flex-column ms-3 me-3">
-      <header style="margin-bottom: 15px; font-size: 24px; line-height: 24px">{{ question.truncated_en_text }}</header>
-      <span style="margin-bottom: 28px; font-size: 18px; line-height: 18px">{{ question.truncated_en_text }}</span>
-      <div class="d-flex align-items-center" style="gap: 14px">
-        {{ question.country }} <img height="33" alt="currency" src="{% static question.price.currency|currency_icon %}" /> {{ question.price.amount }}
+    <div class="d-flex flex-grow-1 flex-column" style="font-size: 20px">
+      <header style="margin-bottom: 15px; font-size: 32px; line-height: 24px">{{ question.truncated_en_text }}</header>
+      <span style="margin-bottom: 28px; font-size: 19px; line-height: 18px">{{ question.truncated_en_text }}</span>
+      <div class="d-flex align-items-center" style="gap: 12px">
+        {{ question.country }}
+
+        <span class="d-flex align-items-center" style="gap: 4px">
+          <img height="33" alt="currency" src="{% static question.price.currency|currency_icon %}" />
+          {{ question.price.amount }}
+        </span>
 
         {% if question.status != 'closed' %}
-          <span class="d-flex align-items-center text-{{ question|question_status_class }}" style="gap: 14px">
+          <span class="d-flex align-items-center text-{{ question|question_status_class }}" style="gap: 4px">
             <img height="33" alt="{{ question.status }}" src="{% static question|question_status_icon %}" />
             {{ question.get_status_display }}
           </span>
         {% endif %}
 
         {% if question.status in 'answered closed'|split %}
-          <img height="33" alt="answers" src="{% static 'icons/comment.png' %}" /> {{ question.answer_set.count }} {% trans 'Answers' %}
+          <span class="d-flex align-items-center" style="gap: 4px">
+            <img height="33" alt="answers" src="{% static 'icons/comment.png' %}" />
+            <span>{{ question.answer_set.count }} {% trans 'Answers' %}</span>
+          </span>
         {% endif %}
 
         {% if question.status == 'closed' %}
-          <img height="33" alt="like" src="{% static 'icons/like.png' %}" /> {{ question.likes.count }} {% trans 'Likes' %}
-          <img height="33" alt="dislike" src="{% static 'icons/dislike.png' %}" /> {{ question.dislikes.count }} {% trans 'Dislikes' %}
+          <span class="d-flex align-items-center" style="gap: 4px">
+            <img height="33" alt="like" src="{% static 'icons/like.png' %}" />
+            <span>{{ question.likes.count }} {% trans 'Likes' %}</span>
+          </span>
+          <span class="d-flex align-items-center" style="gap: 4px">
+            <img height="33" alt="dislike" src="{% static 'icons/dislike.png' %}" />
+            <span>{{ question.dislikes.count }} {% trans 'Dislikes' %}</span>
+          </span>
         {% endif %}
 
-        {% include 'users/_avatar.html' with user=question.author %}
-        {{ question.author.username }}
+        <span class="d-flex align-items-center" style="gap: 4px">
+          {% include 'users/_avatar.html' with user=question.author %}
+          {{ question.author.username }}
+        </span>
       </div>
     </div>
 
     <div class="d-flex flex-column" style="margin: 30px 0; justify-content: space-between">
-      <span class="text-secondary" style="font-size: 18px">
+      <span class="text-secondary" style="font-size: 24px">
         {% if question.status in 'approved published answered'|split %}
           {{ question.status_changed|timeuntil }}
         {% else %}
@@ -53,25 +69,25 @@
       </span>
 
       {% if question.author != request.user and question.status == 'published' and question|is_not_answered_by_me:request.user %}
-        <a style="font-size: 18px; display: inline-block; width: 130px; text-align: center; text-decoration: none; line-height: 34px; color: white; border-radius: 5px; background: #2659C2"
+        <a style="font-size: 24px; display: inline-block; width: 130px; text-align: center; text-decoration: none; line-height: 34px; color: white; border-radius: 5px; background: #2659C2"
            href="{% url 'answers:create' country_id=question.country.id question_id=question.id %}"
         >
           {% trans 'Answer' %}
         </a>
       {% elif question.author != request.user and question.status == 'answered' %}
-        <a style="font-size: 18px; display: inline-block; width: 130px; text-align: center; text-decoration: none; line-height: 34px; color: white; border-radius: 5px; background: #2659C2"
+        <a style="font-size: 24px; display: inline-block; width: 130px; text-align: center; text-decoration: none; line-height: 34px; color: white; border-radius: 5px; background: #2659C2"
            href="{{ question.get_absolute_url }}"
         >
           {% trans 'Vote' %}
         </a>
       {% elif question.author == request.user and question.status == 'draft' %}
-        <a style="font-size: 18px; display: inline-block; width: 130px; text-align: center; text-decoration: none; line-height: 34px; color: white; border-radius: 5px; background: #2659C2"
+        <a style="font-size: 24px; display: inline-block; width: 130px; text-align: center; text-decoration: none; line-height: 34px; color: white; border-radius: 5px; background: #2659C2"
            href="{{ question.get_absolute_url }}"
         >
           {% trans 'Edit' %}
         </a>
       {% else %}
-        <a style="font-size: 18px; display: inline-block; width: 130px; text-align: center; text-decoration: none; line-height: 34px; color: white; border-radius: 5px; background: #2659C2"
+        <a style="font-size: 24px; display: inline-block; width: 130px; text-align: center; text-decoration: none; line-height: 34px; color: white; border-radius: 5px; background: #2659C2"
            href="{{ question.get_absolute_url }}"
         >
           {% trans 'View' %}
