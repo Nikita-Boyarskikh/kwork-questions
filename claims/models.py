@@ -2,7 +2,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, NON_FIELD_ERRORS
 from django.db import models
 from django.utils.text import Truncator
 from django.utils.translation import gettext as _
@@ -41,7 +41,7 @@ class Claim(TimeStampedModel):
         errors = {}
 
         if not self._clean_author():
-            errors['author'] = _("User can't claim for his own %(content_type)s") % {
+            errors[NON_FIELD_ERRORS] = _("User can't claim for his own %(content_type)s") % {
                 'content_type': self.content_type.name,
             }
 

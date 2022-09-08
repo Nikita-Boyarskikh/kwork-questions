@@ -1,7 +1,9 @@
+from collections import defaultdict
+
 from django.conf import settings
 from django.contrib import admin
 from django.contrib.contenttypes.fields import GenericRelation
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, NON_FIELD_ERRORS
 from django.db import models
 from django.urls import reverse
 from django.utils.text import Truncator
@@ -69,12 +71,12 @@ class Answer(TimeStampedModel, LikableModelMixin, WithSelfContentTypeMixin):
         return self.author != self.question.author
 
     def clean(self):
-        errors = {}
+        errors = defaultdict(list)
 
         if not self._clean_author():
-            errors['author'] = _("Question's author can't answer to it")
+            errors[NON_FIELD_ERRORS].append(_("Question's author can't answer to it"))
         elif not self._clean_question_status():
-            errors['question'] = _('Question status should be %s') % QuestionStatus.PUBLISHED
+            errors[NON_FIELD_ERRORS].append(_('Question status should be %s') % QuestionStatus.PUBLISHED)
 
         if errors:
             raise ValidationError(errors)

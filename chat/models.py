@@ -1,6 +1,8 @@
+from collections import defaultdict
+
 from django.conf import settings
 from django.contrib import admin
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, NON_FIELD_ERRORS
 from django.db import models
 from django.urls import reverse
 from django.utils.text import Truncator
@@ -38,12 +40,12 @@ class Message(TimeStampedModel):
         return self.sender.is_staff or self.recipient.is_staff
 
     def clean(self):
-        errors = {}
+        errors = defaultdict(list)
 
         if not self._clean_sender_and_recipient_different():
-            errors['sender'] = errors['recipient'] = _('Sender and recipient should differs')
+            errors[NON_FIELD_ERRORS].append(_('Sender and recipient should differs'))
         elif not self._clean_only_is_staff_chat():
-            errors['sender'] = errors['recipient'] = _('Sender or recipient should be staff user')
+            errors[NON_FIELD_ERRORS].append(_('Sender or recipient should be staff user'))
 
         if errors:
             raise ValidationError(errors)

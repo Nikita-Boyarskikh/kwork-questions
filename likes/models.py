@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 from django.conf import settings
 from django.contrib import admin
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
@@ -57,7 +59,7 @@ class Like(TimeStampedModel):
         return self.user != self.liked_object.author
 
     def clean(self):
-        errors = {}
+        errors = defaultdict(list)
         liked_object_errors = self._get_errors_for_liked_object()
         if liked_object_errors:
             errors[NON_FIELD_ERRORS].append(liked_object_errors)
