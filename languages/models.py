@@ -34,8 +34,16 @@ class Language(models.Model):
 
     @classmethod
     def get_for_request(cls, request):
-        if request.user.is_authenticated and request.user.preferred_language:
-            return request.user.preferred_language
+        if request.user.is_authenticated:
+            if request.user.preferred_language:
+                return request.user.preferred_language
+            if request.user.country is not None:
+                return request.user.country.language
+        else:
+            preferred_language = request.session.get('preferred_language')
+            if preferred_language:
+                return get_object_or_this(cls, cls.default, pk=preferred_language)
+
         current_language_code, *subcodes = get_language_from_request(request).split('-')
         return get_object_or_this(cls, cls.default, pk=current_language_code)
 

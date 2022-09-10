@@ -10,7 +10,8 @@ from questions.models import QuestionStatus
 def language(request):
     current_language = Language.get_for_request(request)
     return {
-        'lang': current_language,
+        'current_language': current_language,
+        'languages': Language.objects.all(),
     }
 
 

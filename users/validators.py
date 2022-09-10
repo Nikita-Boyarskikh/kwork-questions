@@ -1,9 +1,9 @@
-from django.core.validators import MaxValueValidator
+from datetime import date
 
-from users.utils import current_year
+from django.core.validators import MaxValueValidator
 
 
 def max_value_current_year_validator(value):
-    current = current_year()
+    current = date.today().year
     validator = MaxValueValidator(current)
     return validator(value)

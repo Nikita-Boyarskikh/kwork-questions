@@ -6,9 +6,20 @@
       {{ name }}
     </a></li>
   {% endfor %}
-    <li><a href="{{ href }}" class="d-flex align-items-center nav-link {% if request|is_current_url:href %}active{% endif %}" style="color: black; height: 43px">
-      {% trans 'Language' %}: {{ lang }} &gt;
-    </a></li>
+
+    <div>
+      <div class="dropend">
+        <a href="{{ href }}" class="d-flex align-items-center nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="color: black; height: 43px">
+          {% trans 'Language' %}: {{ current_language }}
+        </a>
+
+        <ul class="dropdown-menu">
+          {% for lang in languages %}
+            <li><a class="dropdown-item {% if current_language == lang %}active{% endif %}" href="{% url 'users:change_preferred_language' lang=lang.id %}?next={{ request.get_full_path_info|urlencode }}">{{ lang }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
 </ul>
 
 <ul class="nav flex-column nav-pills" style="font-size: 19px; --bs-nav-link-padding-y: 3.5px; --bs-nav-pills-link-active-bg: #F4F4F6; margin: 0 16px; color: black">
