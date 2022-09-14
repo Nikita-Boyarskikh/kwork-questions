@@ -3,7 +3,6 @@
 import accounts.validators
 from decimal import Decimal
 from django.db import migrations, models
-import django.db.models.deletion
 import django.utils.timezone
 import djmoney.models.fields
 import djmoney.models.validators

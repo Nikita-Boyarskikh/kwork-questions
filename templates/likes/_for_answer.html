@@ -1,7 +1,22 @@
+{% load claims %}
 {% load static %}
 {% load question_answers %}
 {% load i18n %}
 {% load likes %}
+
+{% if answer.question.status == 'closed' %}
+  <span>
+    <img height="33" alt="like" src="{% static 'icons/like.png' %}" class="ms-3" /> {{ answer.likes.count }} {% trans 'Likes' %}
+    <img height="33" alt="dislike" src="{% static 'icons/dislike.png' %}" class="ms-3" /> {{ answer.dislikes.count }} {% trans 'Dislikes' %}
+  </span>
+{% endif %}
+
+{% if answer.question.status in 'answered closed'|split %}
+  <span>
+  {{ answer.views }}
+    <img height="33" alt="views" src="{% static 'icons/eye.png' %}" /> {{ answer.views__count }} {% trans 'Views' %}
+  </span>
+{% endif %}
 
 {% if answer.question.author != request.user and answer.question.status == 'answered' and not answer.question|is_answered_by_me:request.user %}
   <a
@@ -26,5 +41,11 @@
   </a>
   <a href="{% url 'likes:dislikes' country_id=answer.question.country_id answer_id=answer.id %}" class="btn btn-link">
     {% trans 'View dislikes' %}
+  </a>
+{% endif %}
+
+{% if request.user.is_authenticated and request.user != answer.author and not answer|is_claimed_by_me:request.user %}
+  <a href="{% url 'claims:create' answer_id=answer.id %}" class="position-absolute end-0 top-0" style="padding: 16px">
+    <img height="33" alt="{% trans 'Claim' %}" src="{% static 'icons/band.png' %}" />
   </a>
 {% endif %}

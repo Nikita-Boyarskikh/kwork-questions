@@ -8,4 +8,4 @@ class AnswerCreateForm(forms.ModelForm):
 
     class Meta:
         model = Answer
-        fields = ('original_text', 'en_text', 'language')
+        fields = ('original_text', 'en_text')

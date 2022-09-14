@@ -1,19 +1,24 @@
-{% extends "layout.html" %}
-{% load static %}  {# TODO: remove double quotes from templates #}
+{% extends 'layout.html' %}
+{% load static %}
 {% load answers %}
 {% load likes %}
 {% load questions_status %}
 {% load i18n %}
 
-{% block title %}{% trans "Answers" %}{% endblock title %}
+{% block title %}{% trans 'Answers' %}{% endblock title %}
 {% block beforemain %}
   {{ block.super }}
-  {% include '_countries.html' with url_name='answers:index' %}
+
+  {% with 'questions:index' as back_url %}
+    <a href="javascript:history.back()" class="bg-white border-0 d-flex align-items-center" style="color: red; font-size: 16px; width: 1018px; padding: 0 0 0 69px; margin: 0 16px 16px;height: 45px">
+      &lt; {% trans 'Back' %}
+    </a>
+  {% endwith %}
 {% endblock beforemain %}
 {% block main %}
   {{ block.super }}
 
-  <div class="bg-white" style="padding: 7px 0 7px 0;margin-bottom: 3px">
+  <div class="bg-white rounded-2" style="padding: 7px 0;margin-bottom: 3px">
   {% if question %}
     {# TODO: Split with sub templates #}
     <div style="border-bottom: 1px solid #636364; padding: 0 32px 15px 69px;">
@@ -44,37 +49,47 @@
         <img height="33" alt="answers" src="{% static 'icons/comment.png' %}" /> {{ question.answer_set.count }} {% trans 'Answers' %}
       {% endif %}
 
-      <span class="text-secondary">
+      {% include 'users/_avatar.html' with user=question.author %}
+      {{ question.author.username }}
+
+      <span class="text-secondary ms-auto">
         {% if question.status in 'approved published answered'|split %}
-          {{ question.status_changed|timeuntil }}
+          {{ question.status_changed|timesince }}
         {% else %}
           {{ question.get_status_display }}
         {% endif %}
       </span>
-
-      {% include 'users/_avatar.html' with user=question.author %}
-      {{ question.author.username }}
       </div>
     </div>
 
-    {% if question.status in 'rejected draft'|split and question.reason %}
-      <div class="ms-5"><b>{% trans 'Reason' %}:</b> {{ question.reason }}</div>
+    {% if question.status in 'rejected deferred'|split and question.reason %}
+      <div class="bg-white rounded-2" style="margin-bottom: 3px; padding: 7px 0 7px 17px">
+        {{ question.reason }}
+      </div>
     {% endif %}
   {% endif %}
 
   {% for answer in object_list %}
-    <div class="d-flex flex-column bg-white" style="padding: 7px 0 20px 17px;">
+    <div class="d-flex flex-column bg-white rounded-2 position-relative" style="padding: 7px 0 20px 17px;">
 
-      {% include 'answers/_answer.html' with answer=answer %}
+      <div class="d-flex {% if question.status != 'closed' %}position-absolute{% endif %}">
+        {% include 'answers/_answer.html' with answer=answer %}
+      </div>
 
       <div style="margin-left: 52px">
-        <a href="{% url 'answers:detail' pk=answer.id question_id=answer.question_id country_id=answer.question.country_id %}">
-          {{ answer.truncated_en_text }}
+        {{ answer.truncated_en_text }}
+      </div>
+
+      <div style="margin-left: 52px; margin-top: 17px">
+        <a class="text-decoration-none" href="{% url 'answers:detail' pk=answer.id question_id=answer.question_id country_id=answer.question.country_id %}">
+          {% trans 'Full answer' %}
         </a>
       </div>
-    </div>
 
-    {% include 'likes/_for_answer.html' with answer=answer %}
+      <div style="margin: 17px 0 0 52px">
+        {% include 'likes/_for_answer.html' with answer=answer %}
+      </div>
+    </div>
   {% endfor %}
 
   {% if question.author != request.user and question.status == 'published' and question|is_not_answered_by_me:request.user %}

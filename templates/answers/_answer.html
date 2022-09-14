@@ -2,15 +2,13 @@
 {% load i18n %}
 
 <div class="d-flex align-items-center">
-  {% include 'users/_avatar.html' with user=answer.author %}
-  <span style="margin-left: 19px">{{ answer.author.username }}</span>
+  {% if answer.question.status == 'closed' %}
+    {% include 'users/_avatar.html' with user=answer.author %}
+  {% else %}
+    <div class="rounded-circle" style="height: 33px; width: 33px; background: #DDDDE0"></div>
+  {% endif %}
 </div>
 
 {% if answer.question.status == 'closed' %}
-  <img height="33" alt="like" src="{% static 'icons/like.png' %}" class="ms-3" /> {% trans 'Likes' %}
-  <img height="33" alt="dislike" src="{% static 'icons/dislike.png' %}" class="ms-3" /> {{ answer.dislikes|length }} {% trans 'Dislikes' %}
-{% endif %}
-
-{% if answer.question.status in 'answered closed'|split %}
-  <img height="33" alt="views" src="{% static 'icons/eye.png' %}" /> {{ answer.views|length }} {% trans 'Views' %}
+  <span style="margin-left: 52px">{{ answer.author.username }}</span>
 {% endif %}

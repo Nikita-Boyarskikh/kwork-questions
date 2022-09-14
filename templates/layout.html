@@ -29,20 +29,20 @@
     {% block body %}
       <header>
         {% block header %}
-          {% include "_navbar.html" %}
+          {% include '_navbar.html' %}
         {% endblock header %}
       </header>
 
       <div style="padding-top: 82px" class="d-flex h-100">
         <aside class="bg-white h-100" style="width: 316px">
           {% block sidebar %}
-            {% include "_sidebar.html" %}
+            {% include '_sidebar.html' %}
           {% endblock sidebar %}
         </aside>
 
         <div>
           {% block messages %}
-            {% include "_messages.html" %}
+            {% include '_messages.html' %}
           {% endblock messages %}
           {% if not messages %}
             {% block beforemain %}{% endblock beforemain %}

@@ -2,13 +2,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.views.generic import CreateView
 
+from chat.forms import CreateMessageForm
 from chat.models import Message
 from users.models import User
 
 
 class MessageListView(LoginRequiredMixin, CreateView):
     model = Message
-    fields = ('subject', 'content')
+    form_class = CreateMessageForm
     template_name = 'chat/list.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):

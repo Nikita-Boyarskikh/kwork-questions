@@ -33,7 +33,7 @@ def create(request, question_id, country_id):
     answer = Answer(
         author=request.user,
         question=question,
-        language=request.user.preferred_language,
+        language=Language.get_for_request(request),
     )
     form = AnswerCreateForm(instance=answer)
     if request.method == 'POST':
@@ -44,11 +44,11 @@ def create(request, question_id, country_id):
                 new_form_data = form.data.copy()
                 new_form_data['en_text'] = translate(
                     text=form.cleaned_data['original_text'],
-                    source_language=form.cleaned_data['language'],
+                    source_language=answer.language,
                     target_language=Language.default,
                 )
                 form.data = new_form_data
-            elif form.cleaned_data['language'] and not form.cleaned_data['en_text']:
+            elif answer.language == Language.default and not form.cleaned_data['en_text']:
                 new_form_data = form.data.copy()
                 new_form_data['en_text'] = form.cleaned_data['original_text']
                 form.data = new_form_data
@@ -78,7 +78,7 @@ class IndexAnswersListView(AnswersListView):
     def get(self, request, *args, **kwargs):
         question_id = kwargs.get('question_id')
         question = Question.objects.get(id=question_id)
-        if question.status == QuestionStatus.DRAFT:
+        if question.status in (QuestionStatus.DRAFT, QuestionStatus.DEFERRED):
             return redirect('questions:edit', country_id=kwargs.get('country_id'), pk=question_id)
         return super().get(request, *args, **kwargs)
 

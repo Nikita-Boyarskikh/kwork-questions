@@ -1,14 +1,14 @@
-{% extends "layout.html" %}
+{% extends 'layout.html' %}
 {% load i18n %}
 
-{% block title %}{% trans "Likes" %}{% endblock title %}
+{% block title %}{% trans 'Likes' %}{% endblock title %}
 {% block beforemain %}
   {{ block.super }}
   {% include '_countries.html' with url_name='likes:subscriptions' %}
 {% endblock beforemain %}
 {% block main %}
   {{ block.super }}
-  <ul class="d-flex bg-white flex-column">
+  <ul class="d-flex bg-white rounded-2 flex-column">
     {% for like in object_list %}
       <li class="d-flex">
         {% include 'users/_avatar.html' with user=like.user %}

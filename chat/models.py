@@ -1,5 +1,6 @@
 from collections import defaultdict
 
+from django import forms
 from django.conf import settings
 from django.contrib import admin
 from django.core.exceptions import ValidationError, NON_FIELD_ERRORS
@@ -15,7 +16,6 @@ class Message(TimeStampedModel):
     recipient = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='inbox_messages', on_delete=models.CASCADE)
     is_read = models.BooleanField(_('Is read?'), default=False)
     content = models.TextField(_('Content'))
-    subject = models.CharField(_('Subject'), max_length=255)
 
     @property
     @admin.display(
@@ -24,14 +24,6 @@ class Message(TimeStampedModel):
     )
     def truncated_content(self):
         return Truncator(self.content).chars(20)
-
-    @property
-    @admin.display(
-        ordering='subject',
-        description=_('Truncated %s') % subject.verbose_name.lower(),
-    )
-    def truncated_subject(self):
-        return Truncator(self.subject).chars(10)
 
     def _clean_sender_and_recipient_different(self):
         return self.sender != self.recipient
@@ -54,10 +46,10 @@ class Message(TimeStampedModel):
         return reverse('chat:index')
 
     def __str__(self):
-        return _('Message from %(sender)s to %(recipient)s: %(subject)s') % {
+        return _('Message from %(sender)s to %(recipient)s: %(content)s') % {
             'sender': self.sender,
             'recipient': self.recipient,
-            'subject': self.truncated_subject,
+            'content': self.truncated_content,
         }
 
     class Meta:

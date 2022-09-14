@@ -12,6 +12,7 @@ def me(request):
         form = ChangeAvatarForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
+            form = ChangeAvatarForm(instance=request.user)
     return render(request, 'users/me.html', {
         'form': form,
     })

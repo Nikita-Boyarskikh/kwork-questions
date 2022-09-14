@@ -21,7 +21,6 @@ class Migration(migrations.Migration):
                 ('modified', model_utils.fields.AutoLastModifiedField(default=django.utils.timezone.now, editable=False, verbose_name='modified')),
                 ('is_read', models.BooleanField(default=False, verbose_name='Is read?')),
                 ('content', models.TextField(verbose_name='Content')),
-                ('subject', models.CharField(max_length=255, verbose_name='Subject')),
             ],
             options={
                 'verbose_name': 'Message',

@@ -1,13 +1,13 @@
-{% extends "account/base.html" %}
+{% extends 'account/base.html' %}
 
 {% load i18n %}
 
-{% block head_title %}{% trans "E-mail Addresses" %}{% endblock %}
+{% block head_title %}{% trans 'E-mail Addresses' %}{% endblock %}
 
 {% block content %}
 <div class="m-3 m-lg-5">
 	<div class="text-center mt-4">
-		<h1 class="h3">{% trans "E-mail Addresses" %}</h1>
+		<h1 class="h3">{% trans 'E-mail Addresses' %}</h1>
 	{% if user.emailaddress_set.all %}
 		<p class="text-black-50">
 			{% trans 'The following e-mail addresses are associated with your account:' %}
@@ -53,11 +53,11 @@
 						</label>
 						<div>
 							{% if emailaddress.verified %}
-								<span class="badge bg-success py-1 px-2"><small>{% trans "Verified" %}</small></span>
+								<span class="badge bg-success py-1 px-2"><small>{% trans 'Verified' %}</small></span>
 							{% else %}
-								<span class="badge bg-warning py-1 px-2"><small>{% trans "Unverified" %}</small></span>
+								<span class="badge bg-warning py-1 px-2"><small>{% trans 'Unverified' %}</small></span>
 							{% endif %}
-							{% if emailaddress.primary %}<span class="badge bg-primary"><small>{% trans "Primary" %}</small></span>{% endif %}
+							{% if emailaddress.primary %}<span class="badge bg-primary"><small>{% trans 'Primary' %}</small></span>{% endif %}
 						</div>
 					</li>
 				{% endfor %}
@@ -78,7 +78,7 @@
 
 	{% else %}
 		<p class="text-black-50">
-			{% trans "You currently do not have any e-mail address set up. An e-mail must be address to receive notifications, reset your password, etc." %}
+			{% trans 'You currently do not have any e-mail address set up. An e-mail must be address to receive notifications, reset your password, etc.' %}
 		</p>
 	</div>
 	{% endif %}
@@ -92,7 +92,7 @@
   var message = "{% trans 'Do you really want to remove the selected e-mail address?' %}";
   var actions = document.getElementsByName('action_remove');
   if (actions.length) {
-    actions[0].addEventListener("click", function(e) {
+    actions[0].addEventListener('click', function(e) {
       if (! confirm(message)) {
         e.preventDefault();
       }

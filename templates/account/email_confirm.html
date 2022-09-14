@@ -1,15 +1,15 @@
-{% extends "account/base.html" %}
+{% extends 'account/base.html' %}
 
 {% load i18n %}
 {% load account %}
 
-{% block head_title %}{% trans "Confirm E-mail Address" %}{% endblock %}
+{% block head_title %}{% trans 'Confirm E-mail Address' %}{% endblock %}
 
 
 {% block content %}
 <div class="m-3 m-lg-5">
 	<div class="text-center mt-4">
-		<h1 class="h3">{% trans "Confirm E-mail Address" %}</h1>
+		<h1 class="h3">{% trans 'Confirm E-mail Address' %}</h1>
 	{% if confirmation %}
 		{% user_display confirmation.email_address.user as user_display %}
 		<p class="text-black-50">
@@ -21,7 +21,7 @@
 			{% if redirect_field_value %}
 				<input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
 			{% endif %}
-			
+
 			<div class="row mt-4">
 				<div class="col text-center">
 					<button type="submit" class="btn btn-primary rounded-pill py-2 px-5">{% trans 'Confirm' %}</button>

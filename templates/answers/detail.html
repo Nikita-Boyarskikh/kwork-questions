@@ -1,5 +1,4 @@
 {% extends 'layout.html' %}
-{% load claims %}
 {% load likes %}
 {% load questions_status %}
 {% load i18n %}
@@ -7,31 +6,25 @@
 {% block title %}{% trans 'Answer' %}{% endblock title %}
 {% block beforemain %}
   {{ block.super }}
-  {% include '_countries.html' with url_name='answers:index' %}
+  <a href="{% url 'answers:index' question_id=answer.question_id country_id=answer.question.country_id %}" class="bg-white border-0 d-flex align-items-center" style="color: red; font-size: 16px; width: 1018px; padding: 0 0 0 69px; margin: 0 16px 16px;height: 45px">
+    &lt; {% trans 'Back' %}
+  </a>
 {% endblock beforemain %}
 {% block main %}
   {{ block.super }}
 
-  <div class="bg-white">
-    <a
-      href="{% url 'answers:index' question_id=answer.question_id country_id=answer.question.country_id %}"
-      class="btn btn-link"
-    >{% trans 'Go back to question' %}</a>
+  <div class="d-flex flex-column bg-white rounded-2 position-relative" style="padding: 7px 0 20px 17px;">
 
-    <div class="d-flex m-3">
+    <div class="d-flex {% if question.status != 'closed' %}position-absolute{% endif %}">
       {% include 'answers/_answer.html' with answer=answer %}
-
-      <div class="ms-3">
-        {{ answer.en_text }}
-      </div>
     </div>
 
-    {% include 'likes/_for_answer.html' with answer=answer %}
+    <div style="margin-left: 52px">
+      {{ answer.en_text }}
+    </div>
 
-    {% if request.user.is_authenticated and request.user != answer.author and not answer|is_claimed_by_me:request.user %}
-      <a href="{% url 'claims:create' answer_id=answer.id %}" class="btn btn-danger">
-        {% trans 'Claim' %}
-      </a>
-    {% endif %}
+    <div style="margin: 17px 0 0 52px">
+      {% include 'likes/_for_answer.html' with answer=answer %}
+    </div>
   </div>
 {% endblock main %}

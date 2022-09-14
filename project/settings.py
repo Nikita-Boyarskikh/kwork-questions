@@ -227,8 +227,8 @@ CACHES = {
 
 # Templates
 
-CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
-CRISPY_TEMPLATE_PACK = 'bootstrap5'
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'crispy_forms'
+CRISPY_TEMPLATE_PACK = 'crispy_forms'
 
 # Admin
 

@@ -33,7 +33,7 @@ def create(request, country_id):
     question = Question(
         author=request.user,
         price=settings.MIN_QUESTION_PRICE,
-        language=request.user.preferred_language,
+        language=Language.get_for_request(request),
         country_id=country_id,
     )
     form = QuestionCreateForm(instance=question)
@@ -45,11 +45,11 @@ def create(request, country_id):
                 new_form_data = form.data.copy()
                 new_form_data['en_text'] = translate(
                     text=form.cleaned_data['original_text'],
-                    source_language=form.cleaned_data['language'],
+                    source_language=question.language,
                     target_language=Language.default,
                 )
                 form.data = new_form_data
-            elif form.cleaned_data['language'] and not form.cleaned_data['en_text']:
+            elif question.language == Language.default and not form.cleaned_data['en_text']:
                 new_form_data = form.data.copy()
                 new_form_data['en_text'] = form.cleaned_data['original_text']
                 form.data = new_form_data
@@ -68,6 +68,10 @@ def create(request, country_id):
 def edit(request, country_id, pk):
     # TODO: repeat common validations
     question = Question.objects.get(pk=pk)
+    if question.status not in (QuestionStatus.DRAFT, QuestionStatus.DEFERRED):
+        messages.error(request, _('You can not edit published question'))
+        return redirect('answers:index', question_id=pk, country_id=country_id)
+
     form = QuestionCreateForm(instance=question)
 
     if request.method == 'POST':
@@ -77,11 +81,11 @@ def edit(request, country_id, pk):
                 new_form_data = form.data.copy()
                 new_form_data['en_text'] = translate(
                     text=form.cleaned_data['original_text'],
-                    source_language=form.cleaned_data['language'],
+                    source_language=question.language,
                     target_language=Language.default,
                 )
                 form.data = new_form_data
-            elif form.cleaned_data['language'] and not form.cleaned_data['en_text']:
+            elif question.language == Language.default and not form.cleaned_data['en_text']:
                 new_form_data = form.data.copy()
                 new_form_data['en_text'] = form.cleaned_data['original_text']
                 form.data = new_form_data

@@ -5,7 +5,7 @@
 {% load questions_status %}
 
 {% for question in questions %}
-  <div class="d-flex align-items-stretch bg-white" style="padding: 7px 32px 7px 0;margin-bottom: 3px">
+  <div class="position-relative d-flex align-items-stretch bg-white rounded-2" style="padding: 7px 32px 7px 0;margin-bottom: 3px">
     <a class="d-flex align-items-center" href="{% url 'likes:toggle_subscription' country_id=question.country_id question_id=question.id %}">
       <img height="33" style="padding: 0 17px;" alt="toggle subscription" src="
         {% if question|subscribed:request.user %}
@@ -19,7 +19,7 @@
     <div class="d-flex flex-grow-1 flex-column" style="font-size: 20px">
       <header style="margin-bottom: 15px; font-size: 32px; line-height: 24px">{{ question.truncated_en_text }}</header>
       <span style="margin-bottom: 28px; font-size: 19px; line-height: 18px">{{ question.truncated_en_text }}</span>
-      <div class="d-flex align-items-center" style="gap: 12px">
+      <div class="d-flex align-items-center text-nowrap" style="gap: 12px">
         {{ question.country }}
 
         <span class="d-flex align-items-center" style="gap: 4px">
@@ -59,7 +59,7 @@
       </div>
     </div>
 
-    <div class="d-flex flex-column" style="margin: 30px 0; justify-content: space-between">
+    <div class="d-flex flex-column position-absolute top-0 bottom-0 end-0 align-items-center" style="margin: 30px 10px 30px 0;justify-content: space-between">
       <span class="text-secondary" style="font-size: 24px">
         {% if question.status in 'approved published answered'|split %}
           {{ question.status_changed|timeuntil }}
@@ -80,7 +80,7 @@
         >
           {% trans 'Vote' %}
         </a>
-      {% elif question.author == request.user and question.status == 'draft' %}
+      {% elif question.author == request.user and question.status in 'draft deferred'|split %}
         <a style="font-size: 24px; display: inline-block; width: 130px; text-align: center; text-decoration: none; line-height: 34px; color: white; border-radius: 5px; background: #2659C2"
            href="{{ question.get_absolute_url }}"
         >
@@ -95,12 +95,16 @@
       {% endif %}
     </div>
   </div>
-  {% if question.status in 'rejected draft'|split and question.reason %}
-      <div class="ms-5"><b>{% trans 'Reason' %}:</b> {{ question.reason }}</div>
+  {% if question.status in 'rejected deferred'|split and question.reason %}
+    <div class="bg-white rounded-2" style="margin-bottom: 3px;padding: 7px 0 7px 17px">
+      {{ question.reason }}
+    </div>
   {% endif %}
 
   {% if question.best_answer %}
-    {% include 'answers/_answer.html' with answer=question.best_answer %}
+    <div class="d-flex">
+      {% include 'answers/_answer.html' with answer=question.best_answer %}
+    </div>
     <hr />
   {% endif %}
 {% empty %}

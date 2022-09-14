@@ -6,20 +6,32 @@
 {% block main %}
   {{ block.super }}
 
-  {% for message in object_list %}
-    <div class="d-flex bg-white">
-      {% include 'users/_avatar.html' with user=message.sender %}
-      <div class="d-flex flex-column ms-3">
-        <h4>{{ message.subject }}</h4>
-        <span>{{ message.content }}</span>
-      </div>
-    </div>
-    <hr />
-  {% endfor %}
+  <header style="height: 60px; margin-bottom: 16px" class="d-flex align-items-center justify-content-center bg-white">
+    <h1 style="font-size: 25px; line-height: 25px">{% trans 'Support chat' %}</h1>
+  </header>
 
-  <form method="POST" action="{% url 'chat:create' %}">
-    {% csrf_token %}
-    {{ form|crispy }}
-    <input type="submit" class="btn btn-primary" value="{% trans 'Send' %}">
-  </form>
+  <div id="scroll-area" class="overflow-auto" style="max-height: 610px">
+    <section class="bg-white rounded-2 d-flex flex-column justify-content-end" style="padding: 30px; line-height: 22px">
+      {% for message in object_list %}
+        <div class="rounded-2 position-relative" style="min-height: 75px; width: 50%; padding: 16px; margin-bottom: 35px; {% if message.sender == request.user %}color: #FFFFFF; background: #0069EB; align-self: end;{% else %}color: #817C7D; background: #F4F4F5;{% endif %}">
+          <span>{{ message.content }}</span>
+          <div class="position-absolute bottom-0 end-0" style="margin-bottom: 8px; margin-right: 10px">
+            {{ message.created|time:'H:i' }}
+          </div>
+        </div>
+      {% endfor %}
+
+      <form method="POST" action="{% url 'chat:create' %}">
+        {% csrf_token %}
+        <div class="input-group">
+          <textarea aria-label="{% trans 'Message' %}" name="content" cols="40" rows="1" style="resize: none" class="textarea form-control custom-control" placeholder="Type something..." required></textarea>
+          <button type="submit" class="input-group-addon btn btn-primary">{% trans 'Send' %}</button>
+        </div>
+      </form>
+    </section>
+    <script>
+      const area = document.getElementById('scroll-area')
+      area.scrollTop = area.scrollHeight
+    </script>
+  </div>
 {% endblock main %}

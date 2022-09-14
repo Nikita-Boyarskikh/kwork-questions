@@ -29,7 +29,8 @@ class WrongStatusError(ValidationError):
 
 class QuestionStatus(models.TextChoices):
     DRAFT = 'draft', _('In progress')  # -> pending
-    PENDING = 'pending', _('Moderation')  # -> draft/approved/rejected
+    DEFERRED = 'deferred', _('Deferred')  # -> pending
+    PENDING = 'pending', _('Moderation')  # -> deferred/approved/rejected
     APPROVED = 'approved', _('Ready for publication')  # -> published
     REJECTED = 'rejected', _('Refused')
     PUBLISHED = 'published', _('Open')  # -> answered
@@ -37,14 +38,11 @@ class QuestionStatus(models.TextChoices):
     CLOSED = 'closed', _('Closed')
 
     @classproperty
-    def returned(cls):
-        return {QuestionStatus.REJECTED, QuestionStatus.DRAFT}
-
-    @classproperty
     def transitions(cls):
         return {
             QuestionStatus.DRAFT: {QuestionStatus.PENDING},
-            QuestionStatus.PENDING: {QuestionStatus.DRAFT, QuestionStatus.APPROVED, QuestionStatus.REJECTED},
+            QuestionStatus.DEFERRED: {QuestionStatus.PENDING},
+            QuestionStatus.PENDING: {QuestionStatus.DEFERRED, QuestionStatus.APPROVED, QuestionStatus.REJECTED},
             QuestionStatus.APPROVED: {QuestionStatus.PUBLISHED},
             QuestionStatus.REJECTED: set(),
             QuestionStatus.PUBLISHED: {QuestionStatus.ANSWERED},

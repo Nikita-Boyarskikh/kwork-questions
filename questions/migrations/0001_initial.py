@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created', model_utils.fields.AutoCreatedField(default=django.utils.timezone.now, editable=False, verbose_name='created')),
                 ('modified', model_utils.fields.AutoLastModifiedField(default=django.utils.timezone.now, editable=False, verbose_name='modified')),
-                ('status', models.CharField(choices=[('draft', 'In progress'), ('pending', 'Moderation'), ('approved', 'Ready for publication'), ('rejected', 'Refused'), ('published', 'Open'), ('answered', 'Voting'), ('closed', 'Closed')], default='draft', max_length=100, verbose_name='Status')),
+                ('status', models.CharField(choices=[('draft', 'In progress'), ('deferred', 'Deferred'), ('pending', 'Moderation'), ('approved', 'Ready for publication'), ('rejected', 'Refused'), ('published', 'Open'), ('answered', 'Voting'), ('closed', 'Closed')], default='draft', max_length=100, verbose_name='Status')),
                 ('status_changed', model_utils.fields.MonitorField(default=django.utils.timezone.now, monitor='status')),
                 ('reason', models.TextField(blank=True, verbose_name='Rejected reason')),
                 ('original_text', models.TextField(verbose_name='Original text')),

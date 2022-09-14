@@ -1,6 +1,6 @@
 {% load i18n %}
 {% if user.avatar %}
-  <img class="rounded-circle" style="height: 33px" alt="{% trans 'Avatar' %}" src="{{ user.avatar.url }}" />
+  <img class="rounded-circle" height="33" alt="{% trans 'Avatar' %}" src="{{ user.avatar.url }}" />
 {% else %}
   <i class="bi bi-person-circle" style="font-size: 33px; line-height: 33px"></i>
 {% endif %}

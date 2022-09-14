@@ -9,7 +9,7 @@
 {% endblock beforemain %}
 {% block main %}
   {{ block.super }}
-  <form method="POST" class="bg-white" action="{% url 'questions:edit' country_id=request.resolver_match.kwargs.country_id pk=request.resolver_match.kwargs.pk %}">
+  <form method="POST" class="bg-white rounded-2" action="{% url 'questions:edit' country_id=request.resolver_match.kwargs.country_id pk=request.resolver_match.kwargs.pk %}">
     {% csrf_token %}
     {{ form|crispy }}
     <input type="submit" class="btn btn-primary" value="{% trans 'Save' %}">

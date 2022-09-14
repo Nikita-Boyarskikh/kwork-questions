@@ -1,15 +1,15 @@
-{% extends "layout.html" %}
+{% extends 'layout.html' %}
 {% load i18n %}
 {% load crispy_forms_tags %}
 
-{% block title %}{% trans "Create answer" %}{% endblock title %}
+{% block title %}{% trans 'Create answer' %}{% endblock title %}
 {% block beforemain %}
   {{ block.super }}
   {% include '_countries.html' with url_name='answers:index' %}
 {% endblock beforemain %}
 {% block main %}
   {{ block.super }}
-  <form method="POST" class="bg-white" action="{% url 'answers:create' country_id=request.resolver_match.kwargs.country_id question_id=request.resolver_match.kwargs.question_id %}">
+  <form method="POST" class="bg-white rounded-2" action="{% url 'answers:create' country_id=request.resolver_match.kwargs.country_id question_id=request.resolver_match.kwargs.question_id %}">
     {% csrf_token %}
     {{ form|crispy }}
     <input type="submit" class="btn btn-primary" value="{% trans 'Create answer' %}">

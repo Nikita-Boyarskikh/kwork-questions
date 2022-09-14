@@ -9,6 +9,7 @@ register = template.Library()
 def question_status_class(question):
     return {
         QuestionStatus.DRAFT: 'warning',
+        QuestionStatus.DEFERRED: 'warning',
         QuestionStatus.PENDING: 'info',
         QuestionStatus.APPROVED: 'success',
         QuestionStatus.REJECTED: 'danger',
@@ -22,6 +23,7 @@ def question_status_class(question):
 def question_status_icon(question):
     return {
         QuestionStatus.DRAFT: 'icons/band.png',
+        QuestionStatus.DEFERRED: 'icons/band.png',
         QuestionStatus.PENDING: 'icons/clock.png',
         QuestionStatus.APPROVED: 'icons/checkmark.png',
         QuestionStatus.REJECTED: 'icons/cross.png',
