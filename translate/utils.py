@@ -1,5 +1,3 @@
-from django.conf import settings
-
 from google.api_core.exceptions import GoogleAPICallError
 from google.cloud import translate_v2 as translate
 

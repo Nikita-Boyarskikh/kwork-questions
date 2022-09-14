@@ -1,11 +1,13 @@
+from annoying.decorators import render_to
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 
 from languages.models import Language
 from users.forms import ChangeAvatarForm
 
 
 @login_required
+@render_to('users/me.html')  # TODO refactor other
 def me(request):
     form = ChangeAvatarForm(instance=request.user)
     if request.method == 'POST':
@@ -13,9 +15,7 @@ def me(request):
         if form.is_valid():
             form.save()
             form = ChangeAvatarForm(instance=request.user)
-    return render(request, 'users/me.html', {
-        'form': form,
-    })
+    return {'form': form}
 
 
 def change_preferred_language(request, lang):

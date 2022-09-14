@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-14 07:36+0000\n"
+"POT-Creation-Date: 2022-09-14 12:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,7 +38,7 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: accounts/models.py:70 answers/models.py:32 questions/models.py:55
+#: accounts/models.py:70 answers/models.py:32 questions/models.py:60
 msgid "Status"
 msgstr ""
 
@@ -80,15 +80,15 @@ msgstr ""
 msgid "Account Actions"
 msgstr ""
 
-#: answers/models.py:22 questions/models.py:59
+#: answers/models.py:22
 msgid "Original text"
 msgstr ""
 
-#: answers/models.py:23 questions/models.py:60
+#: answers/models.py:23
 msgid "Translated to english text"
 msgstr ""
 
-#: answers/models.py:32 answers/models.py:48 questions/models.py:131
+#: answers/models.py:32 answers/models.py:48 questions/models.py:137
 msgid "Question"
 msgstr ""
 
@@ -110,7 +110,7 @@ msgid "Country"
 msgstr ""
 
 #: answers/models.py:56 chat/models.py:23 claims/models.py:31
-#: questions/models.py:82
+#: questions/models.py:88
 #, python-format
 msgid "Truncated %s"
 msgstr ""
@@ -120,7 +120,7 @@ msgstr ""
 msgid "Answer for Question %(question_id)s by %(author)s"
 msgstr ""
 
-#: answers/models.py:77 answers/views.py:26
+#: answers/models.py:77 answers/views.py:25
 msgid "Question's author can't answer to it"
 msgstr ""
 
@@ -147,15 +147,15 @@ msgstr ""
 msgid "Answer views"
 msgstr ""
 
-#: answers/views.py:22
+#: answers/views.py:21
 msgid "This question is not published yet"
 msgstr ""
 
-#: answers/views.py:30
+#: answers/views.py:29
 msgid "You already answered to this question"
 msgstr ""
 
-#: answers/views.py:56 questions/views.py:57 questions/views.py:93
+#: answers/views.py:55 questions/views.py:57 questions/views.py:93
 msgid "This field is required."
 msgstr ""
 
@@ -380,15 +380,31 @@ msgstr ""
 msgid "Closed"
 msgstr ""
 
+#: questions/models.py:55
+msgid "Title"
+msgstr ""
+
+#: questions/models.py:56
+msgid "Text"
+msgstr ""
+
 #: questions/models.py:57
+msgid "Original"
+msgstr ""
+
+#: questions/models.py:58
+msgid "Translated to english"
+msgstr ""
+
+#: questions/models.py:62
 msgid "Rejected reason"
 msgstr ""
 
-#: questions/models.py:61
+#: questions/models.py:67
 msgid "Price"
 msgstr ""
 
-#: questions/models.py:106
+#: questions/models.py:112
 #, python-format
 msgid ""
 "This status transition is not allowed\n"
@@ -396,16 +412,16 @@ msgid ""
 "%s"
 msgstr ""
 
-#: questions/models.py:110
+#: questions/models.py:116
 msgid "You should wait for question to be closed to select the best answer"
 msgstr ""
 
-#: questions/models.py:122
+#: questions/models.py:128
 #, python-format
 msgid "Question by %(author)s for %(country)s (%(price)s) - %(status)s"
 msgstr ""
 
-#: questions/models.py:132 templates/questions/list.html:5
+#: questions/models.py:138 templates/questions/list.html:5
 msgid "Questions"
 msgstr ""
 
@@ -735,8 +751,7 @@ msgstr ""
 msgid "Create answer"
 msgstr ""
 
-#: templates/answers/create.html:16 templates/questions/create.html:16
-#: templates/questions/edit.html:16
+#: templates/answers/create.html:16 templates/questions/edit.html:16
 msgid "Translate"
 msgstr ""
 

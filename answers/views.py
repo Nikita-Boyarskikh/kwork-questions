@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
@@ -9,8 +8,8 @@ from django.views.generic import ListView, DetailView
 from answers.forms import AnswerCreateForm
 from answers.models import Answer, AnswerView
 from languages.models import Language
-from questions.models import Question, QuestionStatus, WrongStatusError
-from utils.translate import translate
+from questions.models import Question, QuestionStatus
+from translate.utils import translate
 from utils.views import CurrentCountryListViewMixin, MyListViewMixin
 
 
@@ -106,8 +105,11 @@ class AnswersDetailView(DetailView):
     template_name = 'answers/detail.html'
 
     def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            AnswerView.objects.get_or_create(answer_id=self.kwargs.get('pk'), user=request.user)
+        answer = Answer.objects.filter(pk=self.kwargs.get('pk')).first()
+        right_question_statuses = (QuestionStatus.PUBLISHED, QuestionStatus.ANSWERED)
+        is_right_question_status = answer and answer.question__status in right_question_statuses
+        if request.user.is_authenticated and is_right_question_status:
+            AnswerView.objects.get_or_create(answer_id=answer.id, user=request.user)
         return super().get(request, *args, **kwargs)
 
 

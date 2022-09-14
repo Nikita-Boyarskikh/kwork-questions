@@ -13,7 +13,7 @@ from accounts.models import AccountAction, AccountActionType, AccountActionStatu
 from languages.models import Language
 from questions.forms import QuestionCreateForm
 from questions.models import Question, QuestionStatus
-from utils.translate import translate
+from translate.utils import translate
 from utils.views import CurrentCountryListViewMixin, MyListViewMixin
 
 
@@ -41,23 +41,8 @@ def create(request, country_id):
     if request.method == 'POST':
         form = QuestionCreateForm(request.POST, instance=question)
         if form.is_valid():
-            if 'translate' in request.POST:
-                new_form_data = form.data.copy()
-                new_form_data['en_text'] = translate(
-                    text=form.cleaned_data['original_text'],
-                    source_language=question.language,
-                    target_language=Language.default,
-                )
-                form.data = new_form_data
-            elif question.language == Language.default and not form.cleaned_data['en_text']:
-                new_form_data = form.data.copy()
-                new_form_data['en_text'] = form.cleaned_data['original_text']
-                form.data = new_form_data
-            elif not form.cleaned_data['en_text']:
-                form.add_error('en_text', _('This field is required.'))
-            else:
-                question = form.save()
-                return redirect(question)
+            question = form.save()
+            return redirect(question)
 
     return render(request, 'questions/create.html', {
         'form': form,

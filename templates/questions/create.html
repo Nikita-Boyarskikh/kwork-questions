@@ -1,4 +1,5 @@
 {% extends 'layout.html' %}
+{% load static %}
 {% load i18n %}
 {% load crispy_forms_tags %}
 
@@ -9,10 +10,49 @@
 {% endblock beforemain %}
 {% block main %}
   {{ block.super }}
-  <form method="POST" class="bg-white rounded-2" action="{% url 'questions:create' country_id=request.resolver_match.kwargs.country_id %}">
+  <form method="POST" class="bg-white rounded-2 d-flex flex-column" style="padding: 20px" action="{% url 'questions:create' country_id=request.resolver_match.kwargs.country_id %}">
     {% csrf_token %}
     {{ form|crispy }}
-    <input type="submit" class="btn btn-primary" value="{% trans 'Create Question' %}">
-    <input name="translate" type="submit" class="btn btn-secondary" value="{% trans 'Translate' %}">
+    <input type="submit" style="border: none; padding: 0; width: 245px; text-align: center; line-height: 35px; color: white; border-radius: 5px; background: #2659C2" value="{% trans 'Create Question' %}">
+    <hr />
+
+    <span style="font-size: 33px; line-height: 33px; color: #696969">{% trans 'Check translate' %}</span>
+    <div id="translated_{{ form.original_title.id_for_label }}" style="margin-top: 20px; font-size: 33px; line-height: 33px"></div>
+    <div id="translated_{{ form.original_text.id_for_label }}" style="margin-top: 10px; margin-bottom: 10px; overflow-wrap: break-word; line-height: 24px"></div>
+    <img width="33" src="{% static 'icons/question.png' %}" alt="{% trans 'About translation' %}" />
+
+    <script>
+      const onloadUnderscore = () => {
+        if (window._ === undefined) {
+            return requestAnimationFrame(onloadUnderscore)
+        }
+
+        const translate = _.throttle((text, callback) => {
+            return fetch('{% url 'translate:translate' %}', {
+                method: 'POST',
+                body: JSON.stringify({
+                    text,
+                    source_language: '{{ current_language.id }}',
+                }),
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'same-origin',
+            }).then(response => response.json()).then(({ text }) => callback(text))
+        }, 100)
+
+        const fieldIds = ['{{ form.original_title.id_for_label }}', '{{ form.original_text.id_for_label }}']
+        fieldIds.forEach(id => {
+            const originalEl = document.getElementById(id)
+            const translatedEl = document.getElementById(`translated_${id}`)
+            originalEl.addEventListener('input', (event) => {
+                translate(event.target.value, (text) => translatedEl.innerText = text)
+            })
+        })
+      }
+
+      requestAnimationFrame(onloadUnderscore)
+    </script>
   </form>
 {% endblock main %}

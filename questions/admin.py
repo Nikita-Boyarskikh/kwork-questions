@@ -21,10 +21,10 @@ class QuestionAdmin(admin.ModelAdmin):
         'country',
         'language',
     )
-    list_display = ('__str__', 'status', 'price', 'truncated_en_text', 'author', 'best_answer', 'country')
+    list_display = ('__str__', 'status', 'price', 'en_title', 'truncated_en_text', 'author', 'best_answer', 'country')
     search_fields = ('en_text', 'original_text', 'author')
     list_editable = ('status',)
-    moderator_readonly_fields = ('en_text', 'original_text', 'price', 'author', 'best_answer', 'country', 'language')  # TODO: make it editable for admin
+    moderator_readonly_fields = ('en_title', 'original_title', 'en_text', 'original_text', 'price', 'author', 'best_answer', 'country', 'language')  # TODO: make it editable for admin
     readonly_fields = ('status_changed', 'created', 'modified') + moderator_readonly_fields
 
     # TODO: make it deletable for admin

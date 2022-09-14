@@ -15,30 +15,43 @@
         {% endif %}
 
         {% if not field|is_checkboxselectmultiple and not field|is_radioselect %}
-            {% if field_class %}<div class="{{ field_class }}">{% endif %}
-                {% if field|is_file %}
-                    {% include 'bootstrap5/layout/field_file.html' %}
-                {% elif field|is_select %}
-                    {% if field.errors %}
-                        {% crispy_field field 'style' 'border-radius: 0' 'class' 'form-select is-invalid' %}
-                    {% else %}
-                        {% crispy_field field 'style' 'border-radius: 0' 'class' 'form-select' %}
-                    {% endif %}
-                {% elif field|is_checkbox %}
+            {% if field|is_checkbox and form_show_labels %}
                     {% if field.errors %}
                         {% crispy_field field 'style' 'border-radius: 0' 'class' 'form-check-input is-invalid' %}
                     {% else %}
                         {% crispy_field field 'style' 'border-radius: 0' 'class' 'form-check-input' %}
                     {% endif %}
-                {% elif field.errors %}
-                    {% crispy_field field 'style' 'border-radius: 0' 'class' 'form-control is-invalid' %}
-                {% else %}
-                    {% crispy_field field 'style' 'border-radius: 0' 'class' 'form-control' 'placeholder' field.label %}
-                {% endif %}
-                {% if not field|is_file %}
-                    {% include 'bootstrap5/layout/help_text_and_errors.html' %}
-                {% endif %}
-            {% if field_class %}</div>{% endif %}
+                <label for="{{ field.id_for_label }}" class="form-check-label{% if field.field.required %} requiredField{% endif %}">
+                    {{ field.label }}
+                </label>
+                {% include 'bootstrap5/layout/help_text_and_errors.html' %}
+            {% else %}
+
+                {% if field_class %}<div class="{{ field_class }}">{% endif %}
+                    {% if field|is_file %}
+                        {% include 'crispy_forms/file_field.html' %}
+                    {% elif field|is_select %}
+                        {% if field.errors %}
+                            {% crispy_field field 'style' 'border-radius: 0' 'class' 'form-select is-invalid' %}
+                        {% else %}
+                            {% crispy_field field 'style' 'border-radius: 0' 'class' 'form-select' %}
+                        {% endif %}
+                    {% elif field|is_checkbox %}
+                        {% if field.errors %}
+                            {% crispy_field field 'style' 'border-radius: 0' 'class' 'form-check-input is-invalid' %}
+                        {% else %}
+                            {% crispy_field field 'style' 'border-radius: 0' 'class' 'form-check-input' %}
+                        {% endif %}
+                    {% elif field.errors %}
+                        {% crispy_field field 'style' 'border-radius: 0' 'class' 'form-control is-invalid' %}
+                    {% else %}
+                        {% crispy_field field 'style' 'border-radius: 0' 'class' 'form-control' 'placeholder' field.label %}
+                    {% endif %}
+                    {% if not field|is_file %}
+                        {% include 'bootstrap5/layout/help_text_and_errors.html' %}
+                    {% endif %}
+                {% if field_class %}</div>{% endif %}
+            {% endif %}
         {% endif %}
     </{% if tag %}{{ tag }}{% else %}div{% endif %}>
     {% if field|is_checkbox %}
