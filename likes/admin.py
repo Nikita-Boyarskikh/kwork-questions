@@ -13,7 +13,7 @@ class LikeInline(GenericTabularInline):
 
 class LikeAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'user', 'score_name', 'liked_object')
-    search_fields = ('author', 'comment', 'liked_object')
+    search_fields = ('user', 'liked_object')
     list_filter = (
         ('score',)
     )

@@ -1,67 +1,54 @@
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.utils.translation import gettext as _
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 
 from answers.forms import AnswerCreateForm
 from answers.models import Answer, AnswerView
 from languages.models import Language
 from questions.models import Question, QuestionStatus
-from translate.utils import translate
-from utils.views import CurrentCountryListViewMixin, MyListViewMixin
+from utils.views import CurrentCountryListViewMixin, MyListViewMixin, ValidationMixin
 
 
-# TODO use generic CreateView
-@login_required
-def create(request, question_id, country_id):
-    question = Question.objects.get(id=question_id, country_id=country_id)
-    if question.status != QuestionStatus.PUBLISHED:
-        messages.error(request, _('This question is not published yet'))
-        return redirect('answers:index', country_id=country_id, question_id=question.id)
+class CreateAnswerValidationMixin(ValidationMixin):
+    def validate(self):
+        question_id = self.kwargs.get('question_id')
+        country_id = self.kwargs.get('country_id')
+        self.question = Question.objects.get(id=question_id, country_id=country_id)
 
-    if request.user == question.author:
-        messages.error(request, _("Question's author can't answer to it"))
-        return redirect('questions:index', country_id=country_id)
+        if self.question.status != QuestionStatus.PUBLISHED:
+            messages.error(self.request, _('This question is not published yet'))
+            return redirect('answers:index', country_id=country_id, question_id=self.question.id)
 
-    if Answer.objects.filter(author=request.user, question=question).exists():
-        messages.error(request, _('You already answered to this question'))
-        return redirect('answers:index', country_id=country_id, question_id=question.id)
+        if self.request.user == self.question.author:
+            messages.error(self.request, _("Question's author can't answer to it"))
+            return redirect('questions:index', country_id=country_id)
 
-    answer = Answer(
-        author=request.user,
-        question=question,
-        language=Language.get_for_request(request),
-    )
-    form = AnswerCreateForm(instance=answer)
-    if request.method == 'POST':
-        form = AnswerCreateForm(request.POST, instance=answer)
-        if form.is_valid():
-            # TODO: refactor
-            if 'translate' in request.POST:
-                new_form_data = form.data.copy()
-                new_form_data['en_text'] = translate(
-                    text=form.cleaned_data['original_text'],
-                    source_language=answer.language,
-                    target_language=Language.default,
-                )
-                form.data = new_form_data
-            elif answer.language == Language.default and not form.cleaned_data['en_text']:
-                new_form_data = form.data.copy()
-                new_form_data['en_text'] = form.cleaned_data['original_text']
-                form.data = new_form_data
-            elif not form.cleaned_data['en_text']:
-                form.add_error('en_text', _('This field is required.'))
-            else:
-                form.save()
-                return redirect(answer)
+        if Answer.objects.filter(author=self.request.user, question=self.question).exists():
+            messages.error(self.request, _('You already answered to this question'))
+            return redirect('answers:index', country_id=country_id, question_id=self.question.id)
 
-    response = render(request, 'answers/create.html', {
-        'form': form,
-    })
 
-    return response
+class CreateAnswerView(LoginRequiredMixin, CreateAnswerValidationMixin, CreateView):
+    model = Answer
+    form_class = AnswerCreateForm
+    template_name = 'answers/create.html'
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['instance'] = Answer(
+            author=self.request.user,
+            question=self.question,
+            language=Language.get_for_request(self.request),
+        )
+        return kwargs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['question'] = self.question
+        return context
 
 
 class AnswersListView(CurrentCountryListViewMixin, ListView):
@@ -113,6 +100,7 @@ class AnswersDetailView(DetailView):
         return super().get(request, *args, **kwargs)
 
 
+create = CreateAnswerView.as_view()
 index = IndexAnswersListView.as_view()
 my = MyAnswersListView.as_view()
 detail = AnswersDetailView.as_view()

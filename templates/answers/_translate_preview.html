@@ -1,0 +1,13 @@
+{% load static %}
+{% load i18n %}
+
+<hr />
+
+<span style="font-size: 33px; line-height: 33px; color: #696969">{% trans 'Check translate' %}</span>
+<div id="translated_{{ form.original_text.id_for_label }}" style="margin-top: 10px; margin-bottom: 10px; overflow-wrap: break-word; line-height: 24px"></div>
+<img width="33" src="{% static 'icons/question.png' %}" alt="{% trans 'About translation' %}" />
+
+<script>
+  const fieldIds = ['{{ form.original_text.id_for_label }}']
+  translateFields(fieldIds)
+</script>

@@ -6,17 +6,15 @@
 {% block title %}{% trans 'Answer' %}{% endblock title %}
 {% block beforemain %}
   {{ block.super }}
-  <a href="{% url 'answers:index' question_id=answer.question_id country_id=answer.question.country_id %}" class="bg-white border-0 d-flex align-items-center" style="color: red; font-size: 16px; width: 1018px; padding: 0 0 0 69px; margin: 0 16px 16px;height: 45px">
-    &lt; {% trans 'Back' %}
-  </a>
+  {% include '_back_button.html' %}
 {% endblock beforemain %}
+
 {% block main %}
   {{ block.super }}
 
   <div class="d-flex flex-column bg-white rounded-2 position-relative" style="padding: 7px 0 20px 17px;">
-
-    <div class="d-flex {% if question.status != 'closed' %}position-absolute{% endif %}">
-      {% include 'answers/_answer.html' with answer=answer %}
+    <div class="d-flex {% if answer.question.status != 'closed' %}position-absolute{% endif %}">
+      {% include 'answers/_answer.html' %}
     </div>
 
     <div style="margin-left: 52px">
@@ -24,7 +22,7 @@
     </div>
 
     <div style="margin: 17px 0 0 52px">
-      {% include 'likes/_for_answer.html' with answer=answer %}
+      {% include 'likes/_for_answer.html' %}
     </div>
   </div>
 {% endblock main %}

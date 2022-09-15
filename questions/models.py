@@ -136,3 +136,23 @@ class Question(TimeStampedModel, LikableModelMixin, WithSelfContentTypeMixin):
         ordering = ('-price',)
         verbose_name = _('Question')
         verbose_name_plural = _('Questions')
+
+
+# TODO: move to separate app and make it generic
+class Comment(TimeStampedModel):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    question = models.ForeignKey('questions.Question', on_delete=models.CASCADE)
+    comment = models.TextField(_('Comment'))
+
+    def __str__(self):
+        return _('Comment by %(username)s for %(question_id)s: %(comment)s') % {
+            'username': self.user.username,
+            'question_id': self.question_id,
+            'comment': self.comment,
+        }
+
+    class Meta:
+        unique_together = [('question', 'user')]
+        ordering = ('-created',)
+        verbose_name = _('Comment')
+        verbose_name_plural = _('Comments')

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-14 12:35+0000\n"
+"POT-Creation-Date: 2022-09-15 10:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,7 +46,8 @@ msgstr ""
 msgid "Delta"
 msgstr ""
 
-#: accounts/models.py:76 claims/models.py:18
+#: accounts/models.py:76 claims/models.py:18 questions/models.py:145
+#: questions/models.py:157
 msgid "Comment"
 msgstr ""
 
@@ -92,8 +93,8 @@ msgstr ""
 msgid "Question"
 msgstr ""
 
-#: answers/models.py:40 answers/models.py:94 templates/answers/detail.html:6
-#: templates/questions/_questions_list.html:75
+#: answers/models.py:40 answers/models.py:94 templates/answers/create.html:19
+#: templates/answers/detail.html:6 templates/questions/_question.html:27
 msgid "Answer"
 msgstr ""
 
@@ -120,7 +121,7 @@ msgstr ""
 msgid "Answer for Question %(question_id)s by %(author)s"
 msgstr ""
 
-#: answers/models.py:77 answers/views.py:25
+#: answers/models.py:77 answers/views.py:26
 msgid "Question's author can't answer to it"
 msgstr ""
 
@@ -130,7 +131,7 @@ msgid "Question status should be %s"
 msgstr ""
 
 #: answers/models.py:95 templates/answers/list.html:8
-#: templates/answers/list.html:49 templates/questions/_questions_list.html:40
+#: templates/questions/_info.html:22
 msgid "Answers"
 msgstr ""
 
@@ -147,16 +148,12 @@ msgstr ""
 msgid "Answer views"
 msgstr ""
 
-#: answers/views.py:21
+#: answers/views.py:22
 msgid "This question is not published yet"
 msgstr ""
 
-#: answers/views.py:29
+#: answers/views.py:30
 msgid "You already answered to this question"
-msgstr ""
-
-#: answers/views.py:55 questions/views.py:57 questions/views.py:93
-msgid "This field is required."
 msgstr ""
 
 #: chat/models.py:17
@@ -286,7 +283,7 @@ msgid "Like"
 msgstr ""
 
 #: likes/models.py:85 templates/likes/_for_answer.html:9
-#: templates/likes/list.html:4 templates/questions/_questions_list.html:47
+#: templates/likes/list.html:4 templates/questions/_info.html:29
 msgid "Likes"
 msgstr ""
 
@@ -303,52 +300,52 @@ msgstr ""
 msgid "Subscriptions"
 msgstr ""
 
-#: likes/views.py:74
+#: likes/views.py:67
 msgid "You already voted for this question"
 msgstr ""
 
-#: project/context_processors.py:28 templates/users/_avatar.html:3
+#: project/context_processors.py:30 templates/users/_avatar.html:3
 #: templates/users/me.html:5 templates/users/me.html:14 users/models.py:50
 msgid "Avatar"
 msgstr ""
 
-#: project/context_processors.py:29
+#: project/context_processors.py:31
 msgid "My questions"
 msgstr ""
 
-#: project/context_processors.py:30
+#: project/context_processors.py:32
 msgid "My answers"
 msgstr ""
 
-#: project/context_processors.py:31
+#: project/context_processors.py:33
 msgid "My voting"
 msgstr ""
 
-#: project/context_processors.py:32
+#: project/context_processors.py:34
 msgid "My Subscriptions"
 msgstr ""
 
-#: project/context_processors.py:36 templates/chat/list.html:5
+#: project/context_processors.py:38 templates/chat/list.html:5
 msgid "Chat"
 msgstr ""
 
-#: project/context_processors.py:41
+#: project/context_processors.py:43
 msgid "Ask a question"
 msgstr ""
 
-#: project/context_processors.py:42
+#: project/context_processors.py:44
 msgid "Site rules"
 msgstr ""
 
-#: project/context_processors.py:45
+#: project/context_processors.py:47
 msgid "Opened questions"
 msgstr ""
 
-#: project/context_processors.py:46 questions/models.py:37
+#: project/context_processors.py:48 questions/models.py:37
 msgid "Voting"
 msgstr ""
 
-#: project/context_processors.py:47
+#: project/context_processors.py:49
 msgid "Closed questions"
 msgstr ""
 
@@ -425,33 +422,42 @@ msgstr ""
 msgid "Questions"
 msgstr ""
 
-#: questions/views.py:24
+#: questions/models.py:148
+#, python-format
+msgid "Comment by %(username)s for %(question_id)s: %(comment)s"
+msgstr ""
+
+#: questions/models.py:158
+msgid "Comments"
+msgstr ""
+
+#: questions/views.py:22
 msgid ""
 "Only registered users can create questions.\n"
 "Please, register."
 msgstr ""
 
-#: questions/views.py:30
+#: questions/views.py:26
 msgid "You should accept site rules to create question."
 msgstr ""
 
-#: questions/views.py:72
+#: questions/views.py:53
 msgid "You can not edit published question"
 msgstr ""
 
-#: questions/views.py:109
+#: questions/views.py:72
 msgid "Question with this id does not exist"
 msgstr ""
 
-#: questions/views.py:114
+#: questions/views.py:77
 msgid "This question already published"
 msgstr ""
 
-#: questions/views.py:118
+#: questions/views.py:81
 msgid "You have no enough money"
 msgstr ""
 
-#: questions/views.py:131
+#: questions/views.py:94
 msgid "Question successfully send to moderation"
 msgstr ""
 
@@ -465,6 +471,10 @@ msgstr ""
 
 #: rules/models.py:15 templates/rules/list.html:4
 msgid "Rules"
+msgstr ""
+
+#: templates/_back_button.html:4
+msgid "Back"
 msgstr ""
 
 #: templates/_navbar.html:7
@@ -483,8 +493,8 @@ msgstr ""
 msgid "Log in"
 msgstr ""
 
-#: templates/_navbar.html:33 templates/account/login.html:32
-#: templates/account/signup.html:10 templates/account/signup.html:25
+#: templates/_navbar.html:33 templates/account/signup.html:10
+#: templates/account/signup.html:25
 msgid "Sign Up"
 msgstr ""
 
@@ -562,22 +572,9 @@ msgid ""
 "\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
 
-#: templates/account/login.html:6 templates/account/login.html:11
-#: templates/account/login.html:33
+#: templates/account/login.html:6 templates/account/login.html:10
+#: templates/account/login.html:24
 msgid "Sign In"
-msgstr ""
-
-#: templates/account/login.html:13
-#, python-format
-msgid ""
-"\n"
-"          If you have not created an account yet, then please\n"
-"          <a href=\"%(signup_url)s\">sign up</a> first.\n"
-"        "
-msgstr ""
-
-#: templates/account/login.html:29 templates/account/password_change.html:23
-msgid "Forgot Password?"
 msgstr ""
 
 #: templates/account/logout.html:5 templates/account/logout.html:10
@@ -601,6 +598,10 @@ msgstr ""
 
 #: templates/account/password_change.html:13
 msgid "Update your password below."
+msgstr ""
+
+#: templates/account/password_change.html:23
+msgid "Forgot Password?"
 msgstr ""
 
 #: templates/account/password_change.html:30
@@ -747,23 +748,25 @@ msgstr ""
 msgid "Update your e-mail address"
 msgstr ""
 
-#: templates/answers/create.html:5 templates/answers/create.html:15
+#: templates/answers/_translate_preview.html:6
+#: templates/questions/_translate_preview.html:6
+msgid "Check translate"
+msgstr ""
+
+#: templates/answers/_translate_preview.html:8
+#: templates/questions/_translate_preview.html:9
+msgid "About translation"
+msgstr ""
+
+#: templates/answers/create.html:5
 msgid "Create answer"
 msgstr ""
 
-#: templates/answers/create.html:16 templates/questions/edit.html:16
-msgid "Translate"
-msgstr ""
-
-#: templates/answers/detail.html:10 templates/answers/list.html:14
-msgid "Back"
-msgstr ""
-
-#: templates/answers/list.html:85
+#: templates/answers/list.html:34
 msgid "Full answer"
 msgstr ""
 
-#: templates/answers/list.html:99
+#: templates/answers/list.html:48
 msgid "Add new answer"
 msgstr ""
 
@@ -779,8 +782,7 @@ msgstr ""
 msgid "Create claim"
 msgstr ""
 
-#: templates/likes/_for_answer.html:10
-#: templates/questions/_questions_list.html:51
+#: templates/likes/_for_answer.html:10 templates/questions/_info.html:33
 msgid "Dislikes"
 msgstr ""
 
@@ -796,20 +798,16 @@ msgstr ""
 msgid "View dislikes"
 msgstr ""
 
-#: templates/questions/_questions_list.html:81
+#: templates/questions/_question.html:33
 msgid "Vote"
 msgstr ""
 
-#: templates/questions/_questions_list.html:87
+#: templates/questions/_question.html:39
 msgid "Edit"
 msgstr ""
 
-#: templates/questions/_questions_list.html:93
+#: templates/questions/_question.html:45
 msgid "View"
-msgstr ""
-
-#: templates/questions/_questions_list.html:111
-msgid "There is no questions yet"
 msgstr ""
 
 #: templates/questions/create.html:5
@@ -824,12 +822,16 @@ msgstr ""
 msgid "Edit question"
 msgstr ""
 
-#: templates/questions/edit.html:15
+#: templates/questions/edit.html:17
 msgid "Save"
 msgstr ""
 
-#: templates/questions/edit.html:18
+#: templates/questions/edit.html:19
 msgid "Send to moderation"
+msgstr ""
+
+#: templates/questions/list.html:15
+msgid "There is no questions yet"
 msgstr ""
 
 #: templates/rules/list.html:17

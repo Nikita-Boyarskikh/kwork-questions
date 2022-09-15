@@ -9,10 +9,15 @@
 {% endblock beforemain %}
 {% block main %}
   {{ block.super }}
-  <form method="POST" class="bg-white rounded-2" action="{% url 'answers:create' country_id=request.resolver_match.kwargs.country_id question_id=request.resolver_match.kwargs.question_id %}">
+
+  {% include 'questions/_detailed_question.html' %}
+
+  <form method="POST" class="bg-white rounded-2" style="padding: 20px" action="{% url 'answers:create' country_id=request.resolver_match.kwargs.country_id question_id=request.resolver_match.kwargs.question_id %}">
     {% csrf_token %}
     {{ form|crispy }}
-    <input type="submit" class="btn btn-primary" value="{% trans 'Create answer' %}">
-    <input name="translate" type="submit" class="btn btn-secondary" value="{% trans 'Translate' %}">
+
+    <input type="submit" class="btn btn-primary" value="{% trans 'Answer' %}">
+
+    {% include 'answers/_translate_preview.html' %}
   </form>
 {% endblock main %}

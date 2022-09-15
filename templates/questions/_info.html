@@ -1,0 +1,40 @@
+{% load i18n %}
+{% load questions_status %}
+{% load static %}
+
+{{ question.country }}
+
+<span class="d-flex align-items-center" style="gap: 4px">
+  <img height="33" alt="currency" src="{% static question.price.currency|currency_icon %}" />
+  {{ question.price.amount }}
+</span>
+
+{% if question.status != 'closed' %}
+  <span class="d-flex align-items-center text-{{ question|question_status_class }}" style="gap: 4px">
+    <img height="33" alt="{{ question.status }}" src="{% static question|question_status_icon %}" />
+    {{ question.get_status_display }}
+  </span>
+{% endif %}
+
+{% if question.status in 'answered closed'|split %}
+  <span class="d-flex align-items-center" style="gap: 4px">
+    <img height="33" alt="answers" src="{% static 'icons/comment.png' %}" />
+    <span>{{ question.answer_set.count }} {% trans 'Answers' %}</span>
+  </span>
+{% endif %}
+
+{% if question.status == 'closed' %}
+  <span class="d-flex align-items-center" style="gap: 4px">
+    <img height="33" alt="like" src="{% static 'icons/like.png' %}" />
+    <span>{{ question.likes.count }} {% trans 'Likes' %}</span>
+  </span>
+  <span class="d-flex align-items-center" style="gap: 4px">
+    <img height="33" alt="dislike" src="{% static 'icons/dislike.png' %}" />
+    <span>{{ question.dislikes.count }} {% trans 'Dislikes' %}</span>
+  </span>
+{% endif %}
+
+<span class="d-flex align-items-center" style="gap: 4px">
+  {% include 'users/_avatar.html' with user=question.author %}
+  {{ question.author.username }}
+</span>

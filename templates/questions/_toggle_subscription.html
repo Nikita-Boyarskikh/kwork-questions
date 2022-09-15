@@ -1,0 +1,10 @@
+{% load static %}
+{% load likes %}
+
+<img height="33" alt="toggle subscription" src="
+  {% if question|subscribed:request.user %}
+    {% static 'icons/star-filled.png' %}
+  {% else %}
+    {% static 'icons/star.png' %}
+  {% endif %}"
+/>

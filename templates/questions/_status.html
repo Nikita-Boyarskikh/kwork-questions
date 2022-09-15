@@ -1,0 +1,5 @@
+{% if question.status in 'approved published answered'|split %}
+  {{ question.status_changed|timesince }}
+{% else %}
+  {{ question.get_status_display }}
+{% endif %}

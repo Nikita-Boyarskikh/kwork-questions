@@ -2,6 +2,7 @@ from functools import partial
 
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.exceptions import BadRequest
 from django.db import transaction
 from django.shortcuts import redirect
 from django.utils.translation import gettext as _
@@ -9,7 +10,8 @@ from django.views.generic import ListView
 
 from answers.models import Answer
 from likes.models import Like, Subscription, LikeScore
-from utils.views import CurrentCountryListViewMixin, MyListViewMixin
+from questions.models import Question
+from utils.views import MyListViewMixin, ForGenericMixin
 
 
 class ForScoreMixin:
@@ -20,16 +22,9 @@ class ForScoreMixin:
         return qs.filter(score=self.score)
 
 
-class ForAnswerMixin:
-    def get_queryset(self):
-        qs = super().get_queryset()
-        return qs.filter(
-            liked_object_content_type=Answer.content_type,
-            liked_object_id=self.kwargs['answer_id'],
-        )
-
-
-class LikesListView(ForAnswerMixin, ForScoreMixin, ListView):
+class LikesListView(ForGenericMixin, ForScoreMixin, ListView):
+    content_type_field = 'liked_object_content_type'
+    object_id_field = 'liked_object_id'
     score = LikeScore.LIKE
     model = Like
     template_name = 'likes/list.html'
@@ -68,19 +63,29 @@ def toggle_subscription(request, country_id, question_id):
 
 @transaction.atomic
 @login_required
-def change_reaction_score(request, target, country_id, answer_id):
-    answer = Answer.objects.get(id=answer_id)
-    if Like.is_voted_for_question(user=request.user, question=answer.question):
-        messages.error(request, _('You already voted for this question'))
-        return redirect('answers:index', country_id=country_id, question_id=answer.question_id)
+def change_reaction_score(request, target, country_id, content_type, object_id):
+    already_voted_message = _('You already voted for this question')
 
-    obj = Like.objects.create(
+    if content_type == 'answer':
+        liked_object = Answer.objects.get(id=object_id)
+        if Like.is_voted_for_question(user=request.user, question=liked_object.question):
+            messages.error(request, already_voted_message)
+            return redirect('answers:index', country_id=country_id, question_id=liked_object.question_id)
+
+    elif content_type == 'question':
+        liked_object = Question.objects.get(id=object_id)
+        if liked_object.likes.filter(user=request.user).exists():
+            messages.error(request, already_voted_message)
+            return redirect('answers:index', country_id=country_id, question_id=liked_object.id)
+    else:
+        raise BadRequest()
+
+    Like.objects.create(
         user=request.user,
         score=target,
-        liked_object_id=answer_id,
-        liked_object_content_type=Answer.content_type,
+        liked_object=liked_object,
     )
-    return redirect(obj.liked_object)
+    return redirect(liked_object)
 
 
 like = partial(change_reaction_score, target=LikeScore.LIKE)

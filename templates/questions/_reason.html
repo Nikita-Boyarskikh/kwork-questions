@@ -1,0 +1,5 @@
+{% if question.status in 'rejected deferred'|split and question.reason %}
+  <div class="bg-white rounded-2" style="margin-bottom: 3px;padding: 7px 0 7px 17px">
+    {{ question.reason }}
+  </div>
+{% endif %}

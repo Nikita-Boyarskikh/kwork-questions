@@ -5,4 +5,4 @@ Django internationalized questions marketplace for kwork: https://kwork.ru/track
 ### TODOS
 * like/dislike for question
 * comments for questions
-* ajax load translate, full answer, like/dislike, like/dislike's list, translate
+* full answer, like/dislike, like/dislike's list, translate

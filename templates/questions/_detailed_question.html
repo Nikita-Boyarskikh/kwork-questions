@@ -1,0 +1,24 @@
+{% load i18n %}
+{% load questions_status %}
+{% load static %}
+
+<div class="bg-white rounded-2" style="padding: 17px 0; margin-bottom: 16px">
+  <div style="border-bottom: 1px solid #636364; padding: 0 32px 15px 69px;">
+    <header style="margin-bottom: 15px; font-size: 32px; line-height: 24px">{{ question.truncated_en_text }}</header>
+    <span style="margin-bottom: 15px; font-size: 19px; line-height: 18px">{{ question.en_text }}</span>
+  </div>
+
+  <div class="d-flex align-items-center text-nowrap" style="font-size: 20px; height: 50px; gap: 12px; margin: 0 32px 0 17px;">
+    <a href="{% url 'likes:toggle_subscription' country_id=question.country_id question_id=question.id %}">
+      {% include 'questions/_toggle_subscription.html' %}
+    </a>
+
+    {% include 'questions/_info.html' %}
+
+    <span class="text-secondary ms-auto">
+      {% include 'questions/_status.html' %}
+    </span>
+  </div>
+</div>
+
+{% include 'questions/_reason.html' %}

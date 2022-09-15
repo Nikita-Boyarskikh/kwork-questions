@@ -23,7 +23,35 @@
         <link rel="stylesheet" href="{% static 'styles.css' %}">
       {% endblock style %}
 
-      <script async src="https://cdn.jsdelivr.net/npm/underscore@stable/underscore-umd-min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/underscore@stable/underscore-umd-min.js"></script>
+      <script>
+        const translate = _.throttle((text, callback) => {
+          return fetch('{% url 'translate:translate' %}', {
+            method: 'POST',
+            body: JSON.stringify({
+              text,
+              source_language: '{{ current_language.id }}',
+            }),
+            headers: {
+              'X-CSRFToken': '{{ csrf_token }}',
+              'Content-Type': 'application/json',
+            },
+            credentials: 'same-origin',
+          }).then(response => response.json()).then(({ text }) => callback(text))
+        }, 100)
+
+        const translateFields = (fieldIds) => {
+          fieldIds.forEach(id => {
+            const originalEl = document.getElementById(id)
+            const translatedEl = document.getElementById(`translated_${id}`)
+            originalEl.addEventListener('input', (event) => {
+              translate(event.target.value, (text) => translatedEl.innerText = text)
+            })
+
+            translate(originalEl.value, (text) => translatedEl.innerText = text)
+          })
+        }
+      </script>
     {% endblock head %}
   </head>
 

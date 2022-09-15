@@ -1,0 +1,57 @@
+{% load answers %}
+{% load i18n %}
+
+<div class="position-relative d-flex align-items-stretch bg-white rounded-2" style="padding: 7px 32px 7px 0;margin-bottom: 3px">
+  <a class="d-flex align-items-center" style="padding: 0 17px" href="{% url 'likes:toggle_subscription' country_id=question.country_id question_id=question.id %}">
+    {% include 'questions/_toggle_subscription.html' %}
+  </a>
+
+  <div class="d-flex flex-grow-1 flex-column" style="font-size: 20px">
+    <header style="margin-bottom: 15px; font-size: 32px; line-height: 24px">{{ question.truncated_en_text }}</header>
+    <span style="margin-bottom: 28px; font-size: 19px; line-height: 18px">{{ question.truncated_en_text }}</span>
+
+    <div class="d-flex align-items-center text-nowrap" style="gap: 12px">
+      {% include 'questions/_info.html' %}
+    </div>
+  </div>
+
+  <div class="d-flex flex-column position-absolute top-0 bottom-0 end-0 align-items-center" style="margin: 30px 10px 30px 0;justify-content: space-between">
+    <span class="text-secondary" style="font-size: 24px">
+      {% include 'questions/_status.html' %}
+    </span>
+
+    {% if question.author != request.user and question.status == 'published' and question|is_not_answered_by_me:request.user %}
+      <a style="font-size: 24px; display: inline-block; width: 130px; text-align: center; text-decoration: none; line-height: 34px; color: white; border-radius: 5px; background: #2659C2"
+         href="{% url 'answers:create' country_id=question.country.id question_id=question.id %}"
+      >
+        {% trans 'Answer' %}
+      </a>
+    {% elif question.author != request.user and question.status == 'answered' %}
+      <a style="font-size: 24px; display: inline-block; width: 130px; text-align: center; text-decoration: none; line-height: 34px; color: white; border-radius: 5px; background: #2659C2"
+         href="{{ question.get_absolute_url }}"
+      >
+        {% trans 'Vote' %}
+      </a>
+    {% elif question.author == request.user and question.status in 'draft deferred'|split %}
+      <a style="font-size: 24px; display: inline-block; width: 130px; text-align: center; text-decoration: none; line-height: 34px; color: white; border-radius: 5px; background: #2659C2"
+         href="{{ question.get_absolute_url }}"
+      >
+        {% trans 'Edit' %}
+      </a>
+    {% else %}
+      <a style="font-size: 24px; display: inline-block; width: 130px; text-align: center; text-decoration: none; line-height: 34px; color: white; border-radius: 5px; background: #2659C2"
+         href="{{ question.get_absolute_url }}"
+      >
+        {% trans 'View' %}
+      </a>
+    {% endif %}
+  </div>
+</div>
+
+{% include 'questions/_reason.html' %}
+
+{% if question.best_answer %}
+  <div class="d-flex">
+    {% include 'answers/_answer.html' with answer=question.best_answer %}
+  </div>
+{% endif %}

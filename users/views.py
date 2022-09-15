@@ -1,21 +1,28 @@
-from annoying.decorators import render_to
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
+from django.urls import reverse
+from django.views.generic import UpdateView
 
 from languages.models import Language
 from users.forms import ChangeAvatarForm
 
 
-@login_required
-@render_to('users/me.html')  # TODO refactor other
-def me(request):
-    form = ChangeAvatarForm(instance=request.user)
-    if request.method == 'POST':
-        form = ChangeAvatarForm(request.POST, request.FILES, instance=request.user)
-        if form.is_valid():
-            form.save()
-            form = ChangeAvatarForm(instance=request.user)
-    return {'form': form}
+class UpdateUserView(LoginRequiredMixin, UpdateView):
+    model = get_user_model()
+    form_class = ChangeAvatarForm
+    template_name = 'users/me.html'
+
+    def get_success_url(self):
+        return reverse('users:me')
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['instance'] = self.request.user
+        return kwargs
 
 
 def change_preferred_language(request, lang):
@@ -25,3 +32,6 @@ def change_preferred_language(request, lang):
     else:
         request.session['preferred_language'] = lang
     return redirect(request.GET.get('next', 'index'))
+
+
+me = UpdateUserView.as_view()

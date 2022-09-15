@@ -1,11 +1,15 @@
 from django import forms
 
 from answers.models import Answer
+from languages.models import Language
+from translate.utils import translate
 
 
 class AnswerCreateForm(forms.ModelForm):
-    en_text = forms.CharField(label=Answer.en_text.field.verbose_name, widget=forms.Textarea, required=False)
+    def save(self, commit=True):
+        self.instance.en_text = translate(self.cleaned_data['original_text'], self.instance.language, Language.default)
+        return super().save(commit)
 
     class Meta:
         model = Answer
-        fields = ('original_text', 'en_text')
+        fields = ('original_text',)

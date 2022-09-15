@@ -4,7 +4,7 @@ from likes.views import subscriptions, likes, dislikes, toggle_subscription, lik
 
 app_name = 'likes'
 urlpatterns = [
-    path('<int:answer_id>/', include([
+    path('<str:content_type>/<int:object_id>/', include([
         path('likes', likes, name='likes'),
         path('dislikes', dislikes, name='dislikes'),
         path('like', like, name='like'),

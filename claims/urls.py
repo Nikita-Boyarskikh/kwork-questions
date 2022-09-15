@@ -4,5 +4,5 @@ from claims.views import create
 
 app_name = 'claims'
 urlpatterns = [
-    path('<int:answer_id>', create, name='create'),
+    path('<str:content_type>/<int:object_id>', create, name='create'),
 ]

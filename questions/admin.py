@@ -4,7 +4,7 @@ from django.contrib.admin import TabularInline
 from accounts.admin import AccountActionGenericInline
 from answers.admin import AnswerInline
 from likes.admin import LikeInline
-from questions.models import Question
+from questions.models import Question, Comment
 
 
 class QuestionInline(TabularInline):
@@ -33,3 +33,4 @@ class QuestionAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Question, QuestionAdmin)
+admin.site.register(Comment)

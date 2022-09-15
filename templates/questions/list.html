@@ -9,5 +9,9 @@
 {% endblock beforemain %}
 {% block main %}
   {{ block.super }}
-  {% include 'questions/_questions_list.html' with questions=object_list %}
+  {% for question in object_list %}
+    {% include 'questions/_question.html' %}
+  {% empty %}
+    {% trans 'There is no questions yet' %}
+  {% endfor %}
 {% endblock main %}

@@ -287,6 +287,7 @@ CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
 # Custom
 
+DEFAULT_COUNTRY = config('DEFAULT_COUNTRY', default='united_states')
 DEFAULT_LANGUAGE = config('DEFAULT_LANGUAGE', default='en')
 GOOGLE_APPLICATION_CREDENTIALS = config('GOOGLE_APPLICATION_CREDENTIALS')
 

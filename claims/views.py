@@ -1,27 +1,29 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.contenttypes.models import ContentType
+from django.views.generic import CreateView
 
-from answers.models import Answer
-from claims.forms import ClaimCreateForm
 from claims.models import Claim
+from utils.views import ForGenericMixin
 
 
-@login_required
-def create(request, answer_id):
-    claim = Claim(
-        author=request.user,
-        object_id=answer_id,
-        content_type=Answer.content_type,
-    )
-    form = ClaimCreateForm(instance=claim)
+class CreateClaimView(LoginRequiredMixin, ForGenericMixin, CreateView):
+    model = Claim
+    template_name = 'claims/create.html'
+    fields = ('comment',)
 
-    if request.method == 'POST':
-        form = ClaimCreateForm(request.POST, instance=claim)
-        if form.is_valid():
-            claim = form.save()
-            question = claim.claimed_object.question
-            return redirect('answers:detail', country_id=question.country_id, question_id=question.id, pk=answer_id)
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        model_name = self.kwargs.get('content_type')
+        content_type = ContentType.objects.filter(app_label=f'{model_name}s', model=model_name).first()
+        kwargs['instance'] = Claim(
+            author=self.request.user,
+            object_id=self.kwargs.get('object_id'),
+            content_type=content_type,
+        )
+        return kwargs
 
-    return render(request, 'claims/create.html', {
-        'form': form,
-    })
+    def get_success_url(self):
+        return self.object.claimed_object.get_absolute_url()
+
+
+create = CreateClaimView.as_view()

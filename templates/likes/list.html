@@ -8,11 +8,11 @@
 {% endblock beforemain %}
 {% block main %}
   {{ block.super }}
-  <ul class="d-flex bg-white rounded-2 flex-column">
+  <ul class="d-grid bg-white rounded-2" style="gap: 20px; padding: 20px; grid-template-columns: repeat(auto-fit, minmax(max-content, 100px))">
     {% for like in object_list %}
-      <li class="d-flex">
+      <li class="d-flex align-items-center">
         {% include 'users/_avatar.html' with user=like.user %}
-        {{ like.user.username }}
+        <span style="margin-left: 7px">{{ like.user.username }}</span>
       </li>
     {% endfor %}
   </ul>

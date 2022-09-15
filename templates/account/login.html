@@ -6,33 +6,22 @@
 {% block head_title %}{% trans 'Sign In' %}{% endblock %}
 
 {% block content %}
-	<div class="m-3 m-lg-5">
-		<div class="text-center mt-4">
-			<h1 class="h3">{% trans 'Sign In' %}</h1>
-			<p class="text-black-50">
-        {% blocktrans %}
-          If you have not created an account yet, then please
-          <a href="{{ signup_url }}">sign up</a> first.
-        {% endblocktrans %}
-			</p>
-		</div>
+  <div class="bg-white d-flex flex-column align-items-center rounded-2 ms-auto me-auto" style="padding: 30px 60px; width: 500px; margin-top: 20px">
+    <h1 style="font-size: 25px; margin-bottom: 65px">{% trans 'Sign In' %}</h1>
 
     <form class="login" method="POST" action="{% url 'account_login' %}">
       {% csrf_token %}
-      {{ form|crispy }}
+      <div style="margin-bottom: 30px">
+        <input aria-label="{{ form.login.label }}" type="text" name="{{ form.login.html_name }}" placeholder="{{ form.login.label }}" autocomplete="email" class="textinput textInput form-control" style="border-radius: 0" required>
+      </div>
+      <div style="margin-bottom: 30px">
+        <input aria-label="{{ form.password.label }}" type="password" name="{{ form.password.html_name }}" placeholder="{{ form.password.label }}" autocomplete="current-password" class="textinput textInput form-control" style="border-radius: 0" required>
+      </div>
       {% if redirect_field_value %}
         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
       {% endif %}
 
-      <div class="row mt-4">
-        <div class="col d-flex align-items-center">
-          <a class="button secondaryAction text-muted text-light" href="{% url 'account_reset_password' %}"><small>{% trans 'Forgot Password?' %}</small></a>
-        </div>
-        <div class="col text-end">
-          <a class="btn btn-outline-primary rounded-pill py-2 px-5" href="{{ signup_url }}">{% trans 'Sign Up' %}</a>
-          <button type="submit" class="btn btn-primary rounded-pill py-2 px-5">{% trans 'Sign In' %}</button>
-        </div>
-      </div>
+      <button type="submit" class="rounded-2" style="padding: 0; border: none; height: 60px; width: 385px; background: #81B9FE; font-size: 25px">{% trans 'Sign In' %}</button>
     </form>
   </div>
 {% endblock %}

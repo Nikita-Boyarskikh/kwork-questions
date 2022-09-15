@@ -1,0 +1,14 @@
+{% load static %}
+{% load i18n %}
+
+<hr />
+
+<span style="font-size: 33px; line-height: 33px; color: #696969">{% trans 'Check translate' %}</span>
+<div id="translated_{{ form.original_title.id_for_label }}" style="margin-top: 20px; font-size: 33px; line-height: 33px"></div>
+<div id="translated_{{ form.original_text.id_for_label }}" style="margin-top: 10px; margin-bottom: 10px; overflow-wrap: break-word; line-height: 24px"></div>
+<img width="33" src="{% static 'icons/question.png' %}" alt="{% trans 'About translation' %}" />
+
+<script>
+  const fieldIds = ['{{ form.original_title.id_for_label }}', '{{ form.original_text.id_for_label }}']
+  translateFields(fieldIds)
+</script>
