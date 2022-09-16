@@ -1,4 +1,5 @@
 from annoying.functions import get_object_or_this
+from constance import config
 from django.conf import settings
 from django.core.cache import cache
 from django.db import models
@@ -28,7 +29,7 @@ class Language(models.Model):
         if default_language:
             return default_language
 
-        default_language = cls.objects.get(pk=settings.DEFAULT_LANGUAGE)
+        default_language = cls.objects.get(pk=config.DEFAULT_LANGUAGE)
         cache.set('default_language', default_language)
         return default_language
 

@@ -1,3 +1,4 @@
+from constance import config
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -39,7 +40,7 @@ class CreateQuestionView(CreateQuestionValidationMixin, CreateView):
             country_id = self.request.user.country_id
         kwargs['instance'] = Question(
             author=self.request.user,
-            price=settings.MIN_QUESTION_PRICE,
+            price=config.MIN_QUESTION_PRICE,
             language=Language.get_for_request(self.request),
             country_id=country_id,
         )

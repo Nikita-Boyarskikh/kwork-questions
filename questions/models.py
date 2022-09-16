@@ -1,3 +1,4 @@
+from constance import config
 from django.conf import settings
 from django.contrib import admin
 from django.core.exceptions import ValidationError
@@ -64,8 +65,8 @@ class Question(TimeStampedModel, LikableModelMixin, WithSelfContentTypeMixin):
     en_title = models.CharField(_translated_tr + ' ' + _title_tr, max_length=80)
     original_text = models.TextField(_original_tr + ' ' + _text_tr)
     en_text = models.TextField(_translated_tr + ' ' + _text_tr)
-    price = MoneyField(_('Price'), max_digits=14, default=settings.MIN_QUESTION_PRICE, validators=(
-        MinMoneyValidator(settings.MIN_QUESTION_PRICE),
+    price = MoneyField(_('Price'), max_digits=14, default=config.MIN_QUESTION_PRICE, validators=(
+        MinMoneyValidator(config.MIN_QUESTION_PRICE),
     ))
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     best_answer = models.OneToOneField(
@@ -75,7 +76,7 @@ class Question(TimeStampedModel, LikableModelMixin, WithSelfContentTypeMixin):
         null=True,
         blank=True,
     )
-    language = models.ForeignKey('languages.Language', on_delete=models.SET(settings.DEFAULT_LANGUAGE))
+    language = models.ForeignKey('languages.Language', on_delete=models.SET(config.DEFAULT_LANGUAGE))
     country = models.ForeignKey('countries.Country', on_delete=models.CASCADE)
 
     @property

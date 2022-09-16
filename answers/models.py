@@ -1,5 +1,6 @@
 from collections import defaultdict
 
+from constance import config
 from django.conf import settings
 from django.contrib import admin
 from django.contrib.contenttypes.fields import GenericRelation
@@ -22,7 +23,7 @@ class Answer(TimeStampedModel, LikableModelMixin, WithSelfContentTypeMixin):
     original_text = models.TextField(_('Original text'))
     en_text = models.TextField(_('Translated to english text'))
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    language = models.ForeignKey('languages.Language', on_delete=models.SET(settings.DEFAULT_LANGUAGE))
+    language = models.ForeignKey('languages.Language', on_delete=models.SET(config.DEFAULT_LANGUAGE))
     claims = GenericRelation(Claim)
     account_actions = GenericRelation(AccountAction)
 
@@ -56,7 +57,7 @@ class Answer(TimeStampedModel, LikableModelMixin, WithSelfContentTypeMixin):
         description=_('Truncated %s') % en_text.verbose_name.lower(),
     )
     def truncated_en_text(self):
-        return Truncator(self.en_text).chars(settings.ANSWER_PREVIEW_TEXT_SIZE)
+        return Truncator(self.en_text).chars(config.ANSWER_PREVIEW_TEXT_SIZE)
 
     def __str__(self):
         return _('Answer for Question %(question_id)s by %(author)s') % {

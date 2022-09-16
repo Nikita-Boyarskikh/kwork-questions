@@ -1,4 +1,5 @@
 from allauth.account.models import EmailAddress
+from constance import config
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser, UserManager as BaseUserManager
 from django.core.validators import MinValueValidator
@@ -62,8 +63,8 @@ class User(AbstractUser):
         help_text=_('User can create a question only after accept a user agreement.'),
     )
     pin = models.CharField(_('Pin'), max_length=128)
-    country = models.ForeignKey('countries.Country', default=settings.DEFAULT_COUNTRY, on_delete=models.SET_DEFAULT)
-    preferred_language = models.ForeignKey('languages.Language', default=settings.DEFAULT_LANGUAGE, on_delete=models.SET_DEFAULT)
+    country = models.ForeignKey('countries.Country', default=config.DEFAULT_COUNTRY, on_delete=models.SET_DEFAULT)
+    preferred_language = models.ForeignKey('languages.Language', default=config.DEFAULT_LANGUAGE, on_delete=models.SET_DEFAULT)
     sex = models.CharField(_('Sex'), max_length=10, choices=Sex.choices, null=True, blank=True)
     education = models.CharField(_('Education'), max_length=10, choices=Education.choices, null=True, blank=True)
     birth_year = models.PositiveIntegerField(

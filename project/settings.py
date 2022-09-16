@@ -96,6 +96,9 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
+
+                'constance.context_processors.config',
+
                 'project.context_processors.language',
                 'project.context_processors.menu_items',
                 'project.context_processors.countries',
@@ -128,6 +131,8 @@ LANGUAGE_CODE = 'en'
 LANGUAGES = [
     ('en', __('English')),
 ]
+
+FIXTURE_DIRS = [BASE_DIR / 'fixtures']
 
 # Email
 ANYMAIL = {
@@ -281,18 +286,42 @@ CURRENCY_CODE_MAX_LENGTH = 4
 
 # Constance
 
-# TODO!
-CONSTANCE_CONFIG = {}
+CONSTANCE_CONFIG = {
+    'DEFAULT_COUNTRY': ('united_states', __('Default user country'), str),
+    'DEFAULT_LANGUAGE': ('en', __('Default language'), str),
+    'MIN_QUESTION_PRICE': (Decimal(0), __('Minimal question price'), Decimal),
+    'ANSWER_PREVIEW_TEXT_SIZE': (50, __('Answer preview text size'), int),
+    'PUBLISH_QUESTION_COUNTDOWN_HOURS': (24, __('Publish question countdown hours'), int),
+    'CLOSE_ANSWERS_COUNTDOWN_HOURS': (24, __('Close answers countdown hours'), int),
+    'FINISH_VOTING_COUNTDOWN_HOURS': (24, __('Finish voting countdown hours'), int),
+}
+
+CONSTANCE_CONFIG_FIELDSETS = (
+    (
+        __('Defaults'),
+        (
+            'DEFAULT_COUNTRY',
+            'DEFAULT_LANGUAGE',
+        ),
+    ),
+    (
+        __('Countdowns settings'),
+        (
+            'PUBLISH_QUESTION_COUNTDOWN_HOURS',
+            'CLOSE_ANSWERS_COUNTDOWN_HOURS',
+            'FINISH_VOTING_COUNTDOWN_HOURS',
+        ),
+    ),
+    (
+        __('Other settings'),
+        (
+            'MIN_QUESTION_PRICE',
+            'ANSWER_PREVIEW_TEXT_SIZE',
+        ),
+    ),
+)
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
 # Custom
 
-DEFAULT_COUNTRY = config('DEFAULT_COUNTRY', default='united_states')
-DEFAULT_LANGUAGE = config('DEFAULT_LANGUAGE', default='en')
 GOOGLE_APPLICATION_CREDENTIALS = config('GOOGLE_APPLICATION_CREDENTIALS')
-
-MIN_QUESTION_PRICE = config('MIN_QUESTION_PRICE', default=0, cast=optional(Decimal))
-ANSWER_PREVIEW_TEXT_SIZE = config('ANSWER_PREVIEW_TEXT_SIZE', default=50, cast=int)
-PUBLISH_QUESTION_COUNTDOWN_HOURS = config('PUBLISH_QUESTION_COUNTDOWN_HOURS', default=24, cast=int)
-CLOSE_ANSWERS_COUNTDOWN_HOURS = config('CLOSE_ANSWERS_COUNTDOWN_HOURS', default=24, cast=int)
-FINISH_VOTING_COUNTDOWN_HOURS = config('FINISH_VOTING_COUNTDOWN_HOURS', default=24, cast=int)

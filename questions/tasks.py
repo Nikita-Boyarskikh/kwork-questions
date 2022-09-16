@@ -1,7 +1,7 @@
 from datetime import timedelta
 
 from celery import shared_task
-from django.conf import settings
+from constance import config
 from django.db import transaction
 from django.db.models import Q, Count
 from django.utils.timezone import now
@@ -30,7 +30,7 @@ def change_question_status_task(question, status, next_task=None, countdown=0):
 @app.task
 def publish_questions():
     with transaction.atomic():
-        yesterday = now() - timedelta(days=1)
+        yesterday = now() - timedelta(hours=config.PUBLISH_QUESTION_COUNTDOWN_HOURS)
         for question in Question.objects.select_for_update().filter(
             Q(status=QuestionStatus.APPROVED)
             | Q(status=QuestionStatus.PENDING, status_changed__gte=yesterday)
@@ -41,7 +41,7 @@ def publish_questions():
                 question=question,
                 status=QuestionStatus.PUBLISHED,
                 next_task=close_answers,
-                countdown=settings.CLOSE_ANSWERS_COUNTDOWN_HOURS,
+                countdown=config.CLOSE_ANSWERS_COUNTDOWN_HOURS,
             )
 
 
@@ -53,7 +53,7 @@ def close_answers(question_id):
             question=question,
             status=QuestionStatus.ANSWERED,
             next_task=finish_voting,
-            countdown=settings.FINISH_VOTING_COUNTDOWN_HOURS,
+            countdown=config.FINISH_VOTING_COUNTDOWN_HOURS,
         )
 
 
