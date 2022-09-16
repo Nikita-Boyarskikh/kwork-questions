@@ -20,8 +20,10 @@
     </div>
 
     <div style="line-height: 42px; font-size: 17px">
-      Вы можете загрузить изображение в формате JPG, GIF или PNG.<br />
-      Если у вас возникают проблемы с загрузкой, попробуйте выбрать фотографию меньшего размера.
+      {% blocktrans trimmed %}
+        You can upload an image in JPG, GIF or PNG format.<br />
+        If you are having problems uploading, try choosing a smaller image.
+      {% endblocktrans %}
 
       <form enctype="multipart/form-data" method="POST" action="{% url 'users:me' %}">
         {% csrf_token %}

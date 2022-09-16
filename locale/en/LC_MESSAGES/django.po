@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-16 06:21+0000\n"
+"POT-Creation-Date: 2022-09-16 11:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -842,7 +842,13 @@ msgstr ""
 msgid "Profile photo"
 msgstr ""
 
-#: templates/users/me.html:29
+#: templates/users/me.html:23
+msgid ""
+"You can upload an image in JPG, GIF or PNG format.<br /> If you are having "
+"problems uploading, try choosing a smaller image."
+msgstr ""
+
+#: templates/users/me.html:31
 msgid "Change avatar"
 msgstr ""
 
