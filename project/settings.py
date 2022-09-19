@@ -6,6 +6,7 @@ from dj_database_url import parse as db_url
 import moneyed
 from decouple import config, Csv
 from django.contrib import messages
+from django.utils.functional import lazy
 from django.utils.translation import gettext_lazy as __
 
 
@@ -243,9 +244,17 @@ ADMINS = MANAGERS = [
 
 SITE_ID = config('SITE_ID', default=1, cast=int)
 
-# TODO
+
+def _get_current_site_name(*args, **kwargs):
+    from django.contrib.sites.models import Site
+    return Site.objects.get(id=SITE_ID).name
+
+
 BATON = {
     'GRAVATAR_DEFAULT_IMAGE': 'mp',
+    'SITE_HEADER': '<img src="/%s/logo.png" />' % STATIC_URL,
+    'SITE_TITLE': lazy(_get_current_site_name),
+    'INDEX_TITLE': __('Site administration'),
 }
 
 # Authentication
