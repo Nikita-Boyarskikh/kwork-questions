@@ -9,9 +9,10 @@ from likes.admin import LikeInline
 from questions.admin import QuestionInline
 from users.auth import send_email_confirmation
 from users.models import User
+from utils.admin import AddingDeniedMixin
 
 
-class UserAdmin(BaseUserAdmin):
+class UserAdmin(AddingDeniedMixin, BaseUserAdmin):
     fieldsets = (
         (
             None,

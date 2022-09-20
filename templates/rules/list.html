@@ -2,18 +2,21 @@
 {% load i18n %}
 
 {% block title %}{% trans 'Rules' %}{% endblock title %}
+{% block beforemain %}
+  {% include '_back_button.html' %}
+{% endblock beforemain %}
 {% block main %}
   {{ block.super }}
 
-  <div class="bg-white rounded-2">
-    <ol type="1">
+  <div class="bg-white rounded-2" style="padding: 20px">
+    <ol type="1" class="m-0 d-flex flex-column" style="gap: 7px">
       {% for rule in object_list %}
-        <li>{{ rule }}</li>
+        <li style="white-space: pre-wrap; overflow-wrap: break-word; hyphens: auto">{{ rule }}</li>
       {% endfor %}
     </ol>
 
     {% if request.user.is_authenticated and not request.user.is_user_agreement_accepted %}
-      <a href="{% url 'rules:accept_agreement' %}" class="btn btn-primary">
+      <a href="{% url 'rules:accept_agreement' %}" class="ms-3 btn btn-primary" style="margin-top: 7px">
         {% trans 'Accept site rules' %}
       </a>
     {% endif %}

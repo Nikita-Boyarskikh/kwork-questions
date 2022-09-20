@@ -1,9 +1,9 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.contenttypes.models import ContentType
+from django.shortcuts import redirect
 from django.views.generic import CreateView
 
 from claims.models import Claim
-from utils.views import ForGenericMixin
+from utils.views import ForGenericMixin, LoginRequiredMixin
 
 
 class CreateClaimView(LoginRequiredMixin, ForGenericMixin, CreateView):
@@ -24,6 +24,11 @@ class CreateClaimView(LoginRequiredMixin, ForGenericMixin, CreateView):
 
     def get_success_url(self):
         return self.object.claimed_object.get_absolute_url()
+
+    def dispatch(self, request, *args, **kwargs):
+        claim = self.get_queryset().first()
+        if claim:
+            return redirect(claim.claimed_object)
 
 
 create = CreateClaimView.as_view()

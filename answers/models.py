@@ -19,13 +19,12 @@ from utils.generic_fields import WithSelfContentTypeMixin
 
 
 class Answer(TimeStampedModel, LikableModelMixin, WithSelfContentTypeMixin):
-    question = models.ForeignKey('questions.Question', on_delete=models.CASCADE)
+    question = models.ForeignKey('questions.Question', on_delete=models.CASCADE, editable=False)
     original_text = models.TextField(_('Original text'))
     en_text = models.TextField(_('Translated to english text'))
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, editable=False)
     language = models.ForeignKey('languages.Language', on_delete=models.SET(config.DEFAULT_LANGUAGE))
     claims = GenericRelation(Claim)
-    account_actions = GenericRelation(AccountAction)
 
     @property
     @admin.display(
@@ -98,8 +97,8 @@ class Answer(TimeStampedModel, LikableModelMixin, WithSelfContentTypeMixin):
 
 # TODO: move to separate app and make it generic
 class AnswerView(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.RESTRICT)
-    answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.RESTRICT, editable=False)
+    answer = models.ForeignKey(Answer, on_delete=models.CASCADE, editable=False)
 
     def __str__(self):
         return _('Answer view for %(answer_id)s by %(username)s') % {

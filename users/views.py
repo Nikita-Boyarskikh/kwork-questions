@@ -1,11 +1,11 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import UpdateView
 
 from languages.models import Language
 from users.forms import ChangeAvatarForm
+from utils.views import LoginRequiredMixin
 
 
 class UpdateUserView(LoginRequiredMixin, UpdateView):

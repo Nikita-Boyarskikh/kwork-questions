@@ -1,10 +1,10 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.views.generic import CreateView
 
 from chat.forms import CreateMessageForm
 from chat.models import Message
 from users.models import User
+from utils.views import LoginRequiredMixin
 
 
 class MessageListView(LoginRequiredMixin, CreateView):

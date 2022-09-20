@@ -4,48 +4,50 @@
 {% load i18n %}
 {% load likes %}
 
-{% if answer.question.status == 'closed' %}
-  <span>
-    <img height="33" alt="like" src="{% static 'icons/like.png' %}" /> {{ answer.likes.count }} {% trans 'Likes' %}
-    <img height="33" alt="dislike" src="{% static 'icons/dislike.png' %}" class="ms-3" /> {{ answer.dislikes.count }} {% trans 'Dislikes' %}
-  </span>
-{% endif %}
+<div class="d-flex align-items-center" style="gap: 12px">
+  {% if answer.question.status == 'closed' %}
+    <span class="d-inline-flex align-items-center" style="gap: 4px">
+      <img height="33" alt="like" src="{% static 'icons/like.png' %}" /> {{ answer.likes.count }} {% trans 'Likes' %}
+      <img height="33" alt="dislike" src="{% static 'icons/dislike.png' %}" class="ms-3" /> {{ answer.dislikes.count }} {% trans 'Dislikes' %}
+    </span>
+  {% endif %}
 
-{% if answer.question.status in 'answered closed'|split %}
-  <span>
-  {{ answer.views }}
-    <img height="33" alt="views" src="{% static 'icons/eye.png' %}" /> {{ answer.views__count }} {% trans 'Views' %}
-  </span>
-{% endif %}
+  {% if answer.question.status in 'answered closed'|split %}
+    <span class="d-inline-flex align-items-center" style="gap: 4px">
+      {{ answer.views }}
+      <img height="33" alt="views" src="{% static 'icons/eye.png' %}" /> {{ answer.views__count }} {% trans 'Views' %}
+    </span>
+  {% endif %}
 
-{% if answer.question.author != request.user and answer.question.status == 'answered' and not answer.question|is_answered_by_me:request.user %}
-  <a
-      href="{% url 'likes:like' country_id=answer.question.country_id content_type='answer' object_id=answer.id %}"
-      class="btn btn-{% if not answer|liked_by_me:request.user %}outline-{% endif %}success
-      {% if answer.question|is_voted_for_question:request.user %}disabled" aria-disabled="true{% endif %}"
-  >
-    <img height="33" alt="like" src="{% static 'icons/like.png' %}" /> {% trans 'Like' %}
-  </a>
-  <a
-      href="{% url 'likes:dislike' country_id=answer.question.country_id content_type='answer' object_id=answer.id %}"
-      class="btn btn-{% if not answer|disliked_by_me:request.user %}outline-{% endif %}danger
-      {% if answer.question|is_voted_for_question:request.user %}disabled" aria-disabled="true{% endif %}"
-  >
-    <img height="33" alt="dislike" src="{% static 'icons/dislike.png' %}" />  {% trans 'Dislike' %}
-  </a>
-{% endif %}
+  {% if answer.question.author != request.user and answer.question.status == 'answered' and not answer.question|is_answered_by_me:request.user %}
+    <a
+        href="{% url 'likes:like' country_id=answer.question.country_id content_type='answer' object_id=answer.id %}"
+        class="btn btn-{% if not answer|liked_by_me:request.user %}outline-{% endif %}success
+        {% if answer.question|is_voted_for_question:request.user %}disabled" aria-disabled="true{% endif %}"
+    >
+      <img height="33" alt="like" src="{% static 'icons/like.png' %}" style="margin-right: 4px" /> {% trans 'Like' %}
+    </a>
+    <a
+        href="{% url 'likes:dislike' country_id=answer.question.country_id content_type='answer' object_id=answer.id %}"
+        class="btn btn-{% if not answer|disliked_by_me:request.user %}outline-{% endif %}danger
+        {% if answer.question|is_voted_for_question:request.user %}disabled" aria-disabled="true{% endif %}"
+    >
+      <img height="33" alt="dislike" src="{% static 'icons/dislike.png' %}" style="margin-right: 4px" /> {% trans 'Dislike' %}
+    </a>
+  {% endif %}
 
-{% if answer.question.status == 'closed' %}
-  <a href="{% url 'likes:likes' country_id=answer.question.country_id content_type='answer' object_id=answer.id %}" class="btn btn-link">
-    {% trans 'View likes' %}
-  </a>
-  <a href="{% url 'likes:dislikes' country_id=answer.question.country_id content_type='answer' object_id=answer.id %}" class="btn btn-link">
-    {% trans 'View dislikes' %}
-  </a>
-{% endif %}
+  {% if answer.question.status == 'closed' %}
+    <a href="{% url 'likes:likes' country_id=answer.question.country_id content_type='answer' object_id=answer.id %}">
+      {% trans 'View likes' %}
+    </a>
+    <a href="{% url 'likes:dislikes' country_id=answer.question.country_id content_type='answer' object_id=answer.id %}">
+      {% trans 'View dislikes' %}
+    </a>
+  {% endif %}
 
-{% if request.user.is_authenticated and request.user != answer.author and not answer|is_claimed_by_me:request.user %}
-  <a href="{% url 'claims:create' content_type='answer' object_id=answer.id %}" class="position-absolute end-0 top-0" style="padding: 16px">
-    <img height="33" alt="{% trans 'Claim' %}" src="{% static 'icons/band.png' %}" />
-  </a>
-{% endif %}
+  {% if request.user.is_authenticated and request.user != answer.author and not answer|is_claimed_by_me:request.user %}
+    <a href="{% url 'claims:create' content_type='answer' object_id=answer.id %}" class="position-absolute end-0 top-0" style="padding: 16px">
+      <img height="33" alt="{% trans 'Claim' %}" src="{% static 'icons/band.png' %}" />
+    </a>
+  {% endif %}
+</div>

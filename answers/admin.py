@@ -40,7 +40,6 @@ class AnswerAdmin(admin.ModelAdmin):
         'author__username',
         'author__email',
     )
-    readonly_fields = ('created', 'modified')
 
 
 admin.site.register(Answer, AnswerAdmin)

@@ -5,7 +5,7 @@
 </button>
 
 <div class="dropdown">
-  <div class="dropdown-menu">
+  <div class="dropdown-menu overflow-auto" style="max-height: 650px">
     {% for country in countries %}
       {% url url_name country_id=country.id as country_url %}
       <a class="dropdown-item {% if request|is_current_url:country_url %}active{% endif %}" href="{{ country_url }}">

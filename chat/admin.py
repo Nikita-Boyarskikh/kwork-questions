@@ -14,7 +14,6 @@ class MessageAdmin(admin.ModelAdmin):
         'recipient__username',
         'recipient__email',
     )
-    readonly_fields = ('created', 'modified')
 
 
 admin.site.register(Message, MessageAdmin)

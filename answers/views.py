@@ -1,7 +1,7 @@
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count
 from django.shortcuts import redirect
+from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views.generic import ListView, DetailView, CreateView
 
@@ -9,32 +9,52 @@ from answers.forms import AnswerCreateForm
 from answers.models import Answer, AnswerView
 from languages.models import Language
 from questions.models import Question, QuestionStatus
-from utils.views import CurrentCountryListViewMixin, MyListViewMixin, ValidationMixin
+from utils.views import CurrentCountryListViewMixin, MyListViewMixin, LoginRequiredMixin, AccessWithMessageAdapter
 
 
-class CreateAnswerValidationMixin(ValidationMixin):
-    def validate(self):
-        question_id = self.kwargs.get('question_id')
-        country_id = self.kwargs.get('country_id')
-        self.question = Question.objects.get(id=question_id, country_id=country_id)
+class CreateAnswerValidationMixin:
+    unpublished_question_message = _('This question is not published yet')
+    answer_on_self_question_message = _("Question's author can't answer to it")
+    already_answered_message = _('You already answered to this question')
+
+    def get_unpublished_question_url(self):
+        return reverse('answers:index', kwargs={
+            'question_id': self.question.id,
+            'country_id': self.kwargs.get('country_id'),
+        })
+
+    def get_answer_on_self_question_url(self):
+        return reverse('questions:index', kwargs={'country_id': self.kwargs.get('country_id')})
+
+    def get_already_answered_url(self):
+        return reverse('answers:index', kwargs={
+            'country_id': self.kwargs.get('country_id'),
+            'question_id': self.question.id,
+        })
+
+    def dispatch(self, request, *args, **kwargs):
+        self.question = Question.objects.get(id=kwargs.get('question_id'), country_id=kwargs.get('country_id'))
 
         if self.question.status != QuestionStatus.PUBLISHED:
-            messages.error(self.request, _('This question is not published yet'))
-            return redirect('answers:index', country_id=country_id, question_id=self.question.id)
+            adapter = AccessWithMessageAdapter(self.get_unpublished_question_url(), self.unpublished_question_message)
+            return adapter.permission_denied_response(request)
 
-        if self.request.user == self.question.author:
-            messages.error(self.request, _("Question's author can't answer to it"))
-            return redirect('questions:index', country_id=country_id)
+        if request.user == self.question.author:
+            adapter = AccessWithMessageAdapter(self.get_answer_on_self_question_url(), self.answer_on_self_question_message)
+            return adapter.permission_denied_response(request)
 
-        if Answer.objects.filter(author=self.request.user, question=self.question).exists():
-            messages.error(self.request, _('You already answered to this question'))
-            return redirect('answers:index', country_id=country_id, question_id=self.question.id)
+        if Answer.objects.filter(author=request.user, question=self.question).exists():
+            adapter = AccessWithMessageAdapter(self.get_already_answered_url(), self.already_answered_message)
+            return adapter.permission_denied_response(request)
+
+        return super().dispatch(request, *args, **kwargs)
 
 
 class CreateAnswerView(LoginRequiredMixin, CreateAnswerValidationMixin, CreateView):
     model = Answer
     form_class = AnswerCreateForm
     template_name = 'answers/create.html'
+    permission_denied_message = _('Only registered users can answer questions.\nPlease, register')
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()

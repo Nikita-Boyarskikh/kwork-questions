@@ -1,6 +1,5 @@
 from annoying.functions import get_object_or_this
 from constance import config
-from django.conf import settings
 from django.core.cache import cache
 from django.db import models
 from django.utils.functional import classproperty

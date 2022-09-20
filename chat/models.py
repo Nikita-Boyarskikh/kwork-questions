@@ -12,8 +12,8 @@ from model_utils.models import TimeStampedModel
 
 
 class Message(TimeStampedModel):
-    sender = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='outbox_messages', on_delete=models.CASCADE)
-    recipient = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='inbox_messages', on_delete=models.CASCADE)
+    sender = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='outbox_messages', on_delete=models.CASCADE, editable=False)
+    recipient = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='inbox_messages', on_delete=models.CASCADE, editable=False)
     is_read = models.BooleanField(_('Is read?'), default=False)
     content = models.TextField(_('Content'))
 

@@ -41,10 +41,10 @@ class AccountActionStatus(models.TextChoices):
 
 class Account(TimeStampedModel):
     uid = models.UUIDField(_('Public identifier'), unique=True, editable=False, default=uuid.uuid4)
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, editable=False)
     balance = MoneyField(_('Balance'), default=0, max_digits=14, validators=(
         MinMoneyValidator(0),
-    ))
+    ), editable=False)
 
     def __str__(self):
         return f'{self.user} ({self.balance})'
@@ -59,7 +59,7 @@ class AccountAction(TimeStampedModel):
     PRODUCT_TYPES = ('questions.Question', 'answers.Answer')
 
     uid = models.UUIDField(_('Public identifier'), unique=True, editable=False, default=uuid.uuid4)
-    account = models.ForeignKey(Account, on_delete=models.PROTECT)
+    account = models.ForeignKey(Account, on_delete=models.PROTECT, editable=False)
     type = models.CharField(
         _('Type'),
         max_length=100,
@@ -77,7 +77,7 @@ class AccountAction(TimeStampedModel):
 
     content_type = models.ForeignKey(
         ContentType,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         limit_choices_to=content_type_limit_choices_by_model_references(PRODUCT_TYPES),
         null=True,
         blank=True,

@@ -3,9 +3,13 @@
 {% load crispy_forms_tags %}
 
 {% block title %}{% trans 'Create claim' %}{% endblock title %}
+{% block beforemain %}
+  {% include '_back_button.html' %}
+{% endblock beforemain %}
+
 {% block main %}
   {{ block.super }}
-  <form method="POST" class="bg-white rounded-2" action="{% url 'claims:create' content_type=request.resolver_match.kwargs.content_type object_id=request.resolver_match.kwargs.object_id %}">
+  <form method="POST" class="bg-white rounded-2" style="padding: 20px" action="{% url 'claims:create' content_type=request.resolver_match.kwargs.content_type object_id=request.resolver_match.kwargs.object_id %}">
     {% csrf_token %}
     {{ form|crispy }}
     <input type="submit" class="btn btn-primary" value="{% trans 'Create claim' %}">

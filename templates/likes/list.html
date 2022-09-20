@@ -4,7 +4,7 @@
 {% block title %}{% trans 'Likes' %}{% endblock title %}
 {% block beforemain %}
   {{ block.super }}
-  {% include '_countries.html' with url_name='likes:subscriptions' %}
+  {% include '_back_button.html' %}
 {% endblock beforemain %}
 {% block main %}
   {{ block.super }}

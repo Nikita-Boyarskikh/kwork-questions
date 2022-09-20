@@ -1,12 +1,9 @@
 from constance import config
-from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import redirect_to_login
 from django.db import transaction
 from django.shortcuts import redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext as _
 from django.views.generic import ListView, CreateView, UpdateView
 
@@ -14,24 +11,17 @@ from accounts.models import AccountAction, AccountActionType, AccountActionStatu
 from languages.models import Language
 from questions.forms import QuestionCreateForm
 from questions.models import Question, QuestionStatus
-from utils.views import CurrentCountryListViewMixin, MyListViewMixin, ValidationMixin
+from utils.views import CurrentCountryListViewMixin, MyListViewMixin, LoginRequiredMixin, UserAgreementRequiredMixin, \
+    AccessWithMessageAdapter
 
 
-class CreateQuestionValidationMixin(ValidationMixin):
-    def validate(self):
-        if not self.request.user.is_authenticated:
-            messages.info(self.request, _('Only registered users can create questions.\nPlease, register.'))
-            return redirect_to_login(self.request.get_full_path_info())
-
-        if not self.request.user.is_user_agreement_accepted:
-            messages.info(self.request, _('You should accept site rules to create question.'))
-            return redirect('rules:index')
-
-
-class CreateQuestionView(CreateQuestionValidationMixin, CreateView):
+class CreateQuestionView(LoginRequiredMixin, UserAgreementRequiredMixin, CreateView):
     model = Question
     form_class = QuestionCreateForm
     template_name = 'questions/create.html'
+    permission_denied_message = _('Only registered users can create questions.\nPlease, register.')
+    accept_agreements_url = reverse_lazy('rules:index')
+    agreements_not_accepted_message = _('You should accept site rules to create question.')
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -47,15 +37,21 @@ class CreateQuestionView(CreateQuestionValidationMixin, CreateView):
         return kwargs
 
 
-class UpdateQuestionValidationMixin(ValidationMixin):
-    def validate(self):
-        question = self.get_object()
-        if question.status not in (QuestionStatus.DRAFT, QuestionStatus.DEFERRED):
-            messages.error(self.request, _('You can not edit published question'))
-            return redirect('answers:index', question_id=question.id, country_id=self.kwargs.get('country_id'))
+class UnpublishedQuestionStatusRequiredMixin:
+    unpublished_message = _('You can not edit published question')
+
+    def get_redirect_url(self):
+        return reverse('answers:index', question_id=self.object.id, country_id=self.kwargs.get('country_id'))
+
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.object.status not in (QuestionStatus.DRAFT, QuestionStatus.DEFERRED):
+            adapter = AccessWithMessageAdapter(self.get_redirect_url(), self.unpublished_message)
+            return adapter.handle_no_permission()
+        return super().dispatch(request, *args, **kwargs)
 
 
-class UpdateQuestionView(LoginRequiredMixin, UpdateQuestionValidationMixin, UpdateView):
+class UpdateQuestionView(LoginRequiredMixin, UnpublishedQuestionStatusRequiredMixin, UpdateView):
     model = Question
     form_class = QuestionCreateForm
     template_name = 'questions/edit.html'

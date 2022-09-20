@@ -1,5 +1,39 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin as DjangoLoginRequiredMixin, AccessMixin
 from django.contrib.contenttypes.models import ContentType
+from django.contrib import messages
+
+
+class AccessWithMessageMixin(AccessMixin):
+    def handle_no_permission(self):
+        permission_denied_message = self.get_permission_denied_message()
+        if permission_denied_message:
+            messages.error(self.request, permission_denied_message)
+        return super().handle_no_permission()
+
+
+class AccessWithMessageAdapter(AccessWithMessageMixin):
+    def __init__(self, redirect_url=None, permission_denied_message=None):
+        self.login_url = redirect_url
+        self.permission_denied_message = permission_denied_message
+
+    def permission_denied_response(self, request):
+        self.request = request
+        return super().handle_no_permission()
+
+
+class UserAgreementRequiredMixin:
+    accept_agreements_url = None
+    agreements_not_accepted_message = None
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_user_agreement_accepted:
+            adapter = AccessWithMessageAdapter(self.accept_agreements_url, self.agreements_not_accepted_message)
+            return adapter.permission_denied_response(request)
+        return super().dispatch(request, *args, **kwargs)
+
+
+class LoginRequiredMixin(DjangoLoginRequiredMixin, AccessWithMessageMixin):
+    pass
 
 
 class CurrentCountryListViewMixin:
@@ -33,20 +67,3 @@ class ForGenericMixin:
             self.content_type_field: content_type,
             self.object_id_field: self.kwargs.get('object_id'),
         })
-
-
-class ValidationMixin:
-    def validate(self):
-        pass
-
-    def get(self, request, *args, **kwargs):
-        response = self.validate()
-        if response:
-            return response
-        return super().get(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        response = self.validate()
-        if response:
-            return response
-        return super().post(request, *args, **kwargs)

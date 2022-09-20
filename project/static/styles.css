@@ -14,7 +14,7 @@ body {
     line-height: 14px;
 }
 
-* {
+*, pre {
     font-family: 'Century Gothic', sans-serif;
 }
 

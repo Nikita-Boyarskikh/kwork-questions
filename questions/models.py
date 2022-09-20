@@ -1,6 +1,7 @@
 from constance import config
 from django.conf import settings
 from django.contrib import admin
+from django.contrib.contenttypes.fields import GenericRelation
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
@@ -59,22 +60,21 @@ class Question(TimeStampedModel, LikableModelMixin, WithSelfContentTypeMixin):
     _translated_tr = _('Translated to english')
 
     status = models.CharField(_('Status'), max_length=100, choices=QuestionStatus.choices, default=QuestionStatus.DRAFT)
-    status_changed = MonitorField(monitor='status')
+    status_changed = MonitorField(monitor='status', editable=False)
     reason = models.TextField(_('Rejected reason'), blank=True)
     original_title = models.CharField(_original_tr + ' ' + _title_tr, max_length=80)
     en_title = models.CharField(_translated_tr + ' ' + _title_tr, max_length=80)
     original_text = models.TextField(_original_tr + ' ' + _text_tr)
     en_text = models.TextField(_translated_tr + ' ' + _text_tr)
-    price = MoneyField(_('Price'), max_digits=14, default=config.MIN_QUESTION_PRICE, validators=(
-        MinMoneyValidator(config.MIN_QUESTION_PRICE),
-    ))
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    price = MoneyField(_('Price'), max_digits=14)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, editable=False)
     best_answer = models.OneToOneField(
         'answers.Answer',
         related_name='best_for_question',
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
+        editable=False,
     )
     language = models.ForeignKey('languages.Language', on_delete=models.SET(config.DEFAULT_LANGUAGE))
     country = models.ForeignKey('countries.Country', on_delete=models.CASCADE)
@@ -102,6 +102,9 @@ class Question(TimeStampedModel, LikableModelMixin, WithSelfContentTypeMixin):
                or self.status == QuestionStatus.CLOSED \
                or self.best_answer.question == self
 
+    def _clean_price(self):
+        return self.price.amount >= config.MIN_QUESTION_PRICE
+
     def clean(self):
         errors = {}
         if not self._clean_status():
@@ -115,6 +118,10 @@ class Question(TimeStampedModel, LikableModelMixin, WithSelfContentTypeMixin):
             ) % transitions_map_str
         if not self._clean_best_answer():
             errors['best_answer'] = _('You should wait for question to be closed to select the best answer')
+        if not self._clean_price():
+            errors['price__amount'] = _('Ensure this value is greater than or equal to %(limit_value)s.') % {
+                'limit_value': config.MIN_QUESTION_PRICE,
+            }
 
         if errors:
             raise ValidationError(errors)
