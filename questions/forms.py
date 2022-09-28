@@ -4,11 +4,17 @@ from djmoney.money import Money
 
 from languages.models import Language
 from questions.models import Question
+from questions.validators import min_question_price_amount_validator
 from translate.utils import translate
 
 
 class QuestionCreateForm(forms.ModelForm):
-    price__amount = forms.DecimalField(label=Question.price.field.verbose_name, min_value=0, decimal_places=2)
+    price__amount = forms.DecimalField(
+        label=Question.price.field.verbose_name,
+        min_value=0,
+        decimal_places=2,
+        validators=[min_question_price_amount_validator],
+    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

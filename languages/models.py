@@ -5,6 +5,8 @@ from django.db import models
 from django.utils.functional import classproperty
 from django.utils.translation import gettext as _, get_language_from_request
 
+from countries.models import Country
+
 
 class Language(models.Model):
     id = models.CharField(_('Code'), primary_key=True, max_length=255)
@@ -37,8 +39,9 @@ class Language(models.Model):
         if request.user.is_authenticated:
             if request.user.preferred_language:
                 return request.user.preferred_language
-            if request.user.country is not None:
-                return request.user.country.language
+            country = Country.get_for_request(request)
+            if country:
+                return country.language
         else:
             preferred_language = request.session.get('preferred_language')
             if preferred_language:

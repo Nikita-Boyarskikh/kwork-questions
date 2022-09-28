@@ -1,3 +1,4 @@
+from annoying.functions import get_object_or_None
 from django.contrib import messages
 from django.db.models import Count
 from django.shortcuts import redirect
@@ -112,7 +113,7 @@ class AnswersDetailView(DetailView):
     template_name = 'answers/detail.html'
 
     def get(self, request, *args, **kwargs):
-        answer = Answer.objects.filter(pk=self.kwargs.get('pk')).first()
+        answer = get_object_or_None(Answer.objects.filter(pk=self.kwargs.get('pk')))
         right_question_statuses = (QuestionStatus.PUBLISHED, QuestionStatus.ANSWERED)
         is_right_question_status = answer and answer.question__status in right_question_statuses
         if request.user.is_authenticated and is_right_question_status:

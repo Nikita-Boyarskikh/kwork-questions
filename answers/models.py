@@ -74,9 +74,22 @@ class Answer(TimeStampedModel, LikableModelMixin, WithSelfContentTypeMixin):
         errors = defaultdict(list)
 
         if not self._clean_author():
-            errors[NON_FIELD_ERRORS].append(_("Question's author can't answer to it"))
+            errors[NON_FIELD_ERRORS].append(
+                ValidationError(
+                    message=_("Question's author can't answer to it"),
+                    code='same_question_author',
+                )
+            )
         elif not self._clean_question_status():
-            errors[NON_FIELD_ERRORS].append(_('Question status should be %s') % QuestionStatus.PUBLISHED)
+            errors[NON_FIELD_ERRORS].append(
+                ValidationError(
+                    message=_('Question status should be %(status)s'),
+                    params={
+                        'status': QuestionStatus.PUBLISHED,
+                    },
+                    code='wrong_question_status',
+                )
+            )
 
         if errors:
             raise ValidationError(errors)

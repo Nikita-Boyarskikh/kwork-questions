@@ -27,7 +27,7 @@
     <li>
       <a
         href="{% url 'questions:index' country_id=country.id %}"
-        class="nav-link d-flex align-items-center {% if request.resolver_match.kwargs.country_id == country.id %}active{% endif %}" style="color: black; height: 43px"
+        class="nav-link d-flex align-items-center {% if current_country.id == country.id %}active{% endif %}" style="color: black; height: 43px"
       >
         {{ country }}
       </a>

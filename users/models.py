@@ -1,6 +1,5 @@
 from allauth.account.models import EmailAddress
 from constance import config
-from django.conf import settings
 from django.contrib.auth.models import AbstractUser, UserManager as BaseUserManager
 from django.core.validators import MinValueValidator
 from django.db import models, transaction
@@ -8,7 +7,7 @@ from django.utils.translation import gettext as _
 
 from accounts.models import Account
 from users.auth import AccountAdapter, send_email_confirmation
-from users.validators import max_value_current_year_validator
+from users.validators import max_value_current_year_validator, avatar_validator
 
 
 class Education(models.TextChoices):
@@ -48,7 +47,13 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractUser):
-    avatar = models.ImageField(_('Avatar'), upload_to=_build_avatar_filename, blank=True, null=True)
+    avatar = models.ImageField(
+        _('Avatar'),
+        upload_to=_build_avatar_filename,
+        blank=True,
+        null=True,
+        validators=[avatar_validator],
+    )
     email = models.EmailField(_('email address'))
     first_name = None
     last_name = None

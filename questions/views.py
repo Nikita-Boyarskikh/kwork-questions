@@ -1,3 +1,4 @@
+from annoying.functions import get_object_or_None
 from constance import config
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -8,6 +9,7 @@ from django.utils.translation import gettext as _
 from django.views.generic import ListView, CreateView, UpdateView
 
 from accounts.models import AccountAction, AccountActionType, AccountActionStatus
+from countries.models import Country
 from languages.models import Language
 from questions.forms import QuestionCreateForm
 from questions.models import Question, QuestionStatus
@@ -27,12 +29,14 @@ class CreateQuestionView(LoginRequiredMixin, UserAgreementRequiredMixin, CreateV
         kwargs = super().get_form_kwargs()
         country_id = self.kwargs.get('country_id')
         if country_id == 'None':
-            country_id = self.request.user.country_id
+            country = Country.get_for_request(self.request)
+        else:
+            country = get_object_or_None(Country.objects.filter(id=country_id))
         kwargs['instance'] = Question(
             author=self.request.user,
             price=config.MIN_QUESTION_PRICE,
             language=Language.get_for_request(self.request),
-            country_id=country_id,
+            country=country,
         )
         return kwargs
 

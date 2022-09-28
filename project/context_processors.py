@@ -16,22 +16,15 @@ def language(request):
 
 
 def menu_items(request):
-    country_id = request.resolver_match.kwargs.get('country_id')
-    if request.resolver_match.kwargs.get('country_id') == 'None':
-        country_id = request.session.get('country_id') or (
-            request.user.country_id if request.user.is_authenticated else None
-        )
-
-    if country_id:
-        request.session['country_id'] = country_id
-    country_id_kwargs = {'country_id': country_id}
+    country = Country.get_for_request(request)
+    kwargs = {'country_id': country.id if country else 'unknown'}
 
     registered_items = [
         (reverse('users:me'), _('Avatar')),
-        (reverse('questions:my', kwargs=country_id_kwargs), _('My questions')),
-        (reverse('answers:my', kwargs=country_id_kwargs), _('My answers')),
-        (reverse('questions:my_voting', kwargs=country_id_kwargs), _('My voting')),
-        (reverse('likes:subscriptions', kwargs=country_id_kwargs), _('My Subscriptions')),
+        (reverse('questions:my', kwargs=kwargs), _('My questions')),
+        (reverse('answers:my', kwargs=kwargs), _('My answers')),
+        (reverse('questions:my_voting', kwargs=kwargs), _('My voting')),
+        (reverse('likes:subscriptions', kwargs=kwargs), _('My Subscriptions')),
     ]
 
     not_admin_items = [
@@ -40,19 +33,20 @@ def menu_items(request):
 
     return {
         'MENU_ITEMS': [
-            (reverse('questions:create', kwargs=country_id_kwargs), _('Ask a question')),
+            (reverse('questions:create', kwargs=kwargs), _('Ask a question')),
             (reverse('rules:index'), _('Site rules')),
             *(registered_items if request.user.is_authenticated else []),
             *(not_admin_items if request.user.username != 'admin' else []),
-            (reverse('questions:index', kwargs=country_id_kwargs), _('Opened questions')),
-            (reverse('questions:voting', kwargs=country_id_kwargs), _('Voting')),
-            (reverse('questions:closed', kwargs=country_id_kwargs), _('Closed questions')),
+            (reverse('questions:index', kwargs=kwargs), _('Opened questions')),
+            (reverse('questions:voting', kwargs=kwargs), _('Voting')),
+            (reverse('questions:closed', kwargs=kwargs), _('Closed questions')),
         ],
     }
 
 
 def countries(request):
     return {
+        'current_country': Country.get_for_request(request),
         'countries_with_questions': Country.objects
             .annotate(count=Count('question__id', distinct=True))
             .order_by('-count')

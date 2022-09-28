@@ -1,5 +1,6 @@
 from datetime import timedelta
 
+from annoying.functions import get_object_or_None
 from celery import shared_task
 from constance import config
 from django.db import transaction
@@ -62,11 +63,12 @@ def finish_voting(question_id):
     with transaction.atomic():
         question = Question.objects.select_for_update().get(id=question_id)
 
-        question.best_answer = question.answer_set\
-            .filter(reactions__score=LikeScore.LIKE)\
-            .annotate(Count('reactions'))\
-            .order_by('-reactions__count', 'reactions__created')\
-            .first()
+        question.best_answer = get_object_or_None(
+            question.answer_set
+                .filter(reactions__score=LikeScore.LIKE)
+                .annotate(Count('reactions'))
+                .order_by('-reactions__count', 'reactions__created')
+        )
 
         if question.best_answer:
             AccountAction.objects.create(

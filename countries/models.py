@@ -1,3 +1,4 @@
+from annoying.functions import get_object_or_None
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext as _
@@ -21,6 +22,23 @@ class Country(models.Model):
 
     def get_absolute_url(self):
         return reverse('questions:index', kwargs={'country_id': self.id})
+
+    @staticmethod
+    def get_for_request(request):
+        country_id = request.resolver_match.kwargs.get('country_id')
+
+        if not country_id or country_id == 'unknown':
+            if request.user.is_authenticated and request.user.country_id:
+                country_id = request.user.country_id
+            else:
+                country_id = request.session.get('country_id')
+
+        if country_id:
+            request.session['country_id'] = country_id
+            if request.user.is_authenticated:
+                request.user.country_id = country_id
+                request.user.save()
+            return get_object_or_None(Country.objects.filter(id=country_id))
 
     def __str__(self):
         return self.name

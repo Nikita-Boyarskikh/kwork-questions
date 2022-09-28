@@ -1,6 +1,5 @@
 from collections import defaultdict
 
-from django import forms
 from django.conf import settings
 from django.contrib import admin
 from django.core.exceptions import ValidationError, NON_FIELD_ERRORS
@@ -35,9 +34,19 @@ class Message(TimeStampedModel):
         errors = defaultdict(list)
 
         if not self._clean_sender_and_recipient_different():
-            errors[NON_FIELD_ERRORS].append(_('Sender and recipient should differs'))
+            errors[NON_FIELD_ERRORS].append(
+                ValidationError(
+                    message=_('Sender and recipient should differs'),
+                    code='same_sender_and_recipient',
+                )
+            )
         elif not self._clean_only_is_staff_chat():
-            errors[NON_FIELD_ERRORS].append(_('Sender or recipient should be staff user'))
+            errors[NON_FIELD_ERRORS].append(
+                ValidationError(
+                    message=_('Sender or recipient should be staff user'),
+                    code='non_staff_message',
+                )
+            )
 
         if errors:
             raise ValidationError(errors)

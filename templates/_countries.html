@@ -1,7 +1,8 @@
 {% load i18n %}
 
 <button class="dropdown-toggle bg-white border-0 d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 16px; width: 1018px; padding: 0 0 0 69px; margin: 0 16px 16px;height: 45px">
-  {% trans 'Countries' %}
+  {% trans 'Select country' as select_country_text %}
+  {{ current_country|default:select_country_text }}
 </button>
 
 <div class="dropdown">

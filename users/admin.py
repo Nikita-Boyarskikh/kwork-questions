@@ -67,7 +67,7 @@ class UserAdmin(AddingDeniedMixin, BaseUserAdmin):
                     'date_joined',
                 ),
             },
-        )
+        ),
     )
     add_fieldsets = (
         (

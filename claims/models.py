@@ -41,9 +41,13 @@ class Claim(TimeStampedModel):
         errors = {}
 
         if not self._clean_author():
-            errors[NON_FIELD_ERRORS] = _("User can't claim for his own %(content_type)s") % {
-                'content_type': self.content_type.name,
-            }
+            errors[NON_FIELD_ERRORS] = ValidationError(
+                message=_("User can't claim for his own %(content_type)s"),
+                params={
+                    'content_type': self.content_type.name,
+                },
+                code='self_claim',
+            )
 
         if errors:
             raise ValidationError(errors)

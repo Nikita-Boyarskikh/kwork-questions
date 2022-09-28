@@ -11,11 +11,11 @@
   {{ block.super }}
   {% include 'questions/_detailed_question.html' %}
 
-  <form method="POST" class="bg-white rounded-2" style="padding: 20px" action="{% url 'questions:edit' country_id=request.resolver_match.kwargs.country_id pk=request.resolver_match.kwargs.pk %}">
+  <form method="POST" class="bg-white rounded-2" style="padding: 20px" action="{% url 'questions:edit' country_id=current_country.id|default:'unknown' pk=request.resolver_match.kwargs.pk %}">
     {% csrf_token %}
     {{ form|crispy }}
     <input type="submit" class="btn btn-primary" value="{% trans 'Save' %}">
-    <a href="{% url 'questions:publish' country_id=request.resolver_match.kwargs.country_id pk=request.resolver_match.kwargs.pk %}" class="btn btn-outline-primary">
+    <a href="{% url 'questions:publish' country_id=current_country.id|default:'unknown' pk=request.resolver_match.kwargs.pk %}" class="btn btn-outline-primary">
       {% trans 'Send to moderation' %}
     </a>
 

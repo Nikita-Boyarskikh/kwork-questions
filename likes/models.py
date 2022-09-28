@@ -53,7 +53,13 @@ class Like(TimeStampedModel):
         required_status = QuestionStatus.ANSWERED
         if self.liked_object_content_type == Question.content_type \
                 and not self.liked_object.status == required_status:
-            return _('Question status should be %(status)') % required_status
+            return ValidationError(
+                message=_('Question status should be %(status)'),
+                params={
+                    'status': required_status,
+                },
+                code='wrong_question_status',
+            )
 
     def _clean_user(self):
         return self.user != self.liked_object.author
@@ -66,9 +72,13 @@ class Like(TimeStampedModel):
 
         if not self._clean_user():
             errors[NON_FIELD_ERRORS].append(
-                _("%(liked_object_type)s's author can't like it") % {
-                    'liked_object_type': self.liked_object_content_type.name,
-                }
+                ValidationError(
+                    message=_("%(liked_object_type)s's author can't like it"),
+                    params={
+                        'liked_object_type': self.liked_object_content_type.name,
+                    },
+                    code='self_question',
+                )
             )
 
         if errors:

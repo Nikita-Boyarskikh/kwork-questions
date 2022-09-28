@@ -12,7 +12,6 @@ from djmoney.models.validators import MinMoneyValidator
 from model_utils.models import TimeStampedModel
 
 from accounts.utils import zero_money
-from accounts.validators import not_zero_money_validator
 from utils.generic_fields import content_type_limit_choices_by_model_references, IntegerForAutoField
 
 
@@ -42,9 +41,9 @@ class AccountActionStatus(models.TextChoices):
 class Account(TimeStampedModel):
     uid = models.UUIDField(_('Public identifier'), unique=True, editable=False, default=uuid.uuid4)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, editable=False)
-    balance = MoneyField(_('Balance'), default=0, max_digits=14, validators=(
+    balance = MoneyField(_('Balance'), default=0, max_digits=14, validators=[
         MinMoneyValidator(0),
-    ), editable=False)
+    ], editable=False)
 
     def __str__(self):
         return f'{self.user} ({self.balance})'
@@ -72,7 +71,7 @@ class AccountAction(TimeStampedModel):
         choices=AccountActionStatus.choices,
         default=AccountActionStatus.CREATED,
     )
-    delta = MoneyField(_('Delta'), max_digits=14, validators=(not_zero_money_validator,), default=0)
+    delta = MoneyField(_('Delta'), max_digits=14, validators=[MinMoneyValidator(zero_money())], default=0)
     comment = models.TextField(_('Comment'), blank=True)
 
     content_type = models.ForeignKey(
@@ -96,8 +95,8 @@ class AccountAction(TimeStampedModel):
         negative_delta_types = {AccountActionType.PAY_SERVICE_FEE, AccountActionType.WITHDRAW, AccountActionType.OTHER}
         positive_delta_types = {AccountActionType.GET_AWARD, AccountActionType.DEPOSIT, AccountActionType.OTHER}
         zero = zero_money()
-        return self.delta < zero and self.type in negative_delta_types \
-            or self.delta > zero and self.type in positive_delta_types
+        return self.delta <= zero and self.type in negative_delta_types \
+            or self.delta >= zero and self.type in positive_delta_types
 
     def _clean_delta(self):
         return self.delta + self.account.balance >= zero_money()
@@ -113,16 +112,26 @@ class AccountAction(TimeStampedModel):
         errors = {}
 
         if not self._clean_delta():
-            errors['delta'] = _('Insufficient funds on account')
+            errors['delta'] = ValidationError(
+                message=_('Insufficient funds on account'),
+                code='insufficient_funds',
+            )
         elif not self._clean_delta_type():
-            errors['delta'] = _('Delta should corresponds with action type')
+            errors['delta'] = ValidationError(
+                message=_('Delta should corresponds with action type'),
+                code='wrong_delta_sign',
+            )
 
         required_type = content_type_type_map.get(self.content_type)
         if required_type and self.type != required_type.value:
-            errors['type'] = _('Type should be %(type)s for %(content_type)s related action') % {
-                'type': required_type,
-                'content_type': self.content_type.name,
-            }
+            errors['type'] = ValidationError(
+                message=_('Type should be %(type)s for %(content_type)s related action'),
+                params={
+                    'type': required_type,
+                    'content_type': self.content_type.name,
+                },
+                code='wrong_for_content'
+            )
 
         if errors:
             raise ValidationError(errors)

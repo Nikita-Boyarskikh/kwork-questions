@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-20 12:04+0000\n"
+"POT-Creation-Date: 2022-09-28 23:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,44 +18,44 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: accounts/models.py:43 accounts/models.py:61
+#: accounts/models.py:42 accounts/models.py:60
 msgid "Public identifier"
 msgstr ""
 
-#: accounts/models.py:45
+#: accounts/models.py:44
 msgid "Balance"
 msgstr ""
 
-#: accounts/models.py:54
+#: accounts/models.py:53
 msgid "Account"
 msgstr ""
 
-#: accounts/models.py:55
+#: accounts/models.py:54
 msgid "Accounts"
 msgstr ""
 
-#: accounts/models.py:64
+#: accounts/models.py:63
 msgid "Type"
 msgstr ""
 
-#: accounts/models.py:70 answers/models.py:32 questions/models.py:62
+#: accounts/models.py:69 answers/models.py:32 questions/models.py:63
 msgid "Status"
 msgstr ""
 
-#: accounts/models.py:75
+#: accounts/models.py:74
 msgid "Delta"
 msgstr ""
 
-#: accounts/models.py:76 claims/models.py:18 questions/models.py:153
-#: questions/models.py:165
+#: accounts/models.py:75 claims/models.py:18 questions/models.py:156
+#: questions/models.py:168
 msgid "Comment"
 msgstr ""
 
-#: accounts/models.py:85
+#: accounts/models.py:84
 msgid "Awarded/payed for question/answer id"
 msgstr ""
 
-#: accounts/models.py:89
+#: accounts/models.py:88
 #, python-format
 msgid " for %(product_type)s %(product_id)s"
 msgstr ""
@@ -64,20 +64,20 @@ msgstr ""
 msgid "Insufficient funds on account"
 msgstr ""
 
-#: accounts/models.py:118
+#: accounts/models.py:121
 msgid "Delta should corresponds with action type"
 msgstr ""
 
-#: accounts/models.py:122
+#: accounts/models.py:128
 #, python-format
 msgid "Type should be %(type)s for %(content_type)s related action"
 msgstr ""
 
-#: accounts/models.py:132
+#: accounts/models.py:141
 msgid "Account Action"
 msgstr ""
 
-#: accounts/models.py:133
+#: accounts/models.py:142
 msgid "Account Actions"
 msgstr ""
 
@@ -89,11 +89,11 @@ msgstr ""
 msgid "Translated to english text"
 msgstr ""
 
-#: answers/models.py:32 answers/models.py:48 questions/models.py:145
+#: answers/models.py:32 answers/models.py:48 questions/models.py:148
 msgid "Question"
 msgstr ""
 
-#: answers/models.py:40 answers/models.py:94 templates/answers/create.html:19
+#: answers/models.py:40 answers/models.py:107 templates/answers/create.html:19
 #: templates/answers/detail.html:6 templates/questions/_question.html:27
 msgid "Answer"
 msgstr ""
@@ -106,12 +106,12 @@ msgstr ""
 msgid "Count"
 msgstr ""
 
-#: answers/models.py:48 countries/models.py:29
+#: answers/models.py:48 countries/models.py:47
 msgid "Country"
 msgstr ""
 
-#: answers/models.py:56 chat/models.py:23 claims/models.py:31
-#: questions/models.py:89
+#: answers/models.py:56 chat/models.py:22 claims/models.py:31
+#: questions/models.py:90
 #, python-format
 msgid "Truncated %s"
 msgstr ""
@@ -121,73 +121,73 @@ msgstr ""
 msgid "Answer for Question %(question_id)s by %(author)s"
 msgstr ""
 
-#: answers/models.py:77 answers/views.py:17
+#: answers/models.py:79 answers/views.py:18
 msgid "Question's author can't answer to it"
 msgstr ""
 
-#: answers/models.py:79
+#: answers/models.py:86
 #, python-format
-msgid "Question status should be %s"
+msgid "Question status should be %(status)s"
 msgstr ""
 
-#: answers/models.py:95 templates/answers/list.html:8
+#: answers/models.py:108 templates/answers/list.html:8
 #: templates/questions/_info.html:22
 msgid "Answers"
 msgstr ""
 
-#: answers/models.py:104
+#: answers/models.py:117
 #, python-format
 msgid "Answer view for %(answer_id)s by %(username)s"
 msgstr ""
 
-#: answers/models.py:112
+#: answers/models.py:125
 msgid "Answer view"
 msgstr ""
 
-#: answers/models.py:113
+#: answers/models.py:126
 msgid "Answer views"
 msgstr ""
 
-#: answers/views.py:16
+#: answers/views.py:17
 msgid "This question is not published yet"
 msgstr ""
 
-#: answers/views.py:18
+#: answers/views.py:19
 msgid "You already answered to this question"
 msgstr ""
 
-#: answers/views.py:57
+#: answers/views.py:58
 msgid ""
 "Only registered users can answer questions.\n"
 "Please, register"
 msgstr ""
 
-#: chat/models.py:17
+#: chat/models.py:16
 msgid "Is read?"
 msgstr ""
 
-#: chat/models.py:18
+#: chat/models.py:17
 msgid "Content"
 msgstr ""
 
-#: chat/models.py:38
+#: chat/models.py:39
 msgid "Sender and recipient should differs"
 msgstr ""
 
-#: chat/models.py:40
+#: chat/models.py:46
 msgid "Sender or recipient should be staff user"
 msgstr ""
 
-#: chat/models.py:49
+#: chat/models.py:58
 #, python-format
 msgid "Message from %(sender)s to %(recipient)s: %(content)s"
 msgstr ""
 
-#: chat/models.py:57 templates/chat/list.html:27
+#: chat/models.py:66 templates/chat/list.html:27
 msgid "Message"
 msgstr ""
 
-#: chat/models.py:58
+#: chat/models.py:67
 msgid "Messages"
 msgstr ""
 
@@ -195,63 +195,63 @@ msgstr ""
 msgid "Claimed answer id"
 msgstr ""
 
-#: claims/models.py:44
+#: claims/models.py:45
 #, python-format
 msgid "User can't claim for his own %(content_type)s"
 msgstr ""
 
-#: claims/models.py:52
+#: claims/models.py:56
 #, python-format
 msgid "Claim for %(content_type)s %(object_id)s by %(author)s"
 msgstr ""
 
-#: claims/models.py:61 templates/likes/_for_answer.html:50
+#: claims/models.py:65 templates/likes/_for_answer.html:50
 msgid "Claim"
 msgstr ""
 
-#: claims/models.py:62
+#: claims/models.py:66
 msgid "Claims"
 msgstr ""
 
-#: countries/models.py:7 languages/models.py:10
+#: countries/models.py:8 languages/models.py:12
 msgid "Code"
 msgstr ""
 
-#: countries/models.py:8 languages/models.py:11
+#: countries/models.py:9 languages/models.py:13
 msgid "Name"
 msgstr ""
 
-#: countries/models.py:10
+#: countries/models.py:11
 msgid "Population"
 msgstr ""
 
-#: countries/models.py:12
+#: countries/models.py:13
 msgid "Live quality index"
 msgstr ""
 
-#: countries/models.py:15
+#: countries/models.py:16
 msgid ""
 "From https://ru.wikipedia.org/wiki/"
 "Список_стран_по_индексу_человеческого_развития"
 msgstr ""
 
-#: countries/models.py:30 templates/_countries.html:4
+#: countries/models.py:48
 msgid "Countries"
 msgstr ""
 
-#: languages/models.py:13
+#: languages/models.py:15
 msgid "Google.Translate id"
 msgstr ""
 
-#: languages/models.py:14
+#: languages/models.py:16
 msgid "ID for use as an argument for Google.Translate API"
 msgstr ""
 
-#: languages/models.py:52 templates/_sidebar.html:13
+#: languages/models.py:55 templates/_sidebar.html:13
 msgid "Language"
 msgstr ""
 
-#: languages/models.py:53
+#: languages/models.py:56
 msgid "Languages"
 msgstr ""
 
@@ -267,42 +267,42 @@ msgstr ""
 msgid "Score"
 msgstr ""
 
-#: likes/models.py:56
+#: likes/models.py:57
 msgid "Question status should be %(status)"
 msgstr ""
 
-#: likes/models.py:69
+#: likes/models.py:76
 #, python-format
 msgid "%(liked_object_type)s's author can't like it"
 msgstr ""
 
-#: likes/models.py:78
+#: likes/models.py:88
 msgid "like"
 msgstr ""
 
-#: likes/models.py:78
+#: likes/models.py:88
 msgid "dislike"
 msgstr ""
 
-#: likes/models.py:84 templates/likes/_for_answer.html:28
+#: likes/models.py:94 templates/likes/_for_answer.html:28
 msgid "Like"
 msgstr ""
 
-#: likes/models.py:85 templates/likes/_for_answer.html:10
+#: likes/models.py:95 templates/likes/_for_answer.html:10
 #: templates/likes/list.html:4 templates/questions/_info.html:29
 msgid "Likes"
 msgstr ""
 
-#: likes/models.py:109
+#: likes/models.py:119
 #, python-format
 msgid "Subscription of %(username)s for %(question_id)s"
 msgstr ""
 
-#: likes/models.py:117
+#: likes/models.py:127
 msgid "Subscription"
 msgstr ""
 
-#: likes/models.py:118
+#: likes/models.py:128
 msgid "Subscriptions"
 msgstr ""
 
@@ -310,165 +310,165 @@ msgstr ""
 msgid "You already voted for this question"
 msgstr ""
 
-#: project/context_processors.py:30 templates/users/_avatar.html:3
+#: project/context_processors.py:23 templates/users/_avatar.html:3
 #: templates/users/me.html:5 templates/users/me.html:14 users/models.py:51
 msgid "Avatar"
 msgstr ""
 
-#: project/context_processors.py:31
+#: project/context_processors.py:24
 msgid "My questions"
 msgstr ""
 
-#: project/context_processors.py:32
+#: project/context_processors.py:25
 msgid "My answers"
 msgstr ""
 
-#: project/context_processors.py:33
+#: project/context_processors.py:26
 msgid "My voting"
 msgstr ""
 
-#: project/context_processors.py:34
+#: project/context_processors.py:27
 msgid "My Subscriptions"
 msgstr ""
 
-#: project/context_processors.py:38 templates/chat/list.html:5
+#: project/context_processors.py:31 templates/chat/list.html:5
 msgid "Chat"
 msgstr ""
 
-#: project/context_processors.py:43
+#: project/context_processors.py:36
 msgid "Ask a question"
 msgstr ""
 
-#: project/context_processors.py:44
+#: project/context_processors.py:37
 msgid "Site rules"
 msgstr ""
 
-#: project/context_processors.py:47
+#: project/context_processors.py:40
 msgid "Opened questions"
 msgstr ""
 
-#: project/context_processors.py:48 questions/models.py:39
+#: project/context_processors.py:41 questions/models.py:40
 msgid "Voting"
 msgstr ""
 
-#: project/context_processors.py:49
+#: project/context_processors.py:42
 msgid "Closed questions"
 msgstr ""
 
-#: questions/models.py:33
+#: questions/models.py:34
 msgid "In progress"
 msgstr ""
 
-#: questions/models.py:34
+#: questions/models.py:35
 msgid "Deferred"
 msgstr ""
 
-#: questions/models.py:35
+#: questions/models.py:36
 msgid "Moderation"
 msgstr ""
 
-#: questions/models.py:36
+#: questions/models.py:37
 msgid "Ready for publication"
 msgstr ""
 
-#: questions/models.py:37
+#: questions/models.py:38
 msgid "Refused"
 msgstr ""
 
-#: questions/models.py:38
+#: questions/models.py:39
 msgid "Open"
 msgstr ""
 
-#: questions/models.py:40
+#: questions/models.py:41
 msgid "Closed"
 msgstr ""
 
-#: questions/models.py:57
+#: questions/models.py:58
 msgid "Title"
 msgstr ""
 
-#: questions/models.py:58
+#: questions/models.py:59
 msgid "Text"
 msgstr ""
 
-#: questions/models.py:59
+#: questions/models.py:60
 msgid "Original"
 msgstr ""
 
-#: questions/models.py:60
+#: questions/models.py:61
 msgid "Translated to english"
 msgstr ""
 
-#: questions/models.py:64
+#: questions/models.py:65
 msgid "Rejected reason"
 msgstr ""
 
-#: questions/models.py:69
+#: questions/models.py:70
 msgid "Price"
 msgstr ""
 
-#: questions/models.py:116
+#: questions/models.py:115
 #, python-format
 msgid ""
 "This status transition is not allowed\n"
 "Allowed transitions:\n"
-"%s"
+"%(transitions)s"
 msgstr ""
 
-#: questions/models.py:120
+#: questions/models.py:125
 msgid "You should wait for question to be closed to select the best answer"
 msgstr ""
 
-#: questions/models.py:122
-#, python-format
-msgid "Ensure this value is greater than or equal to %(limit_value)s."
-msgstr ""
-
-#: questions/models.py:136
+#: questions/models.py:139
 #, python-format
 msgid "Question by %(author)s for %(country)s (%(price)s) - %(status)s"
 msgstr ""
 
-#: questions/models.py:146 templates/questions/list.html:5
+#: questions/models.py:149 templates/questions/list.html:5
 msgid "Questions"
 msgstr ""
 
-#: questions/models.py:156
+#: questions/models.py:159
 #, python-format
 msgid "Comment by %(username)s for %(question_id)s: %(comment)s"
 msgstr ""
 
-#: questions/models.py:166
+#: questions/models.py:169
 msgid "Comments"
 msgstr ""
 
-#: questions/views.py:22
+#: questions/validators.py:13
+#, python-format
+msgid "Ensure this value is greater than or equal to %(limit_value)s."
+msgstr ""
+
+#: questions/views.py:24
 msgid ""
 "Only registered users can create questions.\n"
 "Please, register."
 msgstr ""
 
-#: questions/views.py:24
+#: questions/views.py:26
 msgid "You should accept site rules to create question."
 msgstr ""
 
-#: questions/views.py:41
+#: questions/views.py:45
 msgid "You can not edit published question"
 msgstr ""
 
-#: questions/views.py:69
+#: questions/views.py:73
 msgid "Question with this id does not exist"
 msgstr ""
 
-#: questions/views.py:74
+#: questions/views.py:78
 msgid "This question already published"
 msgstr ""
 
-#: questions/views.py:78
+#: questions/views.py:82
 msgid "You have no enough money"
 msgstr ""
 
-#: questions/views.py:91
+#: questions/views.py:95
 msgid "Question successfully send to moderation"
 msgstr ""
 
@@ -486,6 +486,10 @@ msgstr ""
 
 #: templates/_back_button.html:4
 msgid "Back"
+msgstr ""
+
+#: templates/_countries.html:4
+msgid "Select country"
 msgstr ""
 
 #: templates/_navbar.html:7
@@ -883,68 +887,70 @@ msgstr ""
 msgid "Important dates"
 msgstr ""
 
-#: users/forms.py:15
+#: users/models.py:19
+msgid "Without education"
+msgstr ""
+
+#: users/models.py:26
+msgid "Prefer not to say / unsure"
+msgstr ""
+
+#: users/models.py:57
+msgid "email address"
+msgstr ""
+
+#: users/models.py:61
+msgid "Approved"
+msgstr ""
+
+#: users/models.py:63
+msgid "User approved with control question."
+msgstr ""
+
+#: users/models.py:66
+msgid "User agreement accepted"
+msgstr ""
+
+#: users/models.py:68
+msgid "User can create a question only after accept a user agreement."
+msgstr ""
+
+#: users/models.py:70
+msgid "Pin"
+msgstr ""
+
+#: users/models.py:73
+msgid "Sex"
+msgstr ""
+
+#: users/models.py:74
+msgid "Education"
+msgstr ""
+
+#: users/models.py:76
+msgid "Birth year"
+msgstr ""
+
+#: users/models.py:98
+msgid "User"
+msgstr ""
+
+#: users/models.py:99
+msgid "Users"
+msgstr ""
+
+#: users/validators.py:22
+#, python-format
+msgid "Please use one of %(allowed)s image."
+msgstr ""
+
+#: users/validators.py:35
 #, python-format
 msgid ""
 "Please use an image that is %(max_width)s x %(max_height)s pixels or smaller."
 msgstr ""
 
-#: users/forms.py:25
-msgid "Please use a JPEG, GIF or PNG image."
-msgstr ""
-
-#: users/forms.py:30
-msgid "Avatar file size may not exceed 20k."
-msgstr ""
-
-#: users/models.py:20
-msgid "Without education"
-msgstr ""
-
-#: users/models.py:27
-msgid "Prefer not to say / unsure"
-msgstr ""
-
-#: users/models.py:52
-msgid "email address"
-msgstr ""
-
-#: users/models.py:56
-msgid "Approved"
-msgstr ""
-
-#: users/models.py:58
-msgid "User approved with control question."
-msgstr ""
-
-#: users/models.py:61
-msgid "User agreement accepted"
-msgstr ""
-
-#: users/models.py:63
-msgid "User can create a question only after accept a user agreement."
-msgstr ""
-
-#: users/models.py:65
-msgid "Pin"
-msgstr ""
-
-#: users/models.py:68
-msgid "Sex"
-msgstr ""
-
-#: users/models.py:69
-msgid "Education"
-msgstr ""
-
-#: users/models.py:71
-msgid "Birth year"
-msgstr ""
-
-#: users/models.py:93
-msgid "User"
-msgstr ""
-
-#: users/models.py:94
-msgid "Users"
+#: users/validators.py:47
+#, python-format
+msgid "Avatar file size may not exceed %(limit)s."
 msgstr ""

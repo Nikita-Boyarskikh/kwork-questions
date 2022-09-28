@@ -12,7 +12,7 @@
 
   {% include 'questions/_detailed_question.html' %}
 
-  <form method="POST" class="bg-white rounded-2" style="padding: 20px" action="{% url 'answers:create' country_id=request.resolver_match.kwargs.country_id question_id=request.resolver_match.kwargs.question_id %}">
+  <form method="POST" class="bg-white rounded-2" style="padding: 20px" action="{% url 'answers:create' country_id=current_country.id|default:'unknown' question_id=request.resolver_match.kwargs.question_id %}">
     {% csrf_token %}
     {{ form|crispy }}
 

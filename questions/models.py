@@ -14,6 +14,7 @@ from model_utils.fields import MonitorField
 from model_utils.models import TimeStampedModel
 
 from likes.models import Like, LikableModelMixin
+from questions.validators import min_question_price_validator
 from utils.generic_fields import WithSelfContentTypeMixin
 
 
@@ -66,7 +67,7 @@ class Question(TimeStampedModel, LikableModelMixin, WithSelfContentTypeMixin):
     en_title = models.CharField(_translated_tr + ' ' + _title_tr, max_length=80)
     original_text = models.TextField(_original_tr + ' ' + _text_tr)
     en_text = models.TextField(_translated_tr + ' ' + _text_tr)
-    price = MoneyField(_('Price'), max_digits=14)
+    price = MoneyField(_('Price'), max_digits=14, validators=[min_question_price_validator])
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, editable=False)
     best_answer = models.OneToOneField(
         'answers.Answer',
@@ -102,9 +103,6 @@ class Question(TimeStampedModel, LikableModelMixin, WithSelfContentTypeMixin):
                or self.status == QuestionStatus.CLOSED \
                or self.best_answer.question == self
 
-    def _clean_price(self):
-        return self.price.amount >= config.MIN_QUESTION_PRICE
-
     def clean(self):
         errors = {}
         if not self._clean_status():
@@ -112,16 +110,21 @@ class Question(TimeStampedModel, LikableModelMixin, WithSelfContentTypeMixin):
                 f'{start} -> {"/".join(targets or "x")}'
                 for start, targets in QuestionStatus.transitions.items()
             )
-            errors['status'] = _(
-                'This status transition is not allowed\n'
-                'Allowed transitions:\n%s'
-            ) % transitions_map_str
+            errors['status'] = ValidationError(
+                message=_(
+                    'This status transition is not allowed\n'
+                    'Allowed transitions:\n%(transitions)s'
+                ),
+                params={
+                    'transitions': transitions_map_str,
+                },
+                code='wrong_status_transition',
+            )
         if not self._clean_best_answer():
-            errors['best_answer'] = _('You should wait for question to be closed to select the best answer')
-        if not self._clean_price():
-            errors['price__amount'] = _('Ensure this value is greater than or equal to %(limit_value)s.') % {
-                'limit_value': config.MIN_QUESTION_PRICE,
-            }
+            errors['best_answer'] = ValidationError(
+                message=_('You should wait for question to be closed to select the best answer'),
+                code='open_question',
+            )
 
         if errors:
             raise ValidationError(errors)

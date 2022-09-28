@@ -1,306 +1,306 @@
-- model: countries.Country
-  pk: norway
-  fields:
-    live_quality_index: 0.957
-    name: Norway
-    population: 5434319.0
-- model: countries.Country
-  pk: switzerland
-  fields:
-    live_quality_index: 0.955
-    name: Switzerland
-    population: 8740472.0
-- model: countries.Country
-  pk: ireland
-  fields:
-    live_quality_index: 0.955
-    name: Ireland
-    population: 5023109.0
-    language_id: en
-- model: countries.Country
-  pk: hong_kong
-  fields:
-    live_quality_index: 0.949
-    name: Hong Kong
-    population: 7488865.0
-- model: countries.Country
-  pk: iceland
-  fields:
-    live_quality_index: 0.949
-    name: Iceland
-    population: 372899.0
-- model: countries.Country
-  pk: germany
-  fields:
-    live_quality_index: 0.947
-    name: Germany
-    population: 83369843.0
-- model: countries.Country
-  pk: sweden
-  fields:
-    live_quality_index: 0.945
-    name: Sweden
-    population: 10549347.0
-- model: countries.Country
-  pk: australia
-  fields:
-    live_quality_index: 0.944
-    name: Australia
-    population: 26177413.0
-- model: countries.Country
-  pk: netherlands
-  fields:
-    live_quality_index: 0.944
-    name: Netherlands
-    population: 17564014.0
-- model: countries.Country
-  pk: denmark
-  fields:
-    live_quality_index: 0.94
-    name: Denmark
-    population: 5882261.0
-- model: countries.Country
-  pk: singapore
-  fields:
-    live_quality_index: 0.938
-    name: Singapore
-    population: 5975689.0
-    language_id: en
-- model: countries.Country
-  pk: finland
-  fields:
-    live_quality_index: 0.938
-    name: Finland
-    population: 5540745.0
+#- model: countries.Country
+#  pk: norway
+#  fields:
+#    live_quality_index: 0.957
+#    name: Norway
+#    population: 5434319.0
+#- model: countries.Country
+#  pk: switzerland
+#  fields:
+#    live_quality_index: 0.955
+#    name: Switzerland
+#    population: 8740472.0
+#- model: countries.Country
+#  pk: ireland
+#  fields:
+#    live_quality_index: 0.955
+#    name: Ireland
+#    population: 5023109.0
+#    language_id: en
+#- model: countries.Country
+#  pk: hong_kong
+#  fields:
+#    live_quality_index: 0.949
+#    name: Hong Kong
+#    population: 7488865.0
+#- model: countries.Country
+#  pk: iceland
+#  fields:
+#    live_quality_index: 0.949
+#    name: Iceland
+#    population: 372899.0
+#- model: countries.Country
+#  pk: germany
+#  fields:
+#    live_quality_index: 0.947
+#    name: Germany
+#    population: 83369843.0
+#- model: countries.Country
+#  pk: sweden
+#  fields:
+#    live_quality_index: 0.945
+#    name: Sweden
+#    population: 10549347.0
+#- model: countries.Country
+#  pk: australia
+#  fields:
+#    live_quality_index: 0.944
+#    name: Australia
+#    population: 26177413.0
+#- model: countries.Country
+#  pk: netherlands
+#  fields:
+#    live_quality_index: 0.944
+#    name: Netherlands
+#    population: 17564014.0
+#- model: countries.Country
+#  pk: denmark
+#  fields:
+#    live_quality_index: 0.94
+#    name: Denmark
+#    population: 5882261.0
+#- model: countries.Country
+#  pk: singapore
+#  fields:
+#    live_quality_index: 0.938
+#    name: Singapore
+#    population: 5975689.0
+#    language_id: en
+#- model: countries.Country
+#  pk: finland
+#  fields:
+#    live_quality_index: 0.938
+#    name: Finland
+#    population: 5540745.0
 - model: countries.Country
   pk: united_kingdom
   fields:
     live_quality_index: 0.932
     name: United Kingdom
     population: 67508936.0
-- model: countries.Country
-  pk: belgium
-  fields:
-    live_quality_index: 0.931
-    name: Belgium
-    population: 11655930.0
-- model: countries.Country
-  pk: new_zealand
-  fields:
-    live_quality_index: 0.931
-    name: New Zealand
-    population: 5185288.0
-- model: countries.Country
-  pk: canada
-  fields:
-    live_quality_index: 0.929
-    name: Canada
-    population: 38454327.0
-    language_id: en
+#- model: countries.Country
+#  pk: belgium
+#  fields:
+#    live_quality_index: 0.931
+#    name: Belgium
+#    population: 11655930.0
+#- model: countries.Country
+#  pk: new_zealand
+#  fields:
+#    live_quality_index: 0.931
+#    name: New Zealand
+#    population: 5185288.0
+#- model: countries.Country
+#  pk: canada
+#  fields:
+#    live_quality_index: 0.929
+#    name: Canada
+#    population: 38454327.0
+#    language_id: en
 - model: countries.Country
   pk: united_states
   fields:
     live_quality_index: 0.926
     name: United States
     population: 338289857.0
-- model: countries.Country
-  pk: austria
-  fields:
-    live_quality_index: 0.922
-    name: Austria
-    population: 8939617.0
-- model: countries.Country
-  pk: japan
-  fields:
-    live_quality_index: 0.919
-    name: Japan
-    population: 123951692.0
-- model: countries.Country
-  pk: israel
-  fields:
-    live_quality_index: 0.919
-    name: Israel
-    population: 9038309.0
-- model: countries.Country
-  pk: liechtenstein
-  fields:
-    live_quality_index: 0.919
-    name: Liechtenstein
-    population: 39327.0
-- model: countries.Country
-  pk: slovenia
-  fields:
-    live_quality_index: 0.917
-    name: Slovenia
-    population: 2119844.0
-- model: countries.Country
-  pk: south_korea
-  fields:
-    live_quality_index: 0.916
-    name: South Korea
-    population: 51815810.0
-- model: countries.Country
-  pk: luxembourg
-  fields:
-    live_quality_index: 0.916
-    name: Luxembourg
-    population: 647599.0
-- model: countries.Country
-  pk: spain
-  fields:
-    live_quality_index: 0.904
-    name: Spain
-    population: 47558630.0
-- model: countries.Country
-  pk: france
-  fields:
-    live_quality_index: 0.901
-    name: France
-    population: 64626628.0
+#- model: countries.Country
+#  pk: austria
+#  fields:
+#    live_quality_index: 0.922
+#    name: Austria
+#    population: 8939617.0
+#- model: countries.Country
+#  pk: japan
+#  fields:
+#    live_quality_index: 0.919
+#    name: Japan
+#    population: 123951692.0
+#- model: countries.Country
+#  pk: israel
+#  fields:
+#    live_quality_index: 0.919
+#    name: Israel
+#    population: 9038309.0
+#- model: countries.Country
+#  pk: liechtenstein
+#  fields:
+#    live_quality_index: 0.919
+#    name: Liechtenstein
+#    population: 39327.0
+#- model: countries.Country
+#  pk: slovenia
+#  fields:
+#    live_quality_index: 0.917
+#    name: Slovenia
+#    population: 2119844.0
+#- model: countries.Country
+#  pk: south_korea
+#  fields:
+#    live_quality_index: 0.916
+#    name: South Korea
+#    population: 51815810.0
+#- model: countries.Country
+#  pk: luxembourg
+#  fields:
+#    live_quality_index: 0.916
+#    name: Luxembourg
+#    population: 647599.0
+#- model: countries.Country
+#  pk: spain
+#  fields:
+#    live_quality_index: 0.904
+#    name: Spain
+#    population: 47558630.0
+#- model: countries.Country
+#  pk: france
+#  fields:
+#    live_quality_index: 0.901
+#    name: France
+#    population: 64626628.0
 - model: countries.Country
   pk: czech_republic
   fields:
     live_quality_index: 0.9
     name: Czech Republic
     population: 10493986.0
-- model: countries.Country
-  pk: malta
-  fields:
-    live_quality_index: 0.895
-    name: Malta
-    population: 533286.0
-- model: countries.Country
-  pk: italy
-  fields:
-    live_quality_index: 0.892
-    name: Italy
-    population: 59037474.0
-- model: countries.Country
-  pk: estonia
-  fields:
-    live_quality_index: 0.892
-    name: Estonia
-    population: 1326062.0
-- model: countries.Country
-  pk: united_arab_emirates
-  fields:
-    live_quality_index: 0.89
-    name: United Arab Emirates
-    population: 9441129.0
-- model: countries.Country
-  pk: greece
-  fields:
-    live_quality_index: 0.888
-    name: Greece
-    population: 10384971.0
-- model: countries.Country
-  pk: cyprus
-  fields:
-    live_quality_index: 0.887
-    name: Cyprus
-    population: 1251488.0
-- model: countries.Country
-  pk: lithuania
-  fields:
-    live_quality_index: 0.882
-    name: Lithuania
-    population: 2750055.0
-- model: countries.Country
-  pk: poland
-  fields:
-    live_quality_index: 0.88
-    name: Poland
-    population: 39857145.0
-- model: countries.Country
-  pk: andorra
-  fields:
-    live_quality_index: 0.868
-    name: Andorra
-    population: 79824.0
-- model: countries.Country
-  pk: latvia
-  fields:
-    live_quality_index: 0.866
-    name: Latvia
-    population: 1850651.0
-- model: countries.Country
-  pk: portugal
-  fields:
-    live_quality_index: 0.864
-    name: Portugal
-    population: 10270865.0
-- model: countries.Country
-  pk: slovakia
-  fields:
-    live_quality_index: 0.86
-    name: Slovakia
-    population: 5643453.0
-- model: countries.Country
-  pk: saudi_arabia
-  fields:
-    live_quality_index: 0.854
-    name: Saudi Arabia
-    population: 36408820.0
-- model: countries.Country
-  pk: hungary
-  fields:
-    live_quality_index: 0.854
-    name: Hungary
-    population: 9967308.0
-- model: countries.Country
-  pk: bahrain
-  fields:
-    live_quality_index: 0.852
-    name: Bahrain
-    population: 1472233.0
-- model: countries.Country
-  pk: chile
-  fields:
-    live_quality_index: 0.851
-    name: Chile
-    population: 19603733.0
-- model: countries.Country
-  pk: croatia
-  fields:
-    live_quality_index: 0.851
-    name: Croatia
-    population: 4030358.0
-- model: countries.Country
-  pk: qatar
-  fields:
-    live_quality_index: 0.848
-    name: Qatar
-    population: 2695122.0
-- model: countries.Country
-  pk: argentina
-  fields:
-    live_quality_index: 0.845
-    name: Argentina
-    population: 45510318.0
-- model: countries.Country
-  pk: brunei
-  fields:
-    live_quality_index: 0.838
-    name: Brunei
-    population: 449002.0
-- model: countries.Country
-  pk: montenegro
-  fields:
-    live_quality_index: 0.829
-    name: Montenegro
-    population: 627082.0
-- model: countries.Country
-  pk: romania
-  fields:
-    live_quality_index: 0.828
-    name: Romania
-    population: 19659267.0
-- model: countries.Country
-  pk: palau
-  fields:
-    live_quality_index: 0.826
-    name: Palau
-    population: 18055.0
+#- model: countries.Country
+#  pk: malta
+#  fields:
+#    live_quality_index: 0.895
+#    name: Malta
+#    population: 533286.0
+#- model: countries.Country
+#  pk: italy
+#  fields:
+#    live_quality_index: 0.892
+#    name: Italy
+#    population: 59037474.0
+#- model: countries.Country
+#  pk: estonia
+#  fields:
+#    live_quality_index: 0.892
+#    name: Estonia
+#    population: 1326062.0
+#- model: countries.Country
+#  pk: united_arab_emirates
+#  fields:
+#    live_quality_index: 0.89
+#    name: United Arab Emirates
+#    population: 9441129.0
+#- model: countries.Country
+#  pk: greece
+#  fields:
+#    live_quality_index: 0.888
+#    name: Greece
+#    population: 10384971.0
+#- model: countries.Country
+#  pk: cyprus
+#  fields:
+#    live_quality_index: 0.887
+#    name: Cyprus
+#    population: 1251488.0
+#- model: countries.Country
+#  pk: lithuania
+#  fields:
+#    live_quality_index: 0.882
+#    name: Lithuania
+#    population: 2750055.0
+#- model: countries.Country
+#  pk: poland
+#  fields:
+#    live_quality_index: 0.88
+#    name: Poland
+#    population: 39857145.0
+#- model: countries.Country
+#  pk: andorra
+#  fields:
+#    live_quality_index: 0.868
+#    name: Andorra
+#    population: 79824.0
+#- model: countries.Country
+#  pk: latvia
+#  fields:
+#    live_quality_index: 0.866
+#    name: Latvia
+#    population: 1850651.0
+#- model: countries.Country
+#  pk: portugal
+#  fields:
+#    live_quality_index: 0.864
+#    name: Portugal
+#    population: 10270865.0
+#- model: countries.Country
+#  pk: slovakia
+#  fields:
+#    live_quality_index: 0.86
+#    name: Slovakia
+#    population: 5643453.0
+#- model: countries.Country
+#  pk: saudi_arabia
+#  fields:
+#    live_quality_index: 0.854
+#    name: Saudi Arabia
+#    population: 36408820.0
+#- model: countries.Country
+#  pk: hungary
+#  fields:
+#    live_quality_index: 0.854
+#    name: Hungary
+#    population: 9967308.0
+#- model: countries.Country
+#  pk: bahrain
+#  fields:
+#    live_quality_index: 0.852
+#    name: Bahrain
+#    population: 1472233.0
+#- model: countries.Country
+#  pk: chile
+#  fields:
+#    live_quality_index: 0.851
+#    name: Chile
+#    population: 19603733.0
+#- model: countries.Country
+#  pk: croatia
+#  fields:
+#    live_quality_index: 0.851
+#    name: Croatia
+#    population: 4030358.0
+#- model: countries.Country
+#  pk: qatar
+#  fields:
+#    live_quality_index: 0.848
+#    name: Qatar
+#    population: 2695122.0
+#- model: countries.Country
+#  pk: argentina
+#  fields:
+#    live_quality_index: 0.845
+#    name: Argentina
+#    population: 45510318.0
+#- model: countries.Country
+#  pk: brunei
+#  fields:
+#    live_quality_index: 0.838
+#    name: Brunei
+#    population: 449002.0
+#- model: countries.Country
+#  pk: montenegro
+#  fields:
+#    live_quality_index: 0.829
+#    name: Montenegro
+#    population: 627082.0
+#- model: countries.Country
+#  pk: romania
+#  fields:
+#    live_quality_index: 0.828
+#    name: Romania
+#    population: 19659267.0
+#- model: countries.Country
+#  pk: palau
+#  fields:
+#    live_quality_index: 0.826
+#    name: Palau
+#    population: 18055.0
 - model: countries.Country
   pk: kazakhstan
   fields:
@@ -319,866 +319,866 @@
     live_quality_index: 0.823
     name: Belarus
     population: 9534954.0
-- model: countries.Country
-  pk: turkey
-  fields:
-    live_quality_index: 0.82
-    name: Turkey
-    population: 85341241.0
-- model: countries.Country
-  pk: uruguay
-  fields:
-    live_quality_index: 0.817
-    name: Uruguay
-    population: 3422794.0
-- model: countries.Country
-  pk: bulgaria
-  fields:
-    live_quality_index: 0.816
-    name: Bulgaria
-    population: 6781953.0
-- model: countries.Country
-  pk: panama
-  fields:
-    live_quality_index: 0.815
-    name: Panama
-    population: 4408581.0
-- model: countries.Country
-  pk: oman
-  fields:
-    live_quality_index: 0.814
-    name: Oman
-    population: 4576298.0
-- model: countries.Country
-  pk: bahamas
-  fields:
-    live_quality_index: 0.814
-    name: Bahamas
-    population: 409984.0
-    language_id: en
-- model: countries.Country
-  pk: barbados
-  fields:
-    live_quality_index: 0.814
-    name: Barbados
-    population: 281635.0
-    language_id: en
-- model: countries.Country
-  pk: georgia
-  fields:
-    live_quality_index: 0.812
-    name: Georgia
-    population: 3744385.0
-- model: countries.Country
-  pk: malaysia
-  fields:
-    live_quality_index: 0.81
-    name: Malaysia
-    population: 33938221.0
-- model: countries.Country
-  pk: costa_rica
-  fields:
-    live_quality_index: 0.81
-    name: Costa Rica
-    population: 5180829.0
-- model: countries.Country
-  pk: serbia
-  fields:
-    live_quality_index: 0.806
-    name: Serbia
-    population: 7221365.0
-- model: countries.Country
-  pk: kuwait
-  fields:
-    live_quality_index: 0.806
-    name: Kuwait
-    population: 4268873.0
-- model: countries.Country
-  pk: mauritius
-  fields:
-    live_quality_index: 0.804
-    name: Mauritius
-    population: 1299469.0
-    language_id: en
-- model: countries.Country
-  pk: trinidad_and_tobago
-  fields:
-    live_quality_index: 0.796
-    name: Trinidad And Tobago
-    population: 1531044.0
-    language_id: en
-- model: countries.Country
-  pk: seychelles
-  fields:
-    live_quality_index: 0.796
-    name: Seychelles
-    population: 107118.0
-- model: countries.Country
-  pk: albania
-  fields:
-    live_quality_index: 0.795
-    name: Albania
-    population: 2842321.0
-- model: countries.Country
-  pk: iran
-  fields:
-    live_quality_index: 0.783
-    name: Iran
-    population: 88550570.0
-- model: countries.Country
-  pk: cuba
-  fields:
-    live_quality_index: 0.783
-    name: Cuba
-    population: 11212191.0
-- model: countries.Country
-  pk: sri_lanka
-  fields:
-    live_quality_index: 0.782
-    name: Sri Lanka
-    population: 21832143.0
-- model: countries.Country
-  pk: bosnia_and_herzegovina
-  fields:
-    live_quality_index: 0.78
-    name: Bosnia And Herzegovina
-    population: 3233526.0
-- model: countries.Country
-  pk: mexico
-  fields:
-    live_quality_index: 0.779
-    name: Mexico
-    population: 127504125.0
+#- model: countries.Country
+#  pk: turkey
+#  fields:
+#    live_quality_index: 0.82
+#    name: Turkey
+#    population: 85341241.0
+#- model: countries.Country
+#  pk: uruguay
+#  fields:
+#    live_quality_index: 0.817
+#    name: Uruguay
+#    population: 3422794.0
+#- model: countries.Country
+#  pk: bulgaria
+#  fields:
+#    live_quality_index: 0.816
+#    name: Bulgaria
+#    population: 6781953.0
+#- model: countries.Country
+#  pk: panama
+#  fields:
+#    live_quality_index: 0.815
+#    name: Panama
+#    population: 4408581.0
+#- model: countries.Country
+#  pk: oman
+#  fields:
+#    live_quality_index: 0.814
+#    name: Oman
+#    population: 4576298.0
+#- model: countries.Country
+#  pk: bahamas
+#  fields:
+#    live_quality_index: 0.814
+#    name: Bahamas
+#    population: 409984.0
+#    language_id: en
+#- model: countries.Country
+#  pk: barbados
+#  fields:
+#    live_quality_index: 0.814
+#    name: Barbados
+#    population: 281635.0
+#    language_id: en
+#- model: countries.Country
+#  pk: georgia
+#  fields:
+#    live_quality_index: 0.812
+#    name: Georgia
+#    population: 3744385.0
+#- model: countries.Country
+#  pk: malaysia
+#  fields:
+#    live_quality_index: 0.81
+#    name: Malaysia
+#    population: 33938221.0
+#- model: countries.Country
+#  pk: costa_rica
+#  fields:
+#    live_quality_index: 0.81
+#    name: Costa Rica
+#    population: 5180829.0
+#- model: countries.Country
+#  pk: serbia
+#  fields:
+#    live_quality_index: 0.806
+#    name: Serbia
+#    population: 7221365.0
+#- model: countries.Country
+#  pk: kuwait
+#  fields:
+#    live_quality_index: 0.806
+#    name: Kuwait
+#    population: 4268873.0
+#- model: countries.Country
+#  pk: mauritius
+#  fields:
+#    live_quality_index: 0.804
+#    name: Mauritius
+#    population: 1299469.0
+#    language_id: en
+#- model: countries.Country
+#  pk: trinidad_and_tobago
+#  fields:
+#    live_quality_index: 0.796
+#    name: Trinidad And Tobago
+#    population: 1531044.0
+#    language_id: en
+#- model: countries.Country
+#  pk: seychelles
+#  fields:
+#    live_quality_index: 0.796
+#    name: Seychelles
+#    population: 107118.0
+#- model: countries.Country
+#  pk: albania
+#  fields:
+#    live_quality_index: 0.795
+#    name: Albania
+#    population: 2842321.0
+#- model: countries.Country
+#  pk: iran
+#  fields:
+#    live_quality_index: 0.783
+#    name: Iran
+#    population: 88550570.0
+#- model: countries.Country
+#  pk: cuba
+#  fields:
+#    live_quality_index: 0.783
+#    name: Cuba
+#    population: 11212191.0
+#- model: countries.Country
+#  pk: sri_lanka
+#  fields:
+#    live_quality_index: 0.782
+#    name: Sri Lanka
+#    population: 21832143.0
+#- model: countries.Country
+#  pk: bosnia_and_herzegovina
+#  fields:
+#    live_quality_index: 0.78
+#    name: Bosnia And Herzegovina
+#    population: 3233526.0
+#- model: countries.Country
+#  pk: mexico
+#  fields:
+#    live_quality_index: 0.779
+#    name: Mexico
+#    population: 127504125.0
 - model: countries.Country
   pk: ukraine
   fields:
     live_quality_index: 0.779
     name: Ukraine
     population: 39701739.0
-- model: countries.Country
-  pk: grenada
-  fields:
-    live_quality_index: 0.779
-    name: Grenada
-    population: 125438.0
-    language_id: en
-- model: countries.Country
-  pk: saint_kitts_and_nevis
-  fields:
-    live_quality_index: 0.779
-    name: Saint Kitts And Nevis
-    population: 47657.0
-    language_id: en
-- model: countries.Country
-  pk: antigua_and_barbuda
-  fields:
-    live_quality_index: 0.778
-    name: Antigua And Barbuda
-    population: 93763.0
-    language_id: en
-- model: countries.Country
-  pk: thailand
-  fields:
-    live_quality_index: 0.777
-    name: Thailand
-    population: 71697030.0
-- model: countries.Country
-  pk: peru
-  fields:
-    live_quality_index: 0.777
-    name: Peru
-    population: 34049588.0
-- model: countries.Country
-  pk: armenia
-  fields:
-    live_quality_index: 0.776
-    name: Armenia
-    population: 2780469.0
-- model: countries.Country
-  pk: north_macedonia
-  fields:
-    live_quality_index: 0.774
-    name: North Macedonia
-    population: 2093599.0000000002
-- model: countries.Country
-  pk: colombia
-  fields:
-    live_quality_index: 0.767
-    name: Colombia
-    population: 51874024.0
-- model: countries.Country
-  pk: brazil
-  fields:
-    live_quality_index: 0.765
-    name: Brazil
-    population: 215313498.0
-- model: countries.Country
-  pk: china
-  fields:
-    live_quality_index: 0.761
-    name: China
-    population: 1425887337.0
-- model: countries.Country
-  pk: ecuador
-  fields:
-    live_quality_index: 0.759
-    name: Ecuador
-    population: 18001000.0
-- model: countries.Country
-  pk: saint_lucia
-  fields:
-    live_quality_index: 0.759
-    name: Saint Lucia
-    population: 179857.0
-    language_id: en
-- model: countries.Country
-  pk: dominican_republic
-  fields:
-    live_quality_index: 0.756
-    name: Dominican Republic
-    population: 11228821.0
-- model: countries.Country
-  pk: azerbaijan
-  fields:
-    live_quality_index: 0.756
-    name: Azerbaijan
-    population: 10358074.0
-- model: countries.Country
-  pk: moldova
-  fields:
-    live_quality_index: 0.75
-    name: Moldova
-    population: 3272996.0
-- model: countries.Country
-  pk: algeria
-  fields:
-    live_quality_index: 0.748
-    name: Algeria
-    population: 44903225.0
-- model: countries.Country
-  pk: lebanon
-  fields:
-    live_quality_index: 0.744
-    name: Lebanon
-    population: 5489739.0
-- model: countries.Country
-  pk: fiji
-  fields:
-    live_quality_index: 0.743
-    name: Fiji
-    population: 929766.0
-    language_id: en
-- model: countries.Country
-  pk: dominica
-  fields:
-    live_quality_index: 0.742
-    name: Dominica
-    population: 72737.0
-    language_id: en
-- model: countries.Country
-  pk: tunisia
-  fields:
-    live_quality_index: 0.74
-    name: Tunisia
-    population: 12356117.0
-- model: countries.Country
-  pk: maldives
-  fields:
-    live_quality_index: 0.74
-    name: Maldives
-    population: 523787.00000000006
-- model: countries.Country
-  pk: suriname
-  fields:
-    live_quality_index: 0.738
-    name: Suriname
-    population: 618040.0
-- model: countries.Country
-  pk: saint_vincent_and_the_grenadines
-  fields:
-    live_quality_index: 0.738
-    name: Saint Vincent And The Grenadines
-    population: 103948.0
-    language_id: en
-- model: countries.Country
-  pk: mongolia
-  fields:
-    live_quality_index: 0.737
-    name: Mongolia
-    population: 3398366.0
-- model: countries.Country
-  pk: botswana
-  fields:
-    live_quality_index: 0.735
-    name: Botswana
-    population: 2630296.0
-    language_id: en
-- model: countries.Country
-  pk: jamaica
-  fields:
-    live_quality_index: 0.734
-    name: Jamaica
-    population: 2827377.0
-    language_id: en
-- model: countries.Country
-  pk: jordan
-  fields:
-    live_quality_index: 0.729
-    name: Jordan
-    population: 11285869.0
-- model: countries.Country
-  pk: paraguay
-  fields:
-    live_quality_index: 0.728
-    name: Paraguay
-    population: 6780744.0
-- model: countries.Country
-  pk: tonga
-  fields:
-    live_quality_index: 0.725
-    name: Tonga
-    population: 106858.0
-- model: countries.Country
-  pk: libya
-  fields:
-    live_quality_index: 0.724
-    name: Libya
-    population: 6812341.0
-- model: countries.Country
-  pk: uzbekistan
-  fields:
-    live_quality_index: 0.72
-    name: Uzbekistan
-    population: 34627652.0
-- model: countries.Country
-  pk: indonesia
-  fields:
-    live_quality_index: 0.718
-    name: Indonesia
-    population: 275501339.0
-- model: countries.Country
-  pk: philippines
-  fields:
-    live_quality_index: 0.718
-    name: Philippines
-    population: 115559009.0
-    language_id: en
-- model: countries.Country
-  pk: bolivia
-  fields:
-    live_quality_index: 0.718
-    name: Bolivia
-    population: 12224110.0
-- model: countries.Country
-  pk: belize
-  fields:
-    live_quality_index: 0.716
-    name: Belize
-    population: 405272.0
-    language_id: en
-- model: countries.Country
-  pk: turkmenistan
-  fields:
-    live_quality_index: 0.715
-    name: Turkmenistan
-    population: 6430770.0
-- model: countries.Country
-  pk: samoa
-  fields:
-    live_quality_index: 0.715
-    name: Samoa
-    population: 222382.0
-- model: countries.Country
-  pk: venezuela
-  fields:
-    live_quality_index: 0.711
-    name: Venezuela
-    population: 28301696.0
-- model: countries.Country
-  pk: south_africa
-  fields:
-    live_quality_index: 0.709
-    name: South Africa
-    population: 59893885.0
-    language_id: en
-- model: countries.Country
-  pk: palestine
-  fields:
-    live_quality_index: 0.708
-    name: Palestine
-    population: 5250072.0
-- model: countries.Country
-  pk: egypt
-  fields:
-    live_quality_index: 0.707
-    name: Egypt
-    population: 110990103.0
-- model: countries.Country
-  pk: vietnam
-  fields:
-    live_quality_index: 0.704
-    name: Vietnam
-    population: 98186856.0
-- model: countries.Country
-  pk: marshall_islands
-  fields:
-    live_quality_index: 0.704
-    name: Marshall Islands
-    population: 41569.0
-- model: countries.Country
-  pk: gabon
-  fields:
-    live_quality_index: 0.703
-    name: Gabon
-    population: 2388992.0
-- model: countries.Country
-  pk: kyrgyzstan
-  fields:
-    live_quality_index: 0.697
-    name: Kyrgyzstan
-    population: 6630623.0
-- model: countries.Country
-  pk: morocco
-  fields:
-    live_quality_index: 0.686
-    name: Morocco
-    population: 37457971.0
-- model: countries.Country
-  pk: guyana
-  fields:
-    live_quality_index: 0.682
-    name: Guyana
-    population: 808726.0
-    language_id: en
-- model: countries.Country
-  pk: iraq
-  fields:
-    live_quality_index: 0.674
-    name: Iraq
-    population: 44496122.0
-- model: countries.Country
-  pk: el_salvador
-  fields:
-    live_quality_index: 0.673
-    name: El Salvador
-    population: 6336392.0
-- model: countries.Country
-  pk: tajikistan
-  fields:
-    live_quality_index: 0.668
-    name: Tajikistan
-    population: 9952787.0
-- model: countries.Country
-  pk: guatemala
-  fields:
-    live_quality_index: 0.663
-    name: Guatemala
-    population: 17843908.0
-- model: countries.Country
-  pk: nicaragua
-  fields:
-    live_quality_index: 0.66
-    name: Nicaragua
-    population: 6948392.0
-- model: countries.Country
-  pk: bhutan
-  fields:
-    live_quality_index: 0.654
-    name: Bhutan
-    population: 782455.0
-- model: countries.Country
-  pk: namibia
-  fields:
-    live_quality_index: 0.646
-    name: Namibia
-    population: 2567012.0
-- model: countries.Country
-  pk: india
-  fields:
-    live_quality_index: 0.645
-    name: India
-    population: 1417173173.0
-- model: countries.Country
-  pk: honduras
-  fields:
-    live_quality_index: 0.634
-    name: Honduras
-    population: 10432860.0
-- model: countries.Country
-  pk: bangladesh
-  fields:
-    live_quality_index: 0.632
-    name: Bangladesh
-    population: 171186372.0
-- model: countries.Country
-  pk: kiribati
-  fields:
-    live_quality_index: 0.63
-    name: Kiribati
-    population: 131232.0
-- model: countries.Country
-  pk: sao_tome_and_principe
-  fields:
-    live_quality_index: 0.625
-    name: Sao Tome And Principe
-    population: 227380.0
-- model: countries.Country
-  pk: micronesia
-  fields:
-    live_quality_index: 0.62
-    name: Micronesia
-    population: 114164.0
-    language_id: en
-- model: countries.Country
-  pk: laos
-  fields:
-    live_quality_index: 0.613
-    name: Laos
-    population: 7529475.0
-- model: countries.Country
-  pk: ghana
-  fields:
-    live_quality_index: 0.611
-    name: Ghana
-    population: 33475870.000000004
-    language_id: en
-- model: countries.Country
-  pk: eswatini
-  fields:
-    live_quality_index: 0.611
-    name: Eswatini
-    population: 1201670.0
-- model: countries.Country
-  pk: vanuatu
-  fields:
-    live_quality_index: 0.609
-    name: Vanuatu
-    population: 326740.0
-- model: countries.Country
-  pk: nepal
-  fields:
-    live_quality_index: 0.602
-    name: Nepal
-    population: 30547580.0
-- model: countries.Country
-  pk: kenya
-  fields:
-    live_quality_index: 0.601
-    name: Kenya
-    population: 54027487.0
-    language_id: en
-- model: countries.Country
-  pk: cambodia
-  fields:
-    live_quality_index: 0.594
-    name: Cambodia
-    population: 16767842.0
-- model: countries.Country
-  pk: equatorial_guinea
-  fields:
-    live_quality_index: 0.592
-    name: Equatorial Guinea
-    population: 1674908.0
-- model: countries.Country
-  pk: zambia
-  fields:
-    live_quality_index: 0.584
-    name: Zambia
-    population: 20017675.0
-    language_id: en
-- model: countries.Country
-  pk: myanmar
-  fields:
-    live_quality_index: 0.583
-    name: Myanmar
-    population: 54179306.0
-- model: countries.Country
-  pk: angola
-  fields:
-    live_quality_index: 0.581
-    name: Angola
-    population: 35588987.0
-- model: countries.Country
-  pk: republic_of_the_congo
-  fields:
-    live_quality_index: 0.574
-    name: Republic Of The Congo
-    population: 5970424.0
-- model: countries.Country
-  pk: zimbabwe
-  fields:
-    live_quality_index: 0.571
-    name: Zimbabwe
-    population: 16320537.0
-- model: countries.Country
-  pk: syria
-  fields:
-    live_quality_index: 0.567
-    name: Syria
-    population: 22125249.0
-- model: countries.Country
-  pk: solomon_islands
-  fields:
-    live_quality_index: 0.567
-    name: Solomon Islands
-    population: 724273.0
-    language_id: en
-- model: countries.Country
-  pk: cameroon
-  fields:
-    live_quality_index: 0.563
-    name: Cameroon
-    population: 27914536.0
-- model: countries.Country
-  pk: pakistan
-  fields:
-    live_quality_index: 0.557
-    name: Pakistan
-    population: 235824862.0
-- model: countries.Country
-  pk: papua_new_guinea
-  fields:
-    live_quality_index: 0.555
-    name: Papua New Guinea
-    population: 10142619.0
-    language_id: en
-- model: countries.Country
-  pk: comoros
-  fields:
-    live_quality_index: 0.554
-    name: Comoros
-    population: 836774.0
-- model: countries.Country
-  pk: mauritania
-  fields:
-    live_quality_index: 0.546
-    name: Mauritania
-    population: 4736139.0
-- model: countries.Country
-  pk: benin
-  fields:
-    live_quality_index: 0.545
-    name: Benin
-    population: 13352864.0
-- model: countries.Country
-  pk: uganda
-  fields:
-    live_quality_index: 0.544
-    name: Uganda
-    population: 47249585.0
-- model: countries.Country
-  pk: rwanda
-  fields:
-    live_quality_index: 0.543
-    name: Rwanda
-    population: 13776698.0
-- model: countries.Country
-  pk: nigeria
-  fields:
-    live_quality_index: 0.539
-    name: Nigeria
-    population: 218541212.0
-    language_id: en
-- model: countries.Country
-  pk: ivory_coast
-  fields:
-    live_quality_index: 0.538
-    name: Ivory Coast
-    population: 28160542.0
-- model: countries.Country
-  pk: tanzania
-  fields:
-    live_quality_index: 0.529
-    name: Tanzania
-    population: 65497748.0
-- model: countries.Country
-  pk: madagascar
-  fields:
-    live_quality_index: 0.528
-    name: Madagascar
-    population: 29611714.0
-- model: countries.Country
-  pk: lesotho
-  fields:
-    live_quality_index: 0.527
-    name: Lesotho
-    population: 2305825.0
-- model: countries.Country
-  pk: djibouti
-  fields:
-    live_quality_index: 0.524
-    name: Djibouti
-    population: 1120849.0
-- model: countries.Country
-  pk: togo
-  fields:
-    live_quality_index: 0.515
-    name: Togo
-    population: 8848699.0
-- model: countries.Country
-  pk: senegal
-  fields:
-    live_quality_index: 0.512
-    name: Senegal
-    population: 17316449.0
-- model: countries.Country
-  pk: afghanistan
-  fields:
-    live_quality_index: 0.511
-    name: Afghanistan
-    population: 41128771.0
-- model: countries.Country
-  pk: sudan
-  fields:
-    live_quality_index: 0.51
-    name: Sudan
-    population: 46874204.0
-- model: countries.Country
-  pk: haiti
-  fields:
-    live_quality_index: 0.51
-    name: Haiti
-    population: 11584996.0
-- model: countries.Country
-  pk: gambia
-  fields:
-    live_quality_index: 0.496
-    name: Gambia
-    population: 2705992.0
-    language_id: en
-- model: countries.Country
-  pk: ethiopia
-  fields:
-    live_quality_index: 0.485
-    name: Ethiopia
-    population: 123379924.0
-- model: countries.Country
-  pk: malawi
-  fields:
-    live_quality_index: 0.483
-    name: Malawi
-    population: 20405317.0
-    language_id: en
-- model: countries.Country
-  pk: dr_congo
-  fields:
-    live_quality_index: 0.48
-    name: Dr Congo
-    population: 99010212.0
-- model: countries.Country
-  pk: liberia
-  fields:
-    live_quality_index: 0.48
-    name: Liberia
-    population: 5302681.0
-    language_id: en
-- model: countries.Country
-  pk: guinea
-  fields:
-    live_quality_index: 0.477
-    name: Guinea
-    population: 13859341.0
-- model: countries.Country
-  pk: yemen
-  fields:
-    live_quality_index: 0.47
-    name: Yemen
-    population: 33696614.0
-- model: countries.Country
-  pk: eritrea
-  fields:
-    live_quality_index: 0.459
-    name: Eritrea
-    population: 3684032.0
-- model: countries.Country
-  pk: mozambique
-  fields:
-    live_quality_index: 0.456
-    name: Mozambique
-    population: 32969517.999999996
-- model: countries.Country
-  pk: burkina_faso
-  fields:
-    live_quality_index: 0.452
-    name: Burkina Faso
-    population: 22673762.0
-- model: countries.Country
-  pk: sierra_leone
-  fields:
-    live_quality_index: 0.452
-    name: Sierra Leone
-    population: 8605718.0
-    language_id: en
-- model: countries.Country
-  pk: mali
-  fields:
-    live_quality_index: 0.434
-    name: Mali
-    population: 22593590.0
-- model: countries.Country
-  pk: burundi
-  fields:
-    live_quality_index: 0.433
-    name: Burundi
-    population: 12889576.0
-- model: countries.Country
-  pk: south_sudan
-  fields:
-    live_quality_index: 0.433
-    name: South Sudan
-    population: 10913164.0
-    language_id: en
-- model: countries.Country
-  pk: chad
-  fields:
-    live_quality_index: 0.398
-    name: Chad
-    population: 17723315.0
-- model: countries.Country
-  pk: central_african_republic
-  fields:
-    live_quality_index: 0.397
-    name: Central African Republic
-    population: 5579144.0
-- model: countries.Country
-  pk: niger
-  fields:
-    live_quality_index: 0.394
-    name: Niger
-    population: 26207977.0
-- model: countries.Country
-  pk: north_korea
-  fields:
-    live_quality_index: 0.0
-    name: North Korea
-    population: 26069416.0
-- model: countries.Country
-  pk: somalia
-  fields:
-    live_quality_index: 0.0
-    name: Somalia
-    population: 17597511.0
-- model: countries.Country
-  pk: monaco
-  fields:
-    live_quality_index: 0.0
-    name: Monaco
-    population: 36469.0
-- model: countries.Country
-  pk: san_marino
-  fields:
-    live_quality_index: 0.0
-    name: San Marino
-    population: 33660.0
-- model: countries.Country
-  pk: nauru
-  fields:
-    live_quality_index: 0.0
-    name: Nauru
-    population: 12668.0
-- model: countries.Country
-  pk: tuvalu
-  fields:
-    live_quality_index: 0.0
-    name: Tuvalu
-    population: 11312.0
+#- model: countries.Country
+#  pk: grenada
+#  fields:
+#    live_quality_index: 0.779
+#    name: Grenada
+#    population: 125438.0
+#    language_id: en
+#- model: countries.Country
+#  pk: saint_kitts_and_nevis
+#  fields:
+#    live_quality_index: 0.779
+#    name: Saint Kitts And Nevis
+#    population: 47657.0
+#    language_id: en
+#- model: countries.Country
+#  pk: antigua_and_barbuda
+#  fields:
+#    live_quality_index: 0.778
+#    name: Antigua And Barbuda
+#    population: 93763.0
+#    language_id: en
+#- model: countries.Country
+#  pk: thailand
+#  fields:
+#    live_quality_index: 0.777
+#    name: Thailand
+#    population: 71697030.0
+#- model: countries.Country
+#  pk: peru
+#  fields:
+#    live_quality_index: 0.777
+#    name: Peru
+#    population: 34049588.0
+#- model: countries.Country
+#  pk: armenia
+#  fields:
+#    live_quality_index: 0.776
+#    name: Armenia
+#    population: 2780469.0
+#- model: countries.Country
+#  pk: north_macedonia
+#  fields:
+#    live_quality_index: 0.774
+#    name: North Macedonia
+#    population: 2093599.0000000002
+#- model: countries.Country
+#  pk: colombia
+#  fields:
+#    live_quality_index: 0.767
+#    name: Colombia
+#    population: 51874024.0
+#- model: countries.Country
+#  pk: brazil
+#  fields:
+#    live_quality_index: 0.765
+#    name: Brazil
+#    population: 215313498.0
+#- model: countries.Country
+#  pk: china
+#  fields:
+#    live_quality_index: 0.761
+#    name: China
+#    population: 1425887337.0
+#- model: countries.Country
+#  pk: ecuador
+#  fields:
+#    live_quality_index: 0.759
+#    name: Ecuador
+#    population: 18001000.0
+#- model: countries.Country
+#  pk: saint_lucia
+#  fields:
+#    live_quality_index: 0.759
+#    name: Saint Lucia
+#    population: 179857.0
+#    language_id: en
+#- model: countries.Country
+#  pk: dominican_republic
+#  fields:
+#    live_quality_index: 0.756
+#    name: Dominican Republic
+#    population: 11228821.0
+#- model: countries.Country
+#  pk: azerbaijan
+#  fields:
+#    live_quality_index: 0.756
+#    name: Azerbaijan
+#    population: 10358074.0
+#- model: countries.Country
+#  pk: moldova
+#  fields:
+#    live_quality_index: 0.75
+#    name: Moldova
+#    population: 3272996.0
+#- model: countries.Country
+#  pk: algeria
+#  fields:
+#    live_quality_index: 0.748
+#    name: Algeria
+#    population: 44903225.0
+#- model: countries.Country
+#  pk: lebanon
+#  fields:
+#    live_quality_index: 0.744
+#    name: Lebanon
+#    population: 5489739.0
+#- model: countries.Country
+#  pk: fiji
+#  fields:
+#    live_quality_index: 0.743
+#    name: Fiji
+#    population: 929766.0
+#    language_id: en
+#- model: countries.Country
+#  pk: dominica
+#  fields:
+#    live_quality_index: 0.742
+#    name: Dominica
+#    population: 72737.0
+#    language_id: en
+#- model: countries.Country
+#  pk: tunisia
+#  fields:
+#    live_quality_index: 0.74
+#    name: Tunisia
+#    population: 12356117.0
+#- model: countries.Country
+#  pk: maldives
+#  fields:
+#    live_quality_index: 0.74
+#    name: Maldives
+#    population: 523787.00000000006
+#- model: countries.Country
+#  pk: suriname
+#  fields:
+#    live_quality_index: 0.738
+#    name: Suriname
+#    population: 618040.0
+#- model: countries.Country
+#  pk: saint_vincent_and_the_grenadines
+#  fields:
+#    live_quality_index: 0.738
+#    name: Saint Vincent And The Grenadines
+#    population: 103948.0
+#    language_id: en
+#- model: countries.Country
+#  pk: mongolia
+#  fields:
+#    live_quality_index: 0.737
+#    name: Mongolia
+#    population: 3398366.0
+#- model: countries.Country
+#  pk: botswana
+#  fields:
+#    live_quality_index: 0.735
+#    name: Botswana
+#    population: 2630296.0
+#    language_id: en
+#- model: countries.Country
+#  pk: jamaica
+#  fields:
+#    live_quality_index: 0.734
+#    name: Jamaica
+#    population: 2827377.0
+#    language_id: en
+#- model: countries.Country
+#  pk: jordan
+#  fields:
+#    live_quality_index: 0.729
+#    name: Jordan
+#    population: 11285869.0
+#- model: countries.Country
+#  pk: paraguay
+#  fields:
+#    live_quality_index: 0.728
+#    name: Paraguay
+#    population: 6780744.0
+#- model: countries.Country
+#  pk: tonga
+#  fields:
+#    live_quality_index: 0.725
+#    name: Tonga
+#    population: 106858.0
+#- model: countries.Country
+#  pk: libya
+#  fields:
+#    live_quality_index: 0.724
+#    name: Libya
+#    population: 6812341.0
+#- model: countries.Country
+#  pk: uzbekistan
+#  fields:
+#    live_quality_index: 0.72
+#    name: Uzbekistan
+#    population: 34627652.0
+#- model: countries.Country
+#  pk: indonesia
+#  fields:
+#    live_quality_index: 0.718
+#    name: Indonesia
+#    population: 275501339.0
+#- model: countries.Country
+#  pk: philippines
+#  fields:
+#    live_quality_index: 0.718
+#    name: Philippines
+#    population: 115559009.0
+#    language_id: en
+#- model: countries.Country
+#  pk: bolivia
+#  fields:
+#    live_quality_index: 0.718
+#    name: Bolivia
+#    population: 12224110.0
+#- model: countries.Country
+#  pk: belize
+#  fields:
+#    live_quality_index: 0.716
+#    name: Belize
+#    population: 405272.0
+#    language_id: en
+#- model: countries.Country
+#  pk: turkmenistan
+#  fields:
+#    live_quality_index: 0.715
+#    name: Turkmenistan
+#    population: 6430770.0
+#- model: countries.Country
+#  pk: samoa
+#  fields:
+#    live_quality_index: 0.715
+#    name: Samoa
+#    population: 222382.0
+#- model: countries.Country
+#  pk: venezuela
+#  fields:
+#    live_quality_index: 0.711
+#    name: Venezuela
+#    population: 28301696.0
+#- model: countries.Country
+#  pk: south_africa
+#  fields:
+#    live_quality_index: 0.709
+#    name: South Africa
+#    population: 59893885.0
+#    language_id: en
+#- model: countries.Country
+#  pk: palestine
+#  fields:
+#    live_quality_index: 0.708
+#    name: Palestine
+#    population: 5250072.0
+#- model: countries.Country
+#  pk: egypt
+#  fields:
+#    live_quality_index: 0.707
+#    name: Egypt
+#    population: 110990103.0
+#- model: countries.Country
+#  pk: vietnam
+#  fields:
+#    live_quality_index: 0.704
+#    name: Vietnam
+#    population: 98186856.0
+#- model: countries.Country
+#  pk: marshall_islands
+#  fields:
+#    live_quality_index: 0.704
+#    name: Marshall Islands
+#    population: 41569.0
+#- model: countries.Country
+#  pk: gabon
+#  fields:
+#    live_quality_index: 0.703
+#    name: Gabon
+#    population: 2388992.0
+#- model: countries.Country
+#  pk: kyrgyzstan
+#  fields:
+#    live_quality_index: 0.697
+#    name: Kyrgyzstan
+#    population: 6630623.0
+#- model: countries.Country
+#  pk: morocco
+#  fields:
+#    live_quality_index: 0.686
+#    name: Morocco
+#    population: 37457971.0
+#- model: countries.Country
+#  pk: guyana
+#  fields:
+#    live_quality_index: 0.682
+#    name: Guyana
+#    population: 808726.0
+#    language_id: en
+#- model: countries.Country
+#  pk: iraq
+#  fields:
+#    live_quality_index: 0.674
+#    name: Iraq
+#    population: 44496122.0
+#- model: countries.Country
+#  pk: el_salvador
+#  fields:
+#    live_quality_index: 0.673
+#    name: El Salvador
+#    population: 6336392.0
+#- model: countries.Country
+#  pk: tajikistan
+#  fields:
+#    live_quality_index: 0.668
+#    name: Tajikistan
+#    population: 9952787.0
+#- model: countries.Country
+#  pk: guatemala
+#  fields:
+#    live_quality_index: 0.663
+#    name: Guatemala
+#    population: 17843908.0
+#- model: countries.Country
+#  pk: nicaragua
+#  fields:
+#    live_quality_index: 0.66
+#    name: Nicaragua
+#    population: 6948392.0
+#- model: countries.Country
+#  pk: bhutan
+#  fields:
+#    live_quality_index: 0.654
+#    name: Bhutan
+#    population: 782455.0
+#- model: countries.Country
+#  pk: namibia
+#  fields:
+#    live_quality_index: 0.646
+#    name: Namibia
+#    population: 2567012.0
+#- model: countries.Country
+#  pk: india
+#  fields:
+#    live_quality_index: 0.645
+#    name: India
+#    population: 1417173173.0
+#- model: countries.Country
+#  pk: honduras
+#  fields:
+#    live_quality_index: 0.634
+#    name: Honduras
+#    population: 10432860.0
+#- model: countries.Country
+#  pk: bangladesh
+#  fields:
+#    live_quality_index: 0.632
+#    name: Bangladesh
+#    population: 171186372.0
+#- model: countries.Country
+#  pk: kiribati
+#  fields:
+#    live_quality_index: 0.63
+#    name: Kiribati
+#    population: 131232.0
+#- model: countries.Country
+#  pk: sao_tome_and_principe
+#  fields:
+#    live_quality_index: 0.625
+#    name: Sao Tome And Principe
+#    population: 227380.0
+#- model: countries.Country
+#  pk: micronesia
+#  fields:
+#    live_quality_index: 0.62
+#    name: Micronesia
+#    population: 114164.0
+#    language_id: en
+#- model: countries.Country
+#  pk: laos
+#  fields:
+#    live_quality_index: 0.613
+#    name: Laos
+#    population: 7529475.0
+#- model: countries.Country
+#  pk: ghana
+#  fields:
+#    live_quality_index: 0.611
+#    name: Ghana
+#    population: 33475870.000000004
+#    language_id: en
+#- model: countries.Country
+#  pk: eswatini
+#  fields:
+#    live_quality_index: 0.611
+#    name: Eswatini
+#    population: 1201670.0
+#- model: countries.Country
+#  pk: vanuatu
+#  fields:
+#    live_quality_index: 0.609
+#    name: Vanuatu
+#    population: 326740.0
+#- model: countries.Country
+#  pk: nepal
+#  fields:
+#    live_quality_index: 0.602
+#    name: Nepal
+#    population: 30547580.0
+#- model: countries.Country
+#  pk: kenya
+#  fields:
+#    live_quality_index: 0.601
+#    name: Kenya
+#    population: 54027487.0
+#    language_id: en
+#- model: countries.Country
+#  pk: cambodia
+#  fields:
+#    live_quality_index: 0.594
+#    name: Cambodia
+#    population: 16767842.0
+#- model: countries.Country
+#  pk: equatorial_guinea
+#  fields:
+#    live_quality_index: 0.592
+#    name: Equatorial Guinea
+#    population: 1674908.0
+#- model: countries.Country
+#  pk: zambia
+#  fields:
+#    live_quality_index: 0.584
+#    name: Zambia
+#    population: 20017675.0
+#    language_id: en
+#- model: countries.Country
+#  pk: myanmar
+#  fields:
+#    live_quality_index: 0.583
+#    name: Myanmar
+#    population: 54179306.0
+#- model: countries.Country
+#  pk: angola
+#  fields:
+#    live_quality_index: 0.581
+#    name: Angola
+#    population: 35588987.0
+#- model: countries.Country
+#  pk: republic_of_the_congo
+#  fields:
+#    live_quality_index: 0.574
+#    name: Republic Of The Congo
+#    population: 5970424.0
+#- model: countries.Country
+#  pk: zimbabwe
+#  fields:
+#    live_quality_index: 0.571
+#    name: Zimbabwe
+#    population: 16320537.0
+#- model: countries.Country
+#  pk: syria
+#  fields:
+#    live_quality_index: 0.567
+#    name: Syria
+#    population: 22125249.0
+#- model: countries.Country
+#  pk: solomon_islands
+#  fields:
+#    live_quality_index: 0.567
+#    name: Solomon Islands
+#    population: 724273.0
+#    language_id: en
+#- model: countries.Country
+#  pk: cameroon
+#  fields:
+#    live_quality_index: 0.563
+#    name: Cameroon
+#    population: 27914536.0
+#- model: countries.Country
+#  pk: pakistan
+#  fields:
+#    live_quality_index: 0.557
+#    name: Pakistan
+#    population: 235824862.0
+#- model: countries.Country
+#  pk: papua_new_guinea
+#  fields:
+#    live_quality_index: 0.555
+#    name: Papua New Guinea
+#    population: 10142619.0
+#    language_id: en
+#- model: countries.Country
+#  pk: comoros
+#  fields:
+#    live_quality_index: 0.554
+#    name: Comoros
+#    population: 836774.0
+#- model: countries.Country
+#  pk: mauritania
+#  fields:
+#    live_quality_index: 0.546
+#    name: Mauritania
+#    population: 4736139.0
+#- model: countries.Country
+#  pk: benin
+#  fields:
+#    live_quality_index: 0.545
+#    name: Benin
+#    population: 13352864.0
+#- model: countries.Country
+#  pk: uganda
+#  fields:
+#    live_quality_index: 0.544
+#    name: Uganda
+#    population: 47249585.0
+#- model: countries.Country
+#  pk: rwanda
+#  fields:
+#    live_quality_index: 0.543
+#    name: Rwanda
+#    population: 13776698.0
+#- model: countries.Country
+#  pk: nigeria
+#  fields:
+#    live_quality_index: 0.539
+#    name: Nigeria
+#    population: 218541212.0
+#    language_id: en
+#- model: countries.Country
+#  pk: ivory_coast
+#  fields:
+#    live_quality_index: 0.538
+#    name: Ivory Coast
+#    population: 28160542.0
+#- model: countries.Country
+#  pk: tanzania
+#  fields:
+#    live_quality_index: 0.529
+#    name: Tanzania
+#    population: 65497748.0
+#- model: countries.Country
+#  pk: madagascar
+#  fields:
+#    live_quality_index: 0.528
+#    name: Madagascar
+#    population: 29611714.0
+#- model: countries.Country
+#  pk: lesotho
+#  fields:
+#    live_quality_index: 0.527
+#    name: Lesotho
+#    population: 2305825.0
+#- model: countries.Country
+#  pk: djibouti
+#  fields:
+#    live_quality_index: 0.524
+#    name: Djibouti
+#    population: 1120849.0
+#- model: countries.Country
+#  pk: togo
+#  fields:
+#    live_quality_index: 0.515
+#    name: Togo
+#    population: 8848699.0
+#- model: countries.Country
+#  pk: senegal
+#  fields:
+#    live_quality_index: 0.512
+#    name: Senegal
+#    population: 17316449.0
+#- model: countries.Country
+#  pk: afghanistan
+#  fields:
+#    live_quality_index: 0.511
+#    name: Afghanistan
+#    population: 41128771.0
+#- model: countries.Country
+#  pk: sudan
+#  fields:
+#    live_quality_index: 0.51
+#    name: Sudan
+#    population: 46874204.0
+#- model: countries.Country
+#  pk: haiti
+#  fields:
+#    live_quality_index: 0.51
+#    name: Haiti
+#    population: 11584996.0
+#- model: countries.Country
+#  pk: gambia
+#  fields:
+#    live_quality_index: 0.496
+#    name: Gambia
+#    population: 2705992.0
+#    language_id: en
+#- model: countries.Country
+#  pk: ethiopia
+#  fields:
+#    live_quality_index: 0.485
+#    name: Ethiopia
+#    population: 123379924.0
+#- model: countries.Country
+#  pk: malawi
+#  fields:
+#    live_quality_index: 0.483
+#    name: Malawi
+#    population: 20405317.0
+#    language_id: en
+#- model: countries.Country
+#  pk: dr_congo
+#  fields:
+#    live_quality_index: 0.48
+#    name: Dr Congo
+#    population: 99010212.0
+#- model: countries.Country
+#  pk: liberia
+#  fields:
+#    live_quality_index: 0.48
+#    name: Liberia
+#    population: 5302681.0
+#    language_id: en
+#- model: countries.Country
+#  pk: guinea
+#  fields:
+#    live_quality_index: 0.477
+#    name: Guinea
+#    population: 13859341.0
+#- model: countries.Country
+#  pk: yemen
+#  fields:
+#    live_quality_index: 0.47
+#    name: Yemen
+#    population: 33696614.0
+#- model: countries.Country
+#  pk: eritrea
+#  fields:
+#    live_quality_index: 0.459
+#    name: Eritrea
+#    population: 3684032.0
+#- model: countries.Country
+#  pk: mozambique
+#  fields:
+#    live_quality_index: 0.456
+#    name: Mozambique
+#    population: 32969517.999999996
+#- model: countries.Country
+#  pk: burkina_faso
+#  fields:
+#    live_quality_index: 0.452
+#    name: Burkina Faso
+#    population: 22673762.0
+#- model: countries.Country
+#  pk: sierra_leone
+#  fields:
+#    live_quality_index: 0.452
+#    name: Sierra Leone
+#    population: 8605718.0
+#    language_id: en
+#- model: countries.Country
+#  pk: mali
+#  fields:
+#    live_quality_index: 0.434
+#    name: Mali
+#    population: 22593590.0
+#- model: countries.Country
+#  pk: burundi
+#  fields:
+#    live_quality_index: 0.433
+#    name: Burundi
+#    population: 12889576.0
+#- model: countries.Country
+#  pk: south_sudan
+#  fields:
+#    live_quality_index: 0.433
+#    name: South Sudan
+#    population: 10913164.0
+#    language_id: en
+#- model: countries.Country
+#  pk: chad
+#  fields:
+#    live_quality_index: 0.398
+#    name: Chad
+#    population: 17723315.0
+#- model: countries.Country
+#  pk: central_african_republic
+#  fields:
+#    live_quality_index: 0.397
+#    name: Central African Republic
+#    population: 5579144.0
+#- model: countries.Country
+#  pk: niger
+#  fields:
+#    live_quality_index: 0.394
+#    name: Niger
+#    population: 26207977.0
+#- model: countries.Country
+#  pk: north_korea
+#  fields:
+#    live_quality_index: 0.0
+#    name: North Korea
+#    population: 26069416.0
+#- model: countries.Country
+#  pk: somalia
+#  fields:
+#    live_quality_index: 0.0
+#    name: Somalia
+#    population: 17597511.0
+#- model: countries.Country
+#  pk: monaco
+#  fields:
+#    live_quality_index: 0.0
+#    name: Monaco
+#    population: 36469.0
+#- model: countries.Country
+#  pk: san_marino
+#  fields:
+#    live_quality_index: 0.0
+#    name: San Marino
+#    population: 33660.0
+#- model: countries.Country
+#  pk: nauru
+#  fields:
+#    live_quality_index: 0.0
+#    name: Nauru
+#    population: 12668.0
+#- model: countries.Country
+#  pk: tuvalu
+#  fields:
+#    live_quality_index: 0.0
+#    name: Tuvalu
+#    population: 11312.0
