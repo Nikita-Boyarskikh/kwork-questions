@@ -7,7 +7,6 @@ from answers.admin import AnswerInline
 from claims.admin import ClaimInline
 from likes.admin import LikeInline
 from questions.admin import QuestionInline
-from users.auth import send_email_confirmation
 from users.models import User
 from utils.admin import AddingDeniedMixin
 
@@ -27,21 +26,9 @@ class UserAdmin(AddingDeniedMixin, BaseUserAdmin):
             _('Personal info'),
             {
                 'fields': (
-                    'email',
                     'avatar',
-                    'birth_year',
-                    'sex',
-                    'education',
                     'country',
                     'preferred_language',
-                ),
-            },
-        ),
-        (
-            _('Payment info'),
-            {
-                'fields': (
-                    'pin',
                 ),
             },
         ),
@@ -74,11 +61,11 @@ class UserAdmin(AddingDeniedMixin, BaseUserAdmin):
             None,
             {
                 'classes': ('wide',),
-                'fields': ('username', 'email', 'password1', 'password2', 'pin', 'preferred_language'),
+                'fields': ('username', 'password1', 'password2'),
             },
         ),
     )
-    list_display = ('__str__', 'username', 'email', 'preferred_language', 'is_approved', 'is_active', 'is_staff')
+    list_display = ('__str__', 'username', 'preferred_language', 'is_approved', 'is_active', 'is_staff')
     list_filter = (
         'is_staff',
         'is_superuser',
@@ -87,11 +74,9 @@ class UserAdmin(AddingDeniedMixin, BaseUserAdmin):
         'is_user_agreement_accepted',
         'preferred_language',
         'country',
-        'sex',
-        'education',
         'groups',
     )
-    search_fields = ('username', 'email')
+    search_fields = ('username',)
     list_editable = ('is_approved', 'is_active')
     readonly_fields = ('last_login', 'date_joined')
     inlines = (QuestionInline, AnswerInline, LikeInline, ClaimInline)
@@ -100,8 +85,6 @@ class UserAdmin(AddingDeniedMixin, BaseUserAdmin):
         obj.save()
         if not change:
             Account.objects.create(user=obj)
-        if not change or 'email' in form.changed_data:
-            send_email_confirmation(obj)
 
 
 admin.site.register(User, UserAdmin)

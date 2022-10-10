@@ -8,13 +8,6 @@ from django.template.defaultfilters import filesizeformat
 from django.utils.translation import gettext as _
 
 
-# TODO: use class-based validators
-def max_value_current_year_validator(value):
-    current = date.today().year
-    validator = MaxValueValidator(current)
-    return validator(value)
-
-
 def content_type_validator(content_type, allowed=('jpeg', 'pjpeg', 'gif', 'png')):
     main, sub = content_type.split('/')
     if not (main == 'image' and sub in allowed):
