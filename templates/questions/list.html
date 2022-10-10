@@ -5,7 +5,7 @@
 {% block title %}{% trans 'Questions' %}{% endblock title %}
 {% block beforemain %}
   {{ block.super }}
-  {% include '_countries.html' with url_name='questions:index' %}
+  {% include '_countries.html' %}
 {% endblock beforemain %}
 {% block main %}
   {{ block.super }}

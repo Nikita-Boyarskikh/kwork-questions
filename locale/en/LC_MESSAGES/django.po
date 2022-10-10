@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-28 23:10+0000\n"
+"POT-Creation-Date: 2022-10-10 12:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -311,7 +311,7 @@ msgid "You already voted for this question"
 msgstr ""
 
 #: project/context_processors.py:23 templates/users/_avatar.html:3
-#: templates/users/me.html:5 templates/users/me.html:14 users/models.py:51
+#: templates/users/me.html:5 templates/users/me.html:14 users/models.py:46
 msgid "Avatar"
 msgstr ""
 
@@ -871,86 +871,70 @@ msgstr ""
 msgid "Change avatar"
 msgstr ""
 
-#: users/admin.py:27
+#: users/admin.py:26
 msgid "Personal info"
 msgstr ""
 
-#: users/admin.py:41
-msgid "Payment info"
-msgstr ""
-
-#: users/admin.py:49
+#: users/admin.py:36
 msgid "Permissions"
 msgstr ""
 
-#: users/admin.py:63
+#: users/admin.py:50
 msgid "Important dates"
 msgstr ""
 
-#: users/models.py:19
-msgid "Without education"
+#: users/forms.py:12 users/forms.py:16
+msgid "Username"
 msgstr ""
 
-#: users/models.py:26
-msgid "Prefer not to say / unsure"
+#: users/forms.py:19
+msgid "Password"
 msgstr ""
 
-#: users/models.py:57
-msgid "email address"
+#: users/forms.py:20
+msgid "Password (again)"
 msgstr ""
 
-#: users/models.py:61
+#: users/forms.py:48
+msgid "You must type the same password each time."
+msgstr ""
+
+#: users/models.py:56
 msgid "Approved"
 msgstr ""
 
-#: users/models.py:63
+#: users/models.py:58
 msgid "User approved with control question."
 msgstr ""
 
-#: users/models.py:66
+#: users/models.py:61
 msgid "User agreement accepted"
 msgstr ""
 
-#: users/models.py:68
+#: users/models.py:63
 msgid "User can create a question only after accept a user agreement."
 msgstr ""
 
-#: users/models.py:70
-msgid "Pin"
-msgstr ""
-
-#: users/models.py:73
-msgid "Sex"
-msgstr ""
-
-#: users/models.py:74
-msgid "Education"
-msgstr ""
-
-#: users/models.py:76
-msgid "Birth year"
-msgstr ""
-
-#: users/models.py:98
+#: users/models.py:80
 msgid "User"
 msgstr ""
 
-#: users/models.py:99
+#: users/models.py:81
 msgid "Users"
 msgstr ""
 
-#: users/validators.py:22
+#: users/validators.py:15
 #, python-format
 msgid "Please use one of %(allowed)s image."
 msgstr ""
 
-#: users/validators.py:35
+#: users/validators.py:28
 #, python-format
 msgid ""
 "Please use an image that is %(max_width)s x %(max_height)s pixels or smaller."
 msgstr ""
 
-#: users/validators.py:47
+#: users/validators.py:40
 #, python-format
 msgid "Avatar file size may not exceed %(limit)s."
 msgstr ""

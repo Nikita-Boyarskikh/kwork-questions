@@ -275,14 +275,12 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-ACCOUNT_AUTHENTICATION_METHOD = config('AUTHENTICATION_METHOD', default='username_email')
-ACCOUNT_EMAIL_VERIFICATION = config('EMAIL_VERIFICATION', default='optional')
-ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = config('LOGIN_ON_EMAIL_CONFIRMATION', default=True, cast=bool)
-ACCOUNT_EMAIL_REQUIRED = config('EMAIL_REQUIRED', default=True, cast=bool)
-ACCOUNT_SIGNUP_FORM_CLASS = 'users.forms.SignupForm'
+ACCOUNT_FORMS = {
+    'signup': 'users.forms.SignupForm',
+}
 ACCOUNT_ADAPTER = 'users.auth.AccountAdapter'
+ACCOUNT_UNIQUE_EMAIL = False
 # TODO: not secure
-ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_LOGOUT_ON_GET = True
 
 # Currencies

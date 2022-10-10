@@ -15,6 +15,16 @@ def _build_avatar_filename(user, filename):
 
 
 class UserManager(BaseUserManager):
+    def _create_user(self, username, email, password, **extra_fields):
+        GlobalUserModel = apps.get_model(
+            self.model._meta.app_label, self.model._meta.object_name
+        )
+        username = GlobalUserModel.normalize_username(username)
+        user = self.model(username=username, **extra_fields)
+        user.password = make_password(password)
+        user.save(using=self._db)
+        return user
+
     def create_user(self, username, email=None, password=None, **extra_fields):
         with transaction.atomic():
             user = super().create_user(username, email, password, **extra_fields)
@@ -29,6 +39,9 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractUser):
+    def __init__(self, *args, email=None, **kwargs):
+        return super().__init__(*args, **kwargs)
+
     avatar = models.ImageField(
         _('Avatar'),
         upload_to=_build_avatar_filename,
@@ -52,7 +65,7 @@ class User(AbstractUser):
     country = models.ForeignKey('countries.Country', default=config.DEFAULT_COUNTRY, on_delete=models.SET_DEFAULT)
     preferred_language = models.ForeignKey('languages.Language', default=config.DEFAULT_LANGUAGE, on_delete=models.SET_DEFAULT)
 
-    REQUIRED_FIELDS = ('username', 'preferred_language_id')
+    REQUIRED_FIELDS = []
 
     objects = UserManager()
 

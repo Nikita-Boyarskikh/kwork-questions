@@ -101,6 +101,12 @@ class QuestionsListView(CurrentCountryListViewMixin, ListView):
     model = Question
     template_name = 'questions/list.html'
     allow_empty = True
+    url_name = None
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['url_name'] = self.url_name
+        return context
 
 
 class QuestionsForStatusListView(QuestionsListView):
@@ -113,22 +119,25 @@ class QuestionsForStatusListView(QuestionsListView):
 
 class AnsweredQuestionsListView(QuestionsForStatusListView):
     status = QuestionStatus.ANSWERED
+    url_name = 'questions:voting'
 
 
 class PublishedQuestionsListView(QuestionsForStatusListView):
     status = QuestionStatus.PUBLISHED
+    url_name = 'questions:index'
 
 
 class ClosedQuestionsListView(QuestionsForStatusListView):
     status = QuestionStatus.CLOSED
+    url_name = 'questions:closed'
 
 
 class MyQuestionsListView(MyListViewMixin, QuestionsListView):
-    pass
+    url_name = 'questions:my'
 
 
 class MyAnsweredQuestionsListView(MyListViewMixin, AnsweredQuestionsListView):
-    pass
+    url_name = 'questions:my_voting'
 
 
 index = PublishedQuestionsListView.as_view()

@@ -1,6 +1,5 @@
 from allauth.account.adapter import DefaultAccountAdapter
-from allauth.account.models import EmailAddress
-from allauth.account.utils import user_email, user_username
+from allauth.account.utils import user_username
 
 from accounts.models import Account
 from languages.models import Language
@@ -17,7 +16,6 @@ class AccountAdapter(DefaultAccountAdapter):
         else:
             user.set_unusable_password()
 
-        self.populate_username(request, user)
         if commit:
             user.save()
             Account.objects.create(user=user)
