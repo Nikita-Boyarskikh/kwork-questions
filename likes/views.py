@@ -33,7 +33,7 @@ class LikesListView(ForGenericMixin, ForScoreMixin, ListView):
     def get_queryset(self):
         qs = super().get_queryset()
         country_id = self.kwargs.get('country_id')
-        if country_id == 'None':
+        if not country_id or country_id == 'unknown':
             return qs
         return [l for l in qs if l.liked_object.question.country_id == country_id]
 
@@ -50,6 +50,7 @@ class SubscriptionsListView(MyListViewMixin, ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
         context['object_list'] = [subscription.question for subscription in context['object_list']]
+        context['url_name'] = 'likes:subscriptions'
         return context
 
 

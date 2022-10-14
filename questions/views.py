@@ -27,11 +27,7 @@ class CreateQuestionView(LoginRequiredMixin, UserAgreementRequiredMixin, CreateV
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        country_id = self.kwargs.get('country_id')
-        if country_id == 'None':
-            country = Country.get_for_request(self.request)
-        else:
-            country = get_object_or_None(Country.objects.filter(id=country_id))
+        country = Country.get_for_request(self.request) or Country.default
         kwargs['instance'] = Question(
             author=self.request.user,
             price=config.MIN_QUESTION_PRICE,
@@ -45,7 +41,7 @@ class UnpublishedQuestionStatusRequiredMixin:
     unpublished_message = _('You can not edit published question')
 
     def get_redirect_url(self):
-        return reverse('answers:index', question_id=self.object.id, country_id=self.kwargs.get('country_id'))
+        return reverse('answers:index', question_id=self.object.id, country_id=self.kwargs.get('country_id') or 'unknown')
 
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -61,7 +57,7 @@ class UpdateQuestionView(LoginRequiredMixin, UnpublishedQuestionStatusRequiredMi
     template_name = 'questions/edit.html'
 
     def get_success_url(self):
-        return reverse('questions:my', kwargs={'country_id': self.kwargs.get('country_id')})
+        return reverse('questions:my', kwargs={'country_id': self.kwargs.get('country_id') or 'unknown'})
 
 
 @transaction.atomic

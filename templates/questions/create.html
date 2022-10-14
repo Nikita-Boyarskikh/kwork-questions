@@ -5,14 +5,14 @@
 {% block title %}{% trans 'Create question' %}{% endblock title %}
 {% block beforemain %}
   {{ block.super }}
-  {% include '_countries.html' with url_name='questions:create' %}
+  {% include '_countries.html' with url_name='questions:create' allow_all=False %}
 {% endblock beforemain %}
 {% block main %}
   {{ block.super }}
   <form method="POST" class="bg-white rounded-2 d-flex flex-column" style="padding: 20px" action="{% url 'questions:create' country_id=current_country.id|default:'unknown' %}">
     {% csrf_token %}
     {{ form|crispy }}
-    <input type="submit" style="border: none; padding: 0; width: 245px; text-align: center; line-height: 35px; color: white; border-radius: 5px; background: #2659C2" value="{% trans 'Create Question' %}">
+    <input type="submit" style="border: none; padding: 0; width: 245px; text-align: center; line-height: 35px; color: white; border-radius: 5px; background: #2659C2" value="{% trans 'Create question' %}">
 
     {% include 'questions/_translate_preview.html' %}
   </form>

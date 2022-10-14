@@ -1,6 +1,9 @@
 from annoying.functions import get_object_or_None
+from constance import config
 from django.db import models
+from django.core.cache import cache
 from django.urls import reverse
+from django.utils.functional import classproperty
 from django.utils.translation import gettext as _
 
 
@@ -27,18 +30,28 @@ class Country(models.Model):
     def get_for_request(request):
         country_id = request.resolver_match.kwargs.get('country_id')
 
-        if not country_id or country_id == 'unknown':
+        if not country_id:
             if request.user.is_authenticated and request.user.country_id:
                 country_id = request.user.country_id
             else:
                 country_id = request.session.get('country_id')
 
-        if country_id:
+        if country_id and country_id != 'unknown':
             request.session['country_id'] = country_id
             if request.user.is_authenticated:
                 request.user.country_id = country_id
                 request.user.save()
             return get_object_or_None(Country.objects.filter(id=country_id))
+
+    @classproperty
+    def default(cls):
+        default_country = cache.get('default_country')
+        if default_country:
+            return default_country
+
+        default_country = cls.objects.get(pk=config.DEFAULT_COUNTRY)
+        cache.set('default_country', default_country)
+        return default_country
 
     def __str__(self):
         return self.name

@@ -5,7 +5,7 @@
 {% block title %}{% trans 'Create answer' %}{% endblock title %}
 {% block beforemain %}
   {{ block.super }}
-  {% include '_countries.html' with url_name='answers:index' %}
+  {% include '_countries.html' with url_name='answers:index' allow_all=True %}
 {% endblock beforemain %}
 {% block main %}
   {{ block.super }}

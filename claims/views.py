@@ -30,6 +30,6 @@ class CreateClaimView(LoginRequiredMixin, ForGenericMixin, CreateView):
         claim = get_object_or_None(self.get_queryset())
         if claim:
             return redirect(claim.claimed_object)
-
+        return super().dispatch(request, *args, **kwargs)
 
 create = CreateClaimView.as_view()

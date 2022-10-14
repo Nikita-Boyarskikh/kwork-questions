@@ -21,20 +21,20 @@ class CreateAnswerValidationMixin:
     def get_unpublished_question_url(self):
         return reverse('answers:index', kwargs={
             'question_id': self.question.id,
-            'country_id': self.kwargs.get('country_id'),
+            'country_id': self.kwargs.get('country_id') or 'unknown',
         })
 
     def get_answer_on_self_question_url(self):
-        return reverse('questions:index', kwargs={'country_id': self.kwargs.get('country_id')})
+        return reverse('questions:index', kwargs={'country_id': self.kwargs.get('country_id') or 'unknown'})
 
     def get_already_answered_url(self):
         return reverse('answers:index', kwargs={
-            'country_id': self.kwargs.get('country_id'),
+            'country_id': self.kwargs.get('country_id') or 'unknown',
             'question_id': self.question.id,
         })
 
     def dispatch(self, request, *args, **kwargs):
-        self.question = Question.objects.get(id=kwargs.get('question_id'), country_id=kwargs.get('country_id'))
+        self.question = Question.objects.get(id=kwargs.get('question_id'))
 
         if self.question.status != QuestionStatus.PUBLISHED:
             adapter = AccessWithMessageAdapter(self.get_unpublished_question_url(), self.unpublished_question_message)
@@ -86,7 +86,7 @@ class IndexAnswersListView(AnswersListView):
         question_id = kwargs.get('question_id')
         question = Question.objects.get(id=question_id)
         if question.status in (QuestionStatus.DRAFT, QuestionStatus.DEFERRED):
-            return redirect('questions:edit', country_id=kwargs.get('country_id'), pk=question_id)
+            return redirect('questions:edit', country_id=kwargs.get('country_id') or 'unknown', pk=question_id)
         return super().get(request, *args, **kwargs)
 
     def get_context_data(self, *, object_list=None, **kwargs):

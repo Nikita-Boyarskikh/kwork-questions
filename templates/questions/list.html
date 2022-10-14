@@ -5,7 +5,7 @@
 {% block title %}{% trans 'Questions' %}{% endblock title %}
 {% block beforemain %}
   {{ block.super }}
-  {% include '_countries.html' %}
+  {% include '_countries.html' with allow_all=True %}
 {% endblock beforemain %}
 {% block main %}
   {{ block.super }}

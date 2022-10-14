@@ -1,12 +1,22 @@
 {% load i18n %}
 
 <button class="dropdown-toggle bg-white border-0 d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 16px; width: 1018px; padding: 0 0 0 69px; margin: 0 16px 16px;height: 45px">
-  {% trans 'Select country' as select_country_text %}
-  {{ current_country|default:select_country_text }}
+  {% if allow_all %}
+    {% trans 'Select country' as select_country_text %}
+    {{ current_country|default:select_country_text }}
+  {% else %}
+    {{ current_country|default:default_country }}
+  {% endif %}
 </button>
 
 <div class="dropdown">
   <div class="dropdown-menu overflow-auto" style="max-height: 650px">
+    {% if allow_all %}
+      <a class="dropdown-item {% if request|is_current_url:country_url %}active{% endif %}" href="{% url url_name country_id='unknown' %}">
+        {% trans 'All countries' %}
+      </a>
+    {% endif %}
+
     {% for country in countries %}
       {% url url_name country_id=country.id as country_url %}
       <a class="dropdown-item {% if request|is_current_url:country_url %}active{% endif %}" href="{{ country_url }}">
