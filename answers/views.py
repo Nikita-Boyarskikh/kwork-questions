@@ -104,7 +104,7 @@ class IndexAnswersListView(AnswersListView):
 
 
 class MyAnswersListView(MyListViewMixin, AnswersListView):
-    pass  # TODO! aggregate by question
+    template_name = 'answers/my.html'
 
 
 class AnswersDetailView(DetailView):

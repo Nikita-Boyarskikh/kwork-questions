@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+{% load i18n %}
+
+{% block title %}{% trans 'Answers' %}{% endblock title %}
+
+{% block beforemain %}
+{{ block.super }}
+{% include '_back_button.html' %}
+{% endblock beforemain %}
+
+{% block main %}
+{{ block.super }}
+
+<div class="d-flex flex-column" style="gap: 16px">
+  {% for answer in object_list %}
+    <div class="bg-white rounded-2">
+      {% include 'questions/_detailed_question.html' with question=answer.question %}
+    </div>
+
+    <div class="bg-white rounded-2">
+      {% include 'answers/_list_item.html' %}
+    </div>
+  {% endfor %}
+</div>
+{% endblock main %}

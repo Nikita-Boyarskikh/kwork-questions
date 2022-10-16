@@ -1,0 +1,20 @@
+{% load i18n %}
+
+<div class="d-flex flex-column bg-white rounded-2 position-relative" style="padding: 7px 0 20px 17px; margin-left: 52px; gap: 17px">
+
+  <div class="d-flex {% if question.status != 'closed' %}position-absolute{% endif %}" style="margin-left: -52px">
+    {% include 'answers/_answer.html' %}
+  </div>
+
+  <div>
+    {{ answer.truncated_en_text }}
+  </div>
+
+  <div>
+    <a class="text-decoration-none" href="{% url 'answers:detail' pk=answer.id question_id=answer.question_id country_id=answer.question.country_id %}">
+      {% trans 'Full answer' %}
+    </a>
+  </div>
+
+  {% include 'likes/_for_answer.html' %}
+</div>

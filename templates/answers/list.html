@@ -1,15 +1,14 @@
 {% extends 'layout.html' %}
-{% load static %}
 {% load answers %}
-{% load likes %}
-{% load questions_status %}
 {% load i18n %}
 
 {% block title %}{% trans 'Answers' %}{% endblock title %}
+
 {% block beforemain %}
   {{ block.super }}
   {% include '_back_button.html' %}
 {% endblock beforemain %}
+
 {% block main %}
   {{ block.super }}
 
@@ -19,28 +18,11 @@
 
   <div class="bg-white rounded-2 d-flex flex-column" style="margin-bottom: 3px; padding: 7px 0; gap: 17px">
     {% for answer in object_list %}
-      <div class="d-flex flex-column bg-white rounded-2 position-relative" style="padding: 7px 0 20px 17px; margin-left: 52px; gap: 17px">
-
-        <div class="d-flex {% if question.status != 'closed' %}position-absolute{% endif %}" style="margin-left: -52px">
-          {% include 'answers/_answer.html' %}
-        </div>
-
-        <div>
-          {{ answer.truncated_en_text }}
-        </div>
-
-        <div>
-          <a class="text-decoration-none" href="{% url 'answers:detail' pk=answer.id question_id=answer.question_id country_id=answer.question.country_id %}">
-            {% trans 'Full answer' %}
-          </a>
-        </div>
-
-        {% include 'likes/_for_answer.html' %}
-      </div>
+      {% include 'answers/_list_item.html' %}
     {% empty %}
       <div style="margin-left: 52px">
         {% trans 'There is no answers yet' %}
-      <div>
+      </div>
     {% endfor %}
 
     {% if question.author != request.user and question.status == 'published' and question|is_not_answered_by_me:request.user.id %}
