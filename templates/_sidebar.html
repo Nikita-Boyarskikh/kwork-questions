@@ -21,16 +21,3 @@
       </div>
     </div>
 </ul>
-
-<ul class="nav flex-column nav-pills" style="font-size: 19px; --bs-nav-link-padding-y: 3.5px; --bs-nav-pills-link-active-bg: #F4F4F6; margin: 0 16px; color: black">
-  {% for country in countries_with_questions %}
-    <li>
-      <a
-        href="{% url 'questions:index' country_id=country.id %}"
-        class="nav-link d-flex align-items-center {% if current_country.id == country.id %}active{% endif %}" style="color: black; height: 43px"
-      >
-        {{ country }}
-      </a>
-    </li>
-  {% endfor %}
-</ul>

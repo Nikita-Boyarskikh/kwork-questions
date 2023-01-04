@@ -48,9 +48,5 @@ def countries(request):
     return {
         'default_country': Country.default,
         'current_country': Country.get_for_request(request),
-        'countries_with_questions': Country.objects
-            .annotate(count=Count('question__id', distinct=True))
-            .order_by('-count')
-            .filter(question__status=QuestionStatus.PUBLISHED, count__gt=0).all(),
         'countries': Country.objects.all(),
     }

@@ -4,8 +4,8 @@
 {% block title %}{% trans 'Answers' %}{% endblock title %}
 
 {% block beforemain %}
-{{ block.super }}
-{% include '_back_button.html' %}
+  {{ block.super }}
+  {% include '_back_button.html' %}
 {% endblock beforemain %}
 
 {% block main %}
@@ -19,6 +19,10 @@
 
     <div class="bg-white rounded-2">
       {% include 'answers/_list_item.html' %}
+    </div>
+  {% empty %}
+    <div style="margin-left: 52px">
+      {% trans 'There is no answers yet' %}
     </div>
   {% endfor %}
 </div>

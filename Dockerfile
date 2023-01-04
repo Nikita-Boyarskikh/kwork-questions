@@ -9,7 +9,7 @@ RUN apk add --no-cache --virtual build-deps libffi-dev g++ zlib-dev freetype-dev
 
 COPY ./Pipfile ./Pipfile.lock ./
 
-RUN pipenv install --system && apk del --purge build-deps
+RUN pipenv install --system -v && apk del --purge build-deps
 
 WORKDIR /usr/src/app
 COPY . .
