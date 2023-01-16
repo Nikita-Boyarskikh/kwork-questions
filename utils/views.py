@@ -63,7 +63,7 @@ class CurrentCountryListViewMixin:
     def get_queryset(self):
         qs = super().get_queryset()
         country_id = self.kwargs.get('country_id')
-        if country_id == 'unknown':
+        if not country_id or country_id == 'unknown':
             return qs
         return qs.filter(**{self.country_field_name: country_id})
 

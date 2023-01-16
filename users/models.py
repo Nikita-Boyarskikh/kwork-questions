@@ -4,6 +4,8 @@ from django.contrib.auth.models import AbstractUser, UserManager as BaseUserMana
 from django.core.validators import MinValueValidator
 from django.db import models, transaction
 from django.utils.translation import gettext as _
+from django.apps import apps
+from django.contrib.auth.hashers import make_password
 
 from accounts.models import Account
 from users.auth import AccountAdapter

@@ -1,9 +1,11 @@
+from annoying.decorators import ajax_request
 from annoying.functions import get_object_or_None
 from django.contrib import messages
 from django.db.models import Count
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse
 from django.utils.translation import gettext as _
+from django.views.decorators.http import require_GET
 from django.views.generic import ListView, DetailView, CreateView
 
 from answers.forms import AnswerCreateForm
@@ -107,21 +109,16 @@ class MyAnswersListView(MyListViewMixin, AnswersListView):
     template_name = 'answers/my.html'
 
 
-class AnswersDetailView(DetailView):
-    queryset = Answer.objects.select_related('question')\
-        .annotate(Count('answerview'))
-    template_name = 'answers/detail.html'
-
-    def get(self, request, *args, **kwargs):
-        answer = get_object_or_None(Answer.objects.filter(pk=self.kwargs.get('pk')))
-        right_question_statuses = (QuestionStatus.PUBLISHED, QuestionStatus.ANSWERED)
-        is_right_question_status = answer and answer.question__status in right_question_statuses
-        if request.user.is_authenticated and is_right_question_status:
-            AnswerView.objects.get_or_create(answer_id=answer.id, user=request.user)
-        return super().get(request, *args, **kwargs)
+@ajax_request
+@require_GET
+def full_text(request, country_id, question_id, pk):
+    answer = get_object_or_404(Answer, question_id=question_id, pk=pk)
+    right_question_statuses = (QuestionStatus.PUBLISHED, QuestionStatus.ANSWERED)
+    if request.user.is_authenticated and answer.question__status in right_question_statuses:
+        AnswerView.objects.get_or_create(answer_id=answer.id, user=request.user)
+    return {'text': answer.en_text}
 
 
 create = CreateAnswerView.as_view()
 index = IndexAnswersListView.as_view()
 my = MyAnswersListView.as_view()
-detail = AnswersDetailView.as_view()

@@ -6,14 +6,36 @@
     {% include 'answers/_answer.html' %}
   </div>
 
-  <div>
+  <div style="margin-right: 65px; white-space: pre-wrap; overflow-wrap: break-word; hyphens: auto" id="answerText">
     {{ answer.truncated_en_text }}
   </div>
 
   <div>
-    <a class="text-decoration-none" href="{% url 'answers:detail' pk=answer.id question_id=answer.question_id country_id=answer.question.country_id %}">
+    <a class="text-decoration-none" id="showFullAnswerText">
       {% trans 'Full answer' %}
     </a>
+
+    <script>
+      const showFullAnswerTextLink = document.getElementById('showFullAnswerText');
+      const answerTextDiv = document.getElementById('answerText');
+
+      function getFullAnswerText() {
+        showFullAnswerTextLink.style.color = 'lightgrey';
+
+        const url = "{% url 'answers:detail' pk=answer.id question_id=answer.question_id country_id=answer.question.country_id %}";
+        fetch(url)
+          .then(resp => resp.json())
+          .then(data => {
+            showFullAnswerTextLink.style.display = 'none';
+            answerTextDiv.innerText = data.text;
+          });
+
+        return false;
+      }
+
+      showFullAnswerTextLink.addEventListener('click', getFullAnswerText);
+    </script>
+
   </div>
 
   {% include 'likes/_for_answer.html' %}

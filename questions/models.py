@@ -81,6 +81,10 @@ class Question(TimeStampedModel, LikableModelMixin, WithSelfContentTypeMixin):
     country = models.ForeignKey('countries.Country', on_delete=models.CASCADE)
 
     @property
+    def views__count(self):
+        return self.answer_set.aggregate(result=models.Count('answerview'))['result']
+
+    @property
     def allowed_status_transitions(self):
         return QuestionStatus.transitions[self.status]
 

@@ -34,6 +34,13 @@
   </span>
 {% endif %}
 
+{% if question.status in 'answered closed'|split %}
+  <span class="d-flex align-items-center" style="gap: 4px">
+    <img height="33" alt="views" src="{% static 'icons/eye.png' %}" />
+    <span>{{ question.views__count }} {% trans 'views' %}</span>
+  </span>
+{% endif %}
+
 <span class="d-flex align-items-center" style="gap: 4px">
   {% include 'users/_avatar.html' with user=question.author %}
   {{ question.author.username }}

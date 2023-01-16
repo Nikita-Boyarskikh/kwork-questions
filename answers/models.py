@@ -95,10 +95,9 @@ class Answer(TimeStampedModel, LikableModelMixin, WithSelfContentTypeMixin):
             raise ValidationError(errors)
 
     def get_absolute_url(self):
-        return reverse('answers:detail', kwargs={
+        return reverse('answers:index', kwargs={
             'country_id': self.question__country.id,
             'question_id': self.question_id,
-            'pk': self.pk,
         })
 
     class Meta:
