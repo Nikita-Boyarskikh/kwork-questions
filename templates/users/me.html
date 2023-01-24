@@ -9,9 +9,9 @@
     <h1 style="font-size: 25px; line-height: 25px">{% trans 'Profile photo' %}</h1>
   </header>
   <div class="bg-white rounded-2 d-flex" style="padding: 30px">
-    <div style="height: 238px; width: 238px; margin-right: 90px" class="flex-shrink-0 d-flex align-items-center">
+    <div style="height: 238px; width: 238px; margin-right: 90px" class="rounded-circle flex-shrink-0 d-flex align-items-center">
       {% if request.user.avatar %}
-        <img class="rounded-circle w-100" alt="{% trans 'Avatar' %}" src="{{ request.user.avatar.url }}" />
+        <img class="w-100" style="aspect-ratio: auto" alt="{% trans 'Avatar' %}" src="{{ request.user.avatar.url }}" />
       {% else %}
         <div class="flex-grow-1 h-100 d-flex align-items-center justify-content-center rounded-circle" style="background: #f0f0f0; color: #b3b3b3; font-size: 100px">
           <i class="bi bi-camera-fill"></i>

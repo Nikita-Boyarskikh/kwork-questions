@@ -1,5 +1,6 @@
 {% if question.status in 'approved published answered'|split %}
   {{ question.status_changed|timesince }}
+{% elif question.status == 'closed' %}
 {% else %}
   {{ question.get_status_display }}
 {% endif %}

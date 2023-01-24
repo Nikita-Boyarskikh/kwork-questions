@@ -6,7 +6,7 @@ from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_GET
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, CreateView
 
 from answers.forms import AnswerCreateForm
 from answers.models import Answer, AnswerView
@@ -74,13 +74,14 @@ class CreateAnswerView(LoginRequiredMixin, CreateAnswerValidationMixin, CreateVi
         return context
 
 
-class AnswersListView(CurrentCountryListViewMixin, ListView):
+class AnswersListView(LoginRequiredMixin, CurrentCountryListViewMixin, ListView):
     model = Answer
     queryset = Answer.objects.select_related('question')\
         .annotate(Count('answerview'))
     ordering = 'answerview__count'
     template_name = 'answers/list.html'
     country_field_name = 'question__country_id'
+    permission_denied_message = _('Only registered users can vote for answers.\nPlease, register')
 
 
 class IndexAnswersListView(AnswersListView):

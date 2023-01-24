@@ -17,7 +17,7 @@ def language(request):
 
 def menu_items(request):
     country = Country.get_for_request(request)
-    kwargs = {'country_id': country.id if country else 'unknown'}
+    kwargs = {'country_id': 'unknown'}
 
     registered_items = [
         (reverse('users:me'), _('Avatar')),
@@ -36,7 +36,7 @@ def menu_items(request):
             (reverse('questions:create', kwargs=kwargs), _('Ask a question')),
             (reverse('rules:index'), _('Site rules')),
             *(registered_items if request.user.is_authenticated else []),
-            *(not_admin_items if request.user.username != 'admin' else []),
+            *(not_admin_items if request.user.is_authenticated and request.user.username != 'admin' else []),
             (reverse('questions:index', kwargs=kwargs), _('Opened questions')),
             (reverse('questions:voting', kwargs=kwargs), _('Voting')),
             (reverse('questions:closed', kwargs=kwargs), _('Closed questions')),
