@@ -50,8 +50,8 @@ services:
     environment:
       <<: *common_environment
     volumes:
-      - .:/code:cached
-      - media_data:./media
+      - .:/usr/src/app:cached
+      - media_data:/usr/src/app/media
     ports:
       - "8000:8000"
     depends_on:
